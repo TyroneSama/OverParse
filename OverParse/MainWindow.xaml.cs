@@ -68,6 +68,8 @@ namespace OverParse
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Select your pso2_bin folder.\n\nThis is the same folder you selected when setting up the Tweaker.\n\nIf you installed to the default location, it will be at \"C:\\PHANTASYSTARONLINE2\\pso2_bin\".", "Help");
+
             var dlg = new CommonOpenFileDialog();
             dlg.Title = "Select your pso2_bin folder...";
             dlg.IsFolderPicker = true;
@@ -133,7 +135,7 @@ namespace OverParse
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("OverParse v.0.0.0.2 - WDF Alpha\nAnything and everything may be broken.\n\nPlease use damage information responsibly.");
+            MessageBox.Show("OverParse v.0.0.0.2 - WDF Alpha\nAnything and everything may be broken.\n\nPlease use damage information responsibly.", "OverParse");
         }
 
         private void Website_Click(object sender, RoutedEventArgs e)
@@ -211,12 +213,17 @@ namespace OverParse
         public List<Combatant> combatants = new List<Combatant>();
         Random random = new Random();
 
+        public void Complain()
+        {
+            MessageBox.Show("No damage logs were found.\n\nPlease use \"System > Locate damagelogs folder...\" to select your installation directory, and make sure that the Damage Parser plugin is enabled in the Tweaker.", "Error");
+        }
+
         public Log(string attemptDirectory)
         {
             valid = false;
             DirectoryInfo directory = new DirectoryInfo($"{attemptDirectory}\\damagelogs");
-            if (!directory.Exists) { return; }
-            if (directory.GetFiles().Count() == 0) { return; }
+            if (!directory.Exists) { Complain(); return; }
+            if (directory.GetFiles().Count() == 0) { Complain(); return; }
 
             valid = true;
             running = false;

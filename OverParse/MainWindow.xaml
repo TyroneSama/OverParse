@@ -57,7 +57,7 @@
                     <SolidColorBrush Opacity="0.4" Color="#FF101010"/>
                 </Menu.Background>
                 <MenuItem Background="Transparent" Header="System">
-                    <MenuItem BorderThickness="0" Header="Locate damagelogs folder..." Click="MenuItem_Click"/>
+                    <MenuItem BorderThickness="0" Header="Locate install folder..." Click="MenuItem_Click"/>
                     <MenuItem IsCheckable="True" IsChecked="True" Header="Ignore healing timestamps" Click="ShowHealingTimestamps_Click"/>
                     <MenuItem Header="Exit" Click="Exit_Click"/>
                 </MenuItem>
