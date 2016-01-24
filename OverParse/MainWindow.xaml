@@ -38,7 +38,7 @@
         </Style>
         <Style TargetType="MenuItem">
             <Setter Property="Background" Value="#FF101010" />
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="#FFAAAAAA"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style TargetType="Menu">
@@ -46,16 +46,16 @@
         </Style>
     </Window.Resources>
 
-    <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
+    <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="16"/>
             <RowDefinition/>
+            <RowDefinition Height="22"/>
         </Grid.RowDefinitions>
-        <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <Menu.Background>
-                    <SolidColorBrush Opacity="0.4" Color="#FF101010"/>
-                </Menu.Background>
+        <DockPanel HorizontalAlignment="Left" Width="267">
+            <Image x:Name="image" Height="16" VerticalAlignment="Top" Width="16" Source="pa_0105.ico" MouseDown="Window_MouseDown" ToolTip="Drag me!"/>
+            <Menu DockPanel.Dock="Top" Margin="0,0,0,0" HorizontalAlignment="Right">
+
                 <MenuItem Background="Transparent" Header="System">
                     <MenuItem BorderThickness="0" Header="Locate install folder..." Click="MenuItem_Click"/>
                     <MenuItem IsCheckable="True" IsChecked="True" Header="Ignore healing timestamps" Click="ShowHealingTimestamps_Click"/>
@@ -76,10 +76,8 @@
                     <MenuItem Header="Website" x:Name="Website" Click="Website_Click"/>
                 </MenuItem>
             </Menu>
-            <StackPanel></StackPanel>
         </DockPanel>
-
-        <ListView x:Name="CombatantData" AlternationCount="2" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" FontSize="10.667">
+        <ListView x:Name="CombatantData" AlternationCount="2" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" FontSize="10.667" Grid.RowSpan="2">
             <ListView.Background>
                 <SolidColorBrush Opacity="0.4" Color="#FF101010"/>
             </ListView.Background>
@@ -101,10 +99,10 @@
                     </GridViewColumn>
                     <GridViewColumn Header="Damage" Width="{Binding ElementName=helper2, Path=ActualWidth}">
                         <GridViewColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Margin="-4,0" Text="{Binding DamageReadout}" TextAlignment="Left"/>
-                        </DataTemplate>
-                    </GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-4,0" Text="{Binding DamageReadout}" TextAlignment="Left"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="DPS" x:Name="DPSColumn" Width="{Binding ElementName=helper3, Path=ActualWidth}">
                         <GridViewColumn.CellTemplate>
@@ -123,7 +121,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Grid Visibility="Hidden" Grid.Row="1" Margin="0">
+        <Grid Visibility="Hidden" Grid.Row="1" Margin="0" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
@@ -137,5 +135,6 @@
             <Grid Grid.Column="2" x:Name="helper3"/>
             <Grid Grid.Column="3" x:Name="helper4"/>
         </Grid>
+        <Label x:Name="EncounterStatus" Grid.Row="2" Foreground="#FFAAAAAA" Margin="0" Padding="3" Content="Encounter Status"/>
     </Grid>
 </Window>

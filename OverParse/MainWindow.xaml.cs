@@ -21,10 +21,13 @@ namespace OverParse
     public partial class MainWindow : Window
     {
         Log encounterlog;
+        public static Dictionary<string, string> skillDict = new Dictionary<string, string>();
 
         public MainWindow()
         {
             InitializeComponent();
+
+            Directory.CreateDirectory("logs");
 
             this.Top = Properties.Settings.Default.Top;
             this.Left = Properties.Settings.Default.Left;
@@ -34,6 +37,15 @@ namespace OverParse
             {
                 WindowState = WindowState.Maximized;
             }
+
+            string[] tmp = File.ReadAllLines("skills.csv");
+            foreach (string s in tmp)
+            {
+                string[] split = s.Split(',');
+                skillDict.Add(split[1], split[0]);
+                Console.WriteLine($"added entry {split[1]}/{split[0]}");
+            }
+
 
             encounterlog = new Log(Properties.Settings.Default.Path);
             Console.WriteLine(Properties.Settings.Default.Path);
@@ -55,6 +67,7 @@ namespace OverParse
         {
             encounterlog.UpdateLog(this, null);
             Application.Current.MainWindow.Title = "OverParse WDF Alpha - " + encounterlog.logStatus();
+            EncounterStatus.Content = encounterlog.logStatus();
             CombatantData.Items.Clear();
 
             foreach (Combatant c in encounterlog.combatants)
@@ -120,6 +133,7 @@ namespace OverParse
 
         private void EndEncounter_Click(object sender, RoutedEventArgs e)
         {
+            encounterlog.WriteLog();
             encounterlog = new Log(Properties.Settings.Default.Path);
         }
 
@@ -175,12 +189,23 @@ namespace OverParse
 
         public string MaxHit
         {
-            get {return MaxHitNum.ToString("N0");}
+            get
+            {
+                string attack = "Unknown";
+                if (MainWindow.skillDict.ContainsKey(MaxHitID))
+                {
+                    attack = MainWindow.skillDict[MaxHitID];
+                }
+                return attack + " - " + MaxHitNum.ToString("N0");
+            }
         }
 
         public string DPSReadout
         {
-            get {return $"{PercentDPS}%";}
+            get
+            {
+                return $"{PercentDPS}%";
+            }
         }
 
         public string DamageReadout
@@ -197,7 +222,7 @@ namespace OverParse
             MaxHitNum = 0;
             MaxHitID = "none";
             DPS = 0;
-            PercentDPS = "-";
+            PercentDPS = "--";
         }
     }
 
@@ -212,11 +237,7 @@ namespace OverParse
         StreamReader logreader;
         public List<Combatant> combatants = new List<Combatant>();
         Random random = new Random();
-
-        public void Complain()
-        {
-            MessageBox.Show("No damage logs were found.\n\nPlease use \"System > Locate damagelogs folder...\" to select your installation directory, and make sure that the Damage Parser plugin is enabled in the Tweaker.", "Error");
-        }
+        Dictionary<string, string> skillDict;
 
         public Log(string attemptDirectory)
         {
@@ -233,6 +254,29 @@ namespace OverParse
             FileStream fileStream = File.Open(log.DirectoryName + "\\" + log.Name, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             fileStream.Seek(0, SeekOrigin.End);
             logreader = new StreamReader(fileStream);
+        }
+
+        public void Complain()
+        {
+            MessageBox.Show("No damage logs were found.\n\nPlease use \"System > Locate damagelogs folder...\" to select your installation directory, and make sure that the Damage Parser plugin is enabled in the Tweaker.", "Error");
+        }
+
+        public void WriteLog()
+        {
+            if (combatants.Count != 0)
+            {
+                int elapsed = newTimestamp - startTimestamp;
+                TimeSpan timespan = TimeSpan.FromSeconds(elapsed);
+                string timer = timespan.ToString(@"mm\:ss");
+
+                string log = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + " | " + timer + Environment.NewLine;
+                foreach (Combatant c in combatants)
+                {
+                    log += $"{c.Name} | {c.Damage} Damage | {c.DPSReadout} Contribution | {c.DPS} DPS | Max Hit: {c.MaxHit}" + Environment.NewLine;
+                }
+
+                File.WriteAllText("logs/OverParse Log - " + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", log);
+            }
         }
 
         public string logStatus()
@@ -257,6 +301,7 @@ namespace OverParse
                 temp.DPS = random.Next(0, 1000);
                 temp.Damage = random.Next(0, 10000000);
                 temp.MaxHitNum = random.Next(0, 1000000);
+                temp.MaxHitID = "2368738938";
                 combatants.Add(temp);
             }
             for (int i = 0; i <= 9; i++)
@@ -266,6 +311,7 @@ namespace OverParse
                 temp.DPS = random.Next(0, 1000);
                 temp.Damage = random.Next(0, 10000000);
                 temp.MaxHitNum = random.Next(0, 1000000);
+                temp.MaxHitID = "1612949165";
                 combatants.Add(temp);
             }
         }
