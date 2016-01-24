@@ -4,58 +4,131 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OverParse"
-        mc:Ignorable="d"
-        Title="OverParse WDF Alpha" Height="270" Width="470"
-        Deactivated="Window_Deactivated" Closing="Window_Closing">
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+        mc:Ignorable="d" AllowsTransparency="True" WindowStyle="None"
+        Title="OverParse WDF Alpha" Height="270" Width="470" ResizeMode="CanResizeWithGrip"
+        Deactivated="Window_Deactivated" Closing="Window_Closing" MouseDown="Window_MouseDown">
+    <Window.Background>
+        <SolidColorBrush Opacity="0.5" Color="#FF101010"/>
+    </Window.Background>
+
     <Window.Resources>
         <Style TargetType="ListViewItem">
             <Setter Property="Height" Value="18"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0 -1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="Transparent" />
+            <Style.Triggers>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                    <Setter Property="Background" Value="#00000000"></Setter>
+                </Trigger>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="#A0101010"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="ListView">
+            <Setter Property="Background" Value="#FF101010"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="0"/>
             <Setter Property="Margin" Value="0"/>
-            <Setter Property="FontSize" Value="11"/>
+        </Style>
+        <Style TargetType="MenuItem">
+            <Setter Property="Background" Value="#FF101010" />
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style TargetType="Menu">
+            <Setter Property="Background" Value="Transparent" />
         </Style>
     </Window.Resources>
+
     <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="22"/>
-            <RowDefinition Height="179*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
-                <MenuItem Header="Setup">
-                    <MenuItem Header="Locate damagelogs folder..." Click="MenuItem_Click"/>
-                    <MenuItem IsCheckable="True" IsChecked="True" Header="Ignore healing timestamps" Click="MenuItem_Click_1"/>
+                <Menu.Background>
+                    <SolidColorBrush Opacity="0.4" Color="#FF101010"/>
+                </Menu.Background>
+                <MenuItem Background="Transparent" Header="System">
+                    <MenuItem BorderThickness="0" Header="Locate damagelogs folder..." Click="MenuItem_Click"/>
+                    <MenuItem IsCheckable="True" IsChecked="True" Header="Ignore healing timestamps" Click="ShowHealingTimestamps_Click"/>
+                    <MenuItem Header="Exit" Click="Exit_Click"/>
                 </MenuItem>
-                <MenuItem Header="Encounter">
+                <MenuItem Background="Transparent" Header="Encounter">
                     <MenuItem Header="End encounter" x:Name="EndEncounter" Click="EndEncounter_Click"/>
                 </MenuItem>
-                <MenuItem Header="Display">
+                <MenuItem Background="Transparent" Header="Display">
                     <MenuItem IsCheckable="True" IsChecked="True" Header="Always on top" x:Name="AlwaysOnTop" Click="AlwaysOnTop_Click"/>
                     <MenuItem IsCheckable="True" IsChecked="False" Header="Show all entities" x:Name="FilterPlayers"/>
                 </MenuItem>
-                <MenuItem Header="Help">
+                <MenuItem Background="Transparent" Header="Debug">
+                    <MenuItem Header="Generate fake entries" x:Name="GenerateFakeEntries" Click="GenerateFakeEntries_Click"/>
+                </MenuItem>
+                <MenuItem Background="Transparent" Header="Help">
                     <MenuItem Header="About" x:Name="About" Click="About_Click"/>
                     <MenuItem Header="Website" x:Name="Website" Click="Website_Click"/>
                 </MenuItem>
             </Menu>
             <StackPanel></StackPanel>
         </DockPanel>
-        <ListView x:Name="CombatantData" HorizontalAlignment="Stretch" Margin="10,0" Grid.Row="1" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" FontSize="10.667">
+
+        <ListView x:Name="CombatantData" AlternationCount="2" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" FontSize="10.667">
+            <ListView.Background>
+                <SolidColorBrush Opacity="0.4" Color="#FF101010"/>
+            </ListView.Background>
             <ListView.View>
                 <GridView x:Name="CombatantView">
-                    <GridViewColumn Header="Name" Width="{Binding ElementName=helper1, Path=ActualWidth}" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Damage" Width="{Binding ElementName=helper2, Path=ActualWidth}" DisplayMemberBinding="{Binding DamageReadout}"/>
-                    <GridViewColumn Header="DPS" x:Name="DPSColumn" Width="{Binding ElementName=helper3, Path=ActualWidth}" DisplayMemberBinding="{Binding DPSReadout}"/>
-                    <GridViewColumn Header="Max Hit" Width="{Binding ElementName=helper4, Path=ActualWidth}" DisplayMemberBinding="{Binding MaxHit}"/>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="Background" Value="#FF101010" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn Header="Name" Width="{Binding ElementName=helper1, Path=ActualWidth}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-4,0" Text="{Binding Name}" TextAlignment="Left"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Damage" Width="{Binding ElementName=helper2, Path=ActualWidth}">
+                        <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="-4,0" Text="{Binding DamageReadout}" TextAlignment="Left"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="DPS" x:Name="DPSColumn" Width="{Binding ElementName=helper3, Path=ActualWidth}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-4,0" Text="{Binding DPSReadout}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Max Hit" Width="{Binding ElementName=helper4, Path=ActualWidth}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-4,0" Text="{Binding MaxHit}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Grid Visibility="Hidden" Grid.Row="1" Margin="10,0">
+        <Grid Visibility="Hidden" Grid.Row="1" Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="5"/>
             </Grid.ColumnDefinitions>
             <!--This is the hidden helper Field which is used to bind to, using the "Fill" column of the helper grid-->
@@ -63,13 +136,6 @@
             <Grid Grid.Column="1" x:Name="helper2"/>
             <Grid Grid.Column="2" x:Name="helper3"/>
             <Grid Grid.Column="3" x:Name="helper4"/>
-        </Grid>
-        <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="Stretch">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Label x:Name="EncounterData" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Margin="0,-1,0,1" VerticalAlignment="Stretch" FontSize="14.667" Content="Encounter Data" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" FontWeight="Bold" />
         </Grid>
     </Grid>
 </Window>

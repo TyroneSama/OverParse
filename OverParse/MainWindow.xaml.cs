@@ -26,6 +26,15 @@ namespace OverParse
         {
             InitializeComponent();
 
+            this.Top = Properties.Settings.Default.Top;
+            this.Left = Properties.Settings.Default.Left;
+            this.Height = Properties.Settings.Default.Height;
+            this.Width = Properties.Settings.Default.Width;
+            if (Properties.Settings.Default.Maximized)
+            {
+                WindowState = WindowState.Maximized;
+            }
+
             encounterlog = new Log(Properties.Settings.Default.Path);
             Console.WriteLine(Properties.Settings.Default.Path);
 
@@ -45,8 +54,7 @@ namespace OverParse
         public void UpdateForm(object sender, EventArgs e)
         {
             encounterlog.UpdateLog(this, null);
-            EncounterData.Content = encounterlog.logStatus();
-            //Application.Current.MainWindow.Title = "OverParse WDF Alpha - " + encounterlog.logStatus();
+            Application.Current.MainWindow.Title = "OverParse WDF Alpha - " + encounterlog.logStatus();
             CombatantData.Items.Clear();
 
             foreach (Combatant c in encounterlog.combatants)
@@ -87,6 +95,24 @@ namespace OverParse
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (WindowState == WindowState.Maximized)
+            {
+                // Use the RestoreBounds as the current values will be 0, 0 and the size of the screen
+                Properties.Settings.Default.Top = RestoreBounds.Top;
+                Properties.Settings.Default.Left = RestoreBounds.Left;
+                Properties.Settings.Default.Height = RestoreBounds.Height;
+                Properties.Settings.Default.Width = RestoreBounds.Width;
+                Properties.Settings.Default.Maximized = true;
+            }
+            else
+            {
+                Properties.Settings.Default.Top = this.Top;
+                Properties.Settings.Default.Left = this.Left;
+                Properties.Settings.Default.Height = this.Height;
+                Properties.Settings.Default.Width = this.Width;
+                Properties.Settings.Default.Maximized = false;
+            }
+
             Properties.Settings.Default.Save();
         }
 
@@ -100,19 +126,37 @@ namespace OverParse
 
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void ShowHealingTimestamps_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("This doesn't actually do anything yet.");
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("OverParse v.0.0.0.1 - WDF Alpha\nAnything and everything may be broken.\n\nPlease use damage information responsibly.");
+            MessageBox.Show("OverParse v.0.0.0.2 - WDF Alpha\nAnything and everything may be broken.\n\nPlease use damage information responsibly.");
         }
 
         private void Website_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.tyronesama.moe/");
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void GenerateFakeEntries_Click(object sender, RoutedEventArgs e)
+        {
+            encounterlog.GenerateFakeEntries();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
     }
 
@@ -129,7 +173,7 @@ namespace OverParse
 
         public string MaxHit
         {
-            get {return MaxHitNum.ToString();}
+            get {return MaxHitNum.ToString("N0");}
         }
 
         public string DPSReadout
@@ -165,10 +209,10 @@ namespace OverParse
         string encounterData;
         StreamReader logreader;
         public List<Combatant> combatants = new List<Combatant>();
+        Random random = new Random();
 
         public Log(string attemptDirectory)
         {
-            Console.WriteLine($"NEW LOG: {attemptDirectory}");
             valid = false;
             DirectoryInfo directory = new DirectoryInfo($"{attemptDirectory}\\damagelogs");
             if (!directory.Exists) { return; }
@@ -176,8 +220,6 @@ namespace OverParse
 
             valid = true;
             running = false;
-
-            Console.WriteLine($"VALID: {valid} - {attemptDirectory}");
 
             FileInfo log = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).First();
             Console.WriteLine($"Reading from {log.DirectoryName}\\{log.Name}");
@@ -199,15 +241,34 @@ namespace OverParse
             return encounterData;
         }
 
+        public void GenerateFakeEntries()
+        {
+            for (int i = 0; i <=9 ; i++)
+            {
+                Combatant temp = new Combatant("1000000" + i.ToString(),"TestPlayer_" + i.ToString());
+                temp.PercentDPS = random.Next(0, 100).ToString();
+                temp.DPS = random.Next(0, 1000);
+                temp.Damage = random.Next(0, 10000000);
+                temp.MaxHitNum = random.Next(0, 1000000);
+                combatants.Add(temp);
+            }
+            for (int i = 0; i <= 9; i++)
+            {
+                Combatant temp = new Combatant(i.ToString(), "TestEnemy_" + i.ToString());
+                temp.PercentDPS = random.Next(0, 100).ToString();
+                temp.DPS = random.Next(0, 1000);
+                temp.Damage = random.Next(0, 10000000);
+                temp.MaxHitNum = random.Next(0, 1000000);
+                combatants.Add(temp);
+            }
+        }
+
         public void UpdateLog(object sender, EventArgs e)
         {
-            Console.WriteLine($"updatelog called - {valid.ToString()}");
             if (!valid) { return; }
-            Console.WriteLine("valid check");
             string newLines = logreader.ReadToEnd();
             if (newLines != "")
             {
-                Console.WriteLine("new stuff");
                 string[] result = newLines.Split('\n');
                 foreach (string str in result)
                 {
