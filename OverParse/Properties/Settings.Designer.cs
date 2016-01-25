@@ -94,5 +94,41 @@ namespace OverParse.Properties {
                 this["Maximized"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoEndEncounters {
+            get {
+                return ((bool)(this["AutoEndEncounters"]));
+            }
+            set {
+                this["AutoEndEncounters"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int EncounterTimeout {
+            get {
+                return ((int)(this["EncounterTimeout"]));
+            }
+            set {
+                this["EncounterTimeout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SeparateZanverse {
+            get {
+                return ((bool)(this["SeparateZanverse"]));
+            }
+            set {
+                this["SeparateZanverse"] = value;
+            }
+        }
     }
 }

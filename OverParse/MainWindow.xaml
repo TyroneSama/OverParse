@@ -38,7 +38,7 @@
         </Style>
         <Style TargetType="MenuItem">
             <Setter Property="Background" Value="#FF101010" />
-            <Setter Property="Foreground" Value="#FFAAAAAA"/>
+            <Setter Property="Foreground" Value="#FFDDDDDD"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style TargetType="Menu">
@@ -54,19 +54,22 @@
         </Grid.RowDefinitions>
         <DockPanel HorizontalAlignment="Left" Width="267">
             <Image x:Name="image" Height="16" VerticalAlignment="Top" Width="16" Source="pa_0105.ico" MouseDown="Window_MouseDown" ToolTip="Drag me!"/>
-            <Menu DockPanel.Dock="Top" Margin="0,0,0,0" HorizontalAlignment="Right">
+            <Menu DockPanel.Dock="Top" Margin="0,0,0,0" Padding="0" HorizontalAlignment="Right" Height="16">
 
                 <MenuItem Background="Transparent" Header="System">
                     <MenuItem BorderThickness="0" Header="Locate install folder..." Click="MenuItem_Click"/>
-                    <MenuItem IsCheckable="True" IsChecked="True" Header="Ignore healing timestamps" Click="ShowHealingTimestamps_Click"/>
+                    <MenuItem x:Name="AutoEndEncounters" IsCheckable="True" IsChecked="True" Header="Automatically end encounters" Click="AutoEndEncounters_Click"/>
+                    <MenuItem Header="Set encounter timeout..." Click="SetEncounterTimeout_Click"/>
+                    <MenuItem x:Name="SeparateZanverse" IsCheckable="True" IsChecked="True" Header="Separate Zanverse" Click="SeparateZanverse_Click"/>
                     <MenuItem Header="Exit" Click="Exit_Click"/>
                 </MenuItem>
                 <MenuItem Background="Transparent" Header="Encounter">
                     <MenuItem Header="End encounter" x:Name="EndEncounter" Click="EndEncounter_Click"/>
                 </MenuItem>
                 <MenuItem Background="Transparent" Header="Display">
-                    <MenuItem IsCheckable="True" IsChecked="True" Header="Always on top" x:Name="AlwaysOnTop" Click="AlwaysOnTop_Click"/>
+                    <MenuItem IsCheckable="True" IsChecked="True" Header="Always on top" x:Name="AlwaysOnTop"/>
                     <MenuItem IsCheckable="True" IsChecked="False" Header="Show all entities" x:Name="FilterPlayers"/>
+                    <MenuItem IsCheckable="True" IsChecked="False" Header="Clickthrough mode (Ctrl+O)" x:Name="ClickthroughMode" Click="ClickthroughToggle"/>
                 </MenuItem>
                 <MenuItem Background="Transparent" Header="Debug">
                     <MenuItem Header="Generate fake entries" x:Name="GenerateFakeEntries" Click="GenerateFakeEntries_Click"/>
@@ -135,6 +138,6 @@
             <Grid Grid.Column="2" x:Name="helper3"/>
             <Grid Grid.Column="3" x:Name="helper4"/>
         </Grid>
-        <Label x:Name="EncounterStatus" Grid.Row="2" Foreground="#FFAAAAAA" Margin="0" Padding="3" Content="Encounter Status"/>
+        <Label x:Name="EncounterStatus" Grid.Row="2" Foreground="#FFDDDDDD" Background="#FF060606" Margin="0" Padding="3" Content="Encounter Status"/>
     </Grid>
 </Window>

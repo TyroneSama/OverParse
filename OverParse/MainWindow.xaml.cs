@@ -14,14 +14,44 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.WindowsAPICodePack.Dialogs;
-
+using System.Windows.Interop;
+using System.Runtime.InteropServices;
 
 namespace OverParse
 {
+    public static class WindowsServices
+    {
+        public const int WS_EX_TRANSPARENT = 0x00000020;
+        public const int GWL_EXSTYLE = (-20);
+
+        [DllImport("user32.dll")]
+        public static extern int GetWindowLong(IntPtr hwnd, int index);
+
+        [DllImport("user32.dll")]
+        public static extern int SetWindowLong(IntPtr hwnd, int index, int newStyle);
+
+        public static void SetWindowExTransparent(IntPtr hwnd)
+        {
+            var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+            SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);
+        }
+    }
+
     public partial class MainWindow : Window
     {
         Log encounterlog;
         public static Dictionary<string, string> skillDict = new Dictionary<string, string>();
+        IntPtr hwndcontainer;
+        bool isClickthrough = false;
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            // Get this window's handle
+            IntPtr hwnd = new WindowInteropHelper(this).Handle;
+            hwndcontainer = hwnd;
+        }
 
         public MainWindow()
         {
@@ -33,6 +63,11 @@ namespace OverParse
             this.Left = Properties.Settings.Default.Left;
             this.Height = Properties.Settings.Default.Height;
             this.Width = Properties.Settings.Default.Width;
+
+            AutoEndEncounters.IsChecked = Properties.Settings.Default.AutoEndEncounters;
+            SeparateZanverse.IsChecked = Properties.Settings.Default.SeparateZanverse;
+
+
             if (Properties.Settings.Default.Maximized)
             {
                 WindowState = WindowState.Maximized;
@@ -43,8 +78,11 @@ namespace OverParse
             {
                 string[] split = s.Split(',');
                 skillDict.Add(split[1], split[0]);
-                Console.WriteLine($"added entry {split[1]}/{split[0]}");
             }
+
+            RoutedCommand newCmd = new RoutedCommand();
+            newCmd.InputGestures.Add(new KeyGesture(Key.O, ModifierKeys.Control));
+            CommandBindings.Add(new CommandBinding(newCmd, ClickthroughToggle));
 
 
             encounterlog = new Log(Properties.Settings.Default.Path);
@@ -55,6 +93,25 @@ namespace OverParse
             dispatcherTimer.Tick += new EventHandler(UpdateForm);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+        }
+
+        private void ClickthroughToggle(object sender, RoutedEventArgs e)
+        {
+            int extendedStyle = WindowsServices.GetWindowLong(hwndcontainer, WindowsServices.GWL_EXSTYLE);
+            if (isClickthrough)
+            {
+                MessageBox.Show("Clickthrough disabled.");
+                WindowsServices.SetWindowLong(hwndcontainer, WindowsServices.GWL_EXSTYLE, extendedStyle & ~WindowsServices.WS_EX_TRANSPARENT);
+                isClickthrough = false;
+            } else
+            {
+                MessageBox.Show("Clickthrough enabled. Click the taskbar icon and press CTRL+O to disable.");
+                WindowsServices.SetWindowLong(hwndcontainer, WindowsServices.GWL_EXSTYLE, extendedStyle | WindowsServices.WS_EX_TRANSPARENT);
+                isClickthrough = true;
+            }
+
+            ClickthroughMode.IsChecked = isClickthrough;
+
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
@@ -68,15 +125,27 @@ namespace OverParse
             encounterlog.UpdateLog(this, null);
             Application.Current.MainWindow.Title = "OverParse WDF Alpha - " + encounterlog.logStatus();
             EncounterStatus.Content = encounterlog.logStatus();
-            CombatantData.Items.Clear();
 
-            foreach (Combatant c in encounterlog.combatants)
+            if (encounterlog.running)
             {
-                if (Int32.Parse(c.ID) >= 10000000 || FilterPlayers.IsChecked)
+                CombatantData.Items.Clear();
+
+                foreach (Combatant c in encounterlog.combatants)
                 {
-                    CombatantData.Items.Add(c);
+                    if (Int32.Parse(c.ID) >= 10000000 || FilterPlayers.IsChecked)
+                    {
+                        CombatantData.Items.Add(c);
+                    }
                 }
-            }      
+                if (Properties.Settings.Default.AutoEndEncounters) {
+                    int unixTimestamp = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                    if ((unixTimestamp - encounterlog.newTimestamp) >= Properties.Settings.Default.EncounterTimeout)
+                    {
+                        encounterlog = new Log(Properties.Settings.Default.Path);
+                    }
+                }
+
+            }   
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -103,9 +172,7 @@ namespace OverParse
             var folder = dlg.FileName;
             Console.WriteLine(folder);
             Properties.Settings.Default.Path = folder;
-            Console.WriteLine(encounterlog.logStatus());
             encounterlog = new Log(folder);
-            Console.WriteLine(encounterlog.logStatus());
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -137,19 +204,43 @@ namespace OverParse
             encounterlog = new Log(Properties.Settings.Default.Path);
         }
 
-        private void AlwaysOnTop_Click(object sender, RoutedEventArgs e)
+        private void AutoEndEncounters_Click(object sender, RoutedEventArgs e)
         {
-
+            Properties.Settings.Default.AutoEndEncounters = AutoEndEncounters.IsChecked;
+            MessageBox.Show(Properties.Settings.Default.AutoEndEncounters.ToString());
         }
 
-        private void ShowHealingTimestamps_Click(object sender, RoutedEventArgs e)
+        private void SeparateZanverse_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.SeparateZanverse = SeparateZanverse.IsChecked;
+            MessageBox.Show(Properties.Settings.Default.SeparateZanverse.ToString());
+        }
+
+        private void SetEncounterTimeout_Click(object sender, RoutedEventArgs e)
+        {
+            int x;
+            string input = Microsoft.VisualBasic.Interaction.InputBox("How many seconds should the system wait before stopping an encounter?", "Encounter Timeout", Properties.Settings.Default.EncounterTimeout.ToString());
+            if (Int32.TryParse(input, out x)) {
+                if (x > 0) {
+                    Properties.Settings.Default.EncounterTimeout = x;
+                } else
+                {
+                    MessageBox.Show("What.");
+                }
+            } else
+            {
+                if (input.Length > 0) { MessageBox.Show("Couldn't parse your input. Enter only a number."); }
+            }
+        }
+
+        private void Placeholder_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("This doesn't actually do anything yet.");
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("OverParse v.0.0.0.2 - WDF Alpha\nAnything and everything may be broken.\n\nPlease use damage information responsibly.", "OverParse");
+            MessageBox.Show("OverParse v.0.0.4.0 - WDF Alpha\nAnything and everything may be broken.\n\nPlease use damage information responsibly.", "OverParse");
         }
 
         private void Website_Click(object sender, RoutedEventArgs e)
@@ -185,7 +276,7 @@ namespace OverParse
         public int MaxHitNum { get; set; }
         public string MaxHitID { get; set; }
         public float DPS { get; set; }
-        public string PercentDPS { get; set; }
+        public float PercentDPS { get; set; }
 
         public string MaxHit
         {
@@ -204,7 +295,13 @@ namespace OverParse
         {
             get
             {
-                return $"{PercentDPS}%";
+                if (PercentDPS == -1)
+                {
+                    return "--";
+                } else
+                {
+                    return string.Format("{0:0.0}", PercentDPS) + "%";
+                }
             }
         }
 
@@ -222,22 +319,20 @@ namespace OverParse
             MaxHitNum = 0;
             MaxHitID = "none";
             DPS = 0;
-            PercentDPS = "--";
+            PercentDPS = -1;
         }
     }
 
     public class Log
     {
         bool valid;
-        bool running;
+        public bool running;
         int startTimestamp = 0;
-        int newTimestamp = 0;
-        int partyDPS;
+        public int newTimestamp = 0;
         string encounterData;
         StreamReader logreader;
         public List<Combatant> combatants = new List<Combatant>();
         Random random = new Random();
-        Dictionary<string, string> skillDict;
 
         public Log(string attemptDirectory)
         {
@@ -297,7 +392,7 @@ namespace OverParse
             for (int i = 0; i <=9 ; i++)
             {
                 Combatant temp = new Combatant("1000000" + i.ToString(),"TestPlayer_" + i.ToString());
-                temp.PercentDPS = random.Next(0, 100).ToString();
+                temp.PercentDPS = (float)random.Next(0, 10000) / 100;
                 temp.DPS = random.Next(0, 1000);
                 temp.Damage = random.Next(0, 10000000);
                 temp.MaxHitNum = random.Next(0, 1000000);
@@ -307,7 +402,7 @@ namespace OverParse
             for (int i = 0; i <= 9; i++)
             {
                 Combatant temp = new Combatant(i.ToString(), "TestEnemy_" + i.ToString());
-                temp.PercentDPS = random.Next(0, 100).ToString();
+                temp.PercentDPS = -1;
                 temp.DPS = random.Next(0, 1000);
                 temp.Damage = random.Next(0, 10000000);
                 temp.MaxHitNum = random.Next(0, 1000000);
@@ -341,6 +436,17 @@ namespace OverParse
                         {
                             if (x.ID == sourceID) { index = combatants.IndexOf(x); }
                         }
+
+                        if (attackID == "2106601422" && Properties.Settings.Default.SeparateZanverse) {
+                            index = -1;
+                            foreach (Combatant x in combatants)
+                            {
+                                if (x.ID == "94857493" && x.Name == "Zanverse") { index = combatants.IndexOf(x); }
+                            }
+                            sourceID = "94857493";
+                            sourceName = "Zanverse";
+                        }
+
 
                         if (index == -1)
                         {
@@ -403,11 +509,11 @@ namespace OverParse
                     {
                         if (Int32.Parse(x.ID) >= 10000000)
                         {
-                            x.PercentDPS = (x.DPS / partyDPS * 100).ToString();
+                            x.PercentDPS = (x.DPS / partyDPS * 100);
                         }
                         else
                         {
-                            x.PercentDPS = "-";
+                            x.PercentDPS = -1;
                         }
                     }
 
