@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OverParse"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
-        mc:Ignorable="d" AllowsTransparency="True" WindowStyle="None"
+        mc:Ignorable="d" AllowsTransparency="True" WindowStyle="None" Activated="Window_Activated"
         Title="OverParse WDF Alpha" Height="270" Width="470" ResizeMode="CanResizeWithGrip"
         Deactivated="Window_Deactivated" Closing="Window_Closing" MouseDown="Window_MouseDown">
     <Window.Background>
@@ -60,7 +60,7 @@
                     <MenuItem BorderThickness="0" Header="Locate install folder..." Click="MenuItem_Click"/>
                     <MenuItem x:Name="AutoEndEncounters" IsCheckable="True" IsChecked="True" Header="Automatically end encounters" Click="AutoEndEncounters_Click"/>
                     <MenuItem Header="Set encounter timeout..." Click="SetEncounterTimeout_Click"/>
-                    <MenuItem x:Name="SeparateZanverse" IsCheckable="True" IsChecked="True" Header="Separate Zanverse" Click="SeparateZanverse_Click"/>
+                    <MenuItem x:Name="SeparateZanverse" IsCheckable="True" IsChecked="True" Header="Show Zanverse damage separately" Click="SeparateZanverse_Click"/>
                     <MenuItem Header="Exit" Click="Exit_Click"/>
                 </MenuItem>
                 <MenuItem Background="Transparent" Header="Encounter">
@@ -69,7 +69,7 @@
                 <MenuItem Background="Transparent" Header="Display">
                     <MenuItem IsCheckable="True" IsChecked="True" Header="Always on top" x:Name="AlwaysOnTop"/>
                     <MenuItem IsCheckable="True" IsChecked="False" Header="Show all entities" x:Name="FilterPlayers"/>
-                    <MenuItem IsCheckable="True" IsChecked="False" Header="Clickthrough mode (Ctrl+O)" x:Name="ClickthroughMode" Click="ClickthroughToggle"/>
+                    <MenuItem IsCheckable="True" IsChecked="False" Header="Clickthrough while inactive" x:Name="ClickthroughMode" Click="ClickthroughToggle"/>
                 </MenuItem>
                 <MenuItem Background="Transparent" Header="Debug">
                     <MenuItem Header="Generate fake entries" x:Name="GenerateFakeEntries" Click="GenerateFakeEntries_Click"/>

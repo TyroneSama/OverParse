@@ -42,7 +42,6 @@ namespace OverParse
         Log encounterlog;
         public static Dictionary<string, string> skillDict = new Dictionary<string, string>();
         IntPtr hwndcontainer;
-        bool isClickthrough = false;
 
         protected override void OnSourceInitialized(EventArgs e)
         {
@@ -66,6 +65,7 @@ namespace OverParse
 
             AutoEndEncounters.IsChecked = Properties.Settings.Default.AutoEndEncounters;
             SeparateZanverse.IsChecked = Properties.Settings.Default.SeparateZanverse;
+            ClickthroughMode.IsChecked = Properties.Settings.Default.ClickthroughEnabled;
 
 
             if (Properties.Settings.Default.Maximized)
@@ -80,11 +80,6 @@ namespace OverParse
                 skillDict.Add(split[1], split[0]);
             }
 
-            RoutedCommand newCmd = new RoutedCommand();
-            newCmd.InputGestures.Add(new KeyGesture(Key.O, ModifierKeys.Control));
-            CommandBindings.Add(new CommandBinding(newCmd, ClickthroughToggle));
-
-
             encounterlog = new Log(Properties.Settings.Default.Path);
             Console.WriteLine(Properties.Settings.Default.Path);
 
@@ -97,33 +92,36 @@ namespace OverParse
 
         private void ClickthroughToggle(object sender, RoutedEventArgs e)
         {
-            int extendedStyle = WindowsServices.GetWindowLong(hwndcontainer, WindowsServices.GWL_EXSTYLE);
-            if (isClickthrough)
-            {
-                MessageBox.Show("Clickthrough disabled.");
-                WindowsServices.SetWindowLong(hwndcontainer, WindowsServices.GWL_EXSTYLE, extendedStyle & ~WindowsServices.WS_EX_TRANSPARENT);
-                isClickthrough = false;
-            } else
-            {
-                MessageBox.Show("Clickthrough enabled. Click the taskbar icon and press CTRL+O to disable.");
-                WindowsServices.SetWindowLong(hwndcontainer, WindowsServices.GWL_EXSTYLE, extendedStyle | WindowsServices.WS_EX_TRANSPARENT);
-                isClickthrough = true;
-            }
-
-            ClickthroughMode.IsChecked = isClickthrough;
-
+            Properties.Settings.Default.ClickthroughEnabled = ClickthroughMode.IsChecked;
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
             Window window = (Window)sender;
             window.Topmost = AlwaysOnTop.IsChecked;
+            if (Properties.Settings.Default.ClickthroughEnabled)
+            {
+                int extendedStyle = WindowsServices.GetWindowLong(hwndcontainer, WindowsServices.GWL_EXSTYLE);
+                WindowsServices.SetWindowLong(hwndcontainer, WindowsServices.GWL_EXSTYLE, extendedStyle | WindowsServices.WS_EX_TRANSPARENT);
+            }
         }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            Window window = (Window)sender;
+            window.Topmost = AlwaysOnTop.IsChecked;
+            if (Properties.Settings.Default.ClickthroughEnabled)
+            {
+                int extendedStyle = WindowsServices.GetWindowLong(hwndcontainer, WindowsServices.GWL_EXSTYLE);
+                WindowsServices.SetWindowLong(hwndcontainer, WindowsServices.GWL_EXSTYLE, extendedStyle & ~WindowsServices.WS_EX_TRANSPARENT);
+            }
+        }
+
 
         public void UpdateForm(object sender, EventArgs e)
         {
             encounterlog.UpdateLog(this, null);
-            Application.Current.MainWindow.Title = "OverParse WDF Alpha - " + encounterlog.logStatus();
+            Application.Current.MainWindow.Title = "OverParse WDF Alpha";
             EncounterStatus.Content = encounterlog.logStatus();
 
             if (encounterlog.running)
@@ -240,7 +238,8 @@ namespace OverParse
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("OverParse v.0.0.4.0 - WDF Alpha\nAnything and everything may be broken.\n\nPlease use damage information responsibly.", "OverParse");
+            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            MessageBox.Show($"OverParse v{version} - WDF Alpha\nAnything and everything may be broken.\n\nPlease use damage information responsibly.", "OverParse");
         }
 
         private void Website_Click(object sender, RoutedEventArgs e)
