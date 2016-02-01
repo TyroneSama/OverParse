@@ -32,5 +32,8 @@
     <Setting Name="ClickthroughEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Username" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Apple</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

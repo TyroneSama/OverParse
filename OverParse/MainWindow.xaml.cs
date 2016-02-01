@@ -194,6 +194,7 @@ namespace OverParse
             }
 
             Properties.Settings.Default.Save();
+            encounterlog.WriteLog();
         }
 
         private void EndEncounter_Click(object sender, RoutedEventArgs e)
@@ -280,6 +281,27 @@ namespace OverParse
                 DragMove();
             }
         }
+
+        private void LogUnmappedAttacks_Click(object sender, RoutedEventArgs e)
+        {
+            string input = Microsoft.VisualBasic.Interaction.InputBox("Enter the character name to generate a log for.", "Attack Mapping", Properties.Settings.Default.Username);
+            Properties.Settings.Default.Username = input;
+            Properties.Settings.Default.Save();
+        }
+    }
+
+    public class Attack
+    {
+        public string ID;
+        public int Damage;
+        public int Timestamp;
+
+        public Attack(string initID, int initDamage, int initTimestamp) {
+            ID = initID;
+            Damage = initDamage;
+            Timestamp = initTimestamp;
+            Console.WriteLine($"Attack generated: {ID} - {Damage}");
+       }
     }
 
     public class Combatant
@@ -292,6 +314,7 @@ namespace OverParse
         public string MaxHitID { get; set; }
         public float DPS { get; set; }
         public float PercentDPS { get; set; }
+        public List<Attack> Attacks {get; set;}
 
         public string MaxHit
         {
@@ -301,6 +324,7 @@ namespace OverParse
                 if (MainWindow.skillDict.ContainsKey(MaxHitID))
                 {
                     attack = MainWindow.skillDict[MaxHitID];
+                    
                 }
                 return attack + " - " + MaxHitNum.ToString("N0");
             }
@@ -335,6 +359,7 @@ namespace OverParse
             MaxHitID = "none";
             DPS = 0;
             PercentDPS = -1;
+            Attacks = new List<Attack>();
         }
     }
 
@@ -386,6 +411,26 @@ namespace OverParse
                 }
 
                 File.WriteAllText("logs/OverParse Log - " + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", log);
+
+                string result = "";
+
+                foreach (Combatant c in combatants)
+                {
+                    if (c.Name == Properties.Settings.Default.Username)
+                    {
+                        Console.WriteLine("found combatant matching name");
+                        foreach (Attack a in c.Attacks)
+                        {
+                            if (!MainWindow.skillDict.ContainsKey(a.ID))
+                            {
+                                Console.WriteLine("found unmapped attack");
+                                result += $"{a.Timestamp / 60}:{a.Timestamp % 60} -- {a.ID} dealing {a.Damage} dmg" + Environment.NewLine;
+                            }
+                        }
+
+                        File.WriteAllText($"logs/Attack Mapping Debug - " + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", result);
+                    }
+                }
             }
         }
 
@@ -476,8 +521,12 @@ namespace OverParse
                         if (hitDamage > 0)
                         {
                             source.Damage += hitDamage;
+
                             newTimestamp = Int32.Parse(lineTimestamp);
                             if (startTimestamp == 0) { startTimestamp = newTimestamp; }
+
+                            source.Attacks.Add(new Attack(attackID, hitDamage, newTimestamp - startTimestamp));
+
                             running = true;
                         }
                         else
