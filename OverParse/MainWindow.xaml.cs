@@ -255,6 +255,11 @@ namespace OverParse
             encounterlog.GenerateFakeEntries();
         }
 
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
         private void WindowStats_Click(object sender, RoutedEventArgs e)
         {
             string result = "";
@@ -262,7 +267,9 @@ namespace OverParse
             result += $"menu bar: {MenuBar.Padding} padding {MenuBar.Margin} margin\n";
             result += $"menu item: {MenuSystem.Width.ToString()} width {MenuSystem.Height.ToString()} height\n";
             result += $"menu item: {MenuSystem.Padding} padding {MenuSystem.Margin} margin\n";
-            result += $"menu item: {AutoEndEncounters.Foreground} padding {AutoEndEncounters.Background} margin\n";
+            result += $"menu item: {AutoEndEncounters.Foreground} fg {AutoEndEncounters.Background} bg\n";
+            result += $"menu item: {MenuSystem.FontFamily} {MenuSystem.FontSize} {MenuSystem.FontWeight} {MenuSystem.FontStyle}\n";
+            result += $"image: {image.Width} w {image.Height} h {image.Margin} m\n";
             MessageBox.Show(result);
         }
 
