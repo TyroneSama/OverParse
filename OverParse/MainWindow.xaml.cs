@@ -262,6 +262,7 @@ namespace OverParse
             result += $"menu bar: {MenuBar.Padding} padding {MenuBar.Margin} margin\n";
             result += $"menu item: {MenuSystem.Width.ToString()} width {MenuSystem.Height.ToString()} height\n";
             result += $"menu item: {MenuSystem.Padding} padding {MenuSystem.Margin} margin\n";
+            result += $"menu item: {AutoEndEncounters.Foreground} padding {AutoEndEncounters.Background} margin\n";
             MessageBox.Show(result);
         }
 
