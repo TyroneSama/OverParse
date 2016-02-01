@@ -205,13 +205,11 @@ namespace OverParse
         private void AutoEndEncounters_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.AutoEndEncounters = AutoEndEncounters.IsChecked;
-            MessageBox.Show(Properties.Settings.Default.AutoEndEncounters.ToString());
         }
 
         private void SeparateZanverse_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.SeparateZanverse = SeparateZanverse.IsChecked;
-            MessageBox.Show(Properties.Settings.Default.SeparateZanverse.ToString());
         }
 
         private void SetEncounterTimeout_Click(object sender, RoutedEventArgs e)
@@ -255,6 +253,16 @@ namespace OverParse
         private void GenerateFakeEntries_Click(object sender, RoutedEventArgs e)
         {
             encounterlog.GenerateFakeEntries();
+        }
+
+        private void WindowStats_Click(object sender, RoutedEventArgs e)
+        {
+            string result = "";
+            result += $"menu bar: {MenuBar.Width.ToString()} width {MenuBar.Height.ToString()} height\n";
+            result += $"menu bar: {MenuBar.Padding} padding {MenuBar.Margin} margin\n";
+            result += $"menu item: {MenuSystem.Width.ToString()} width {MenuSystem.Height.ToString()} height\n";
+            result += $"menu item: {MenuSystem.Padding} padding {MenuSystem.Margin} margin\n";
+            MessageBox.Show(result);
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -428,7 +436,9 @@ namespace OverParse
                         string sourceName = parts[3];
                         int hitDamage = Int32.Parse(parts[7]);
                         string attackID = parts[6];
+                        string isMultiHit = parts[10];
                         string isMisc = parts[11];
+                        string isMisc2 = parts[12];
 
                         int index = -1;
                         foreach (Combatant x in combatants)
@@ -472,6 +482,13 @@ namespace OverParse
                             source.MaxHitNum = hitDamage;
                             source.MaxHitID = attackID;
                         }
+
+                        string attack = attackID.ToString();
+                        if (MainWindow.skillDict.ContainsKey(attackID))
+                        {
+                            attack = MainWindow.skillDict[attackID];
+                        }
+                        Console.WriteLine($" attack: {attack} {hitDamage} | misc: {isMultiHit} {isMisc} {isMisc2} | source: {source.Name} {source.ID}");
                     }
                 }
 

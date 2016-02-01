@@ -40,6 +40,7 @@
             <Setter Property="Background" Value="#FF101010" />
             <Setter Property="Foreground" Value="#FFDDDDDD"/>
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="6,0,6,0"/>
         </Style>
         <Style TargetType="Menu">
             <Setter Property="Background" Value="Transparent" />
@@ -54,9 +55,8 @@
         </Grid.RowDefinitions>
         <DockPanel HorizontalAlignment="Left" Width="267">
             <Image x:Name="image" Height="16" VerticalAlignment="Top" Width="16" Source="pa_0105.ico" MouseDown="Window_MouseDown" ToolTip="Drag me!"/>
-            <Menu DockPanel.Dock="Top" Margin="0,0,0,0" Padding="0" HorizontalAlignment="Right" Height="16">
-
-                <MenuItem Background="Transparent" Header="System">
+            <Menu x:Name="MenuBar" DockPanel.Dock="Top" HorizontalAlignment="Right" Height="16">
+                <MenuItem Background="Transparent" x:Name="MenuSystem" Header="System">
                     <MenuItem BorderThickness="0" Header="Locate install folder..." Click="MenuItem_Click"/>
                     <MenuItem x:Name="AutoEndEncounters" IsCheckable="True" IsChecked="True" Header="Automatically end encounters" Click="AutoEndEncounters_Click"/>
                     <MenuItem Header="Set encounter timeout..." Click="SetEncounterTimeout_Click"/>
@@ -73,6 +73,7 @@
                 </MenuItem>
                 <MenuItem Background="Transparent" Header="Debug">
                     <MenuItem Header="Generate fake entries" x:Name="GenerateFakeEntries" Click="GenerateFakeEntries_Click"/>
+                    <MenuItem Header="Window stats" x:Name="WindowStats" Click="WindowStats_Click"/>
                 </MenuItem>
                 <MenuItem Background="Transparent" Header="Help">
                     <MenuItem Header="About" x:Name="About" Click="About_Click"/>
