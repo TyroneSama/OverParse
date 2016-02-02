@@ -1,4 +1,4 @@
-Foie,2875245395,Tech,Uncharged
+oie,2875245395,Tech,Uncharged
 Foie,169905548,Tech,Charged
 Gifoie,46933754,Tech,Uncharged
 Gifoie,1396192371,Tech,Charged
@@ -104,11 +104,14 @@ Nova Strike,3034360175,PA,3rd
 Ride Slasher,1224723856,PA,
 Over End,3096759815,PA,First 4
 Over End,3330009863,PA,Final
+Over End,3096759878,PA,???
+Over End,3096760066,PA,???
 Stun Concido,1224723991,PA,
 Sonic Arrow,3096760613,PA,no gear
 Sonic Arrow,3096760676,PA,partial gear
 Sonic Arrow,3096768032,PA,full gear
 Sonic Arrow,1410023705,PA,???
+Sonic Arrow,1331225593,PA,???
 Cruel Throw,2150373435,PA,grab
 Cruel Throw,1224724117,PA,thrown
 Enemy Thrown,2164805818,PA,beatdown
@@ -188,7 +191,7 @@ Cerberus Dance (C),4083015423,,Cerberus Dance (crafted)
 Cerberus Dance (C),1181894001,,Cerberus Dance finish (crafted)
 Wild Round,1667539503,PA,Wild Round
 Kaiser Rise,4083089437,PA,Kaiser Rise
-Adapting spin ,4083089500,PA,Adapting spin
+Adapting spin ,4083089500,PA,Adapting spin 
 Hit,3318968327,Melee,Gunslash M1
 Hit,1408075886,Melee,Gunslash M2
 Hit,2364486899,Melee,Gunslash M3
@@ -339,8 +342,6 @@ Surprise Knuckle,71364306,PA,Surprise Knuckle
 Flash Thousand,1586239574,PA,Flash Thousand uppercut
 Flash Thousand,3809237665,PA,Flash Thousand jabs
 Backhand Smash,653244323,PA,Backhand Smash
-Backhand Smash,2085169672,PA,Backhand Smash (???)
-Backhand Smash,653244002,PA,Backhand Smash (???)
 Meteor Fist,2796397201,PA,Meteor Fist (lots of fists edition)
 Meteor Fist,1647551898,PA,Meteor Fist charged (lots of fists)
 Meteor Fist,1050511877,PA,Meteor Fist (bigass fist edition)
@@ -536,7 +537,6 @@ Bullet Squall,443425899,PA,Full gear
 Dead Approach,232817712,PA,Dead Approach
 Dead Approach,232817719,PA,Partial gear
 Dead Approach,232817718,PA,Full gear
-Dead Approach,232817717,PA,???
 Messiah Time,3991628327,PA,Messiah Time (every shot)
 Messiah Time,3991628324,PA,Partial gear
 Messiah Time,3991628325,PA,Full gear
@@ -552,7 +552,6 @@ Satellite Aim,1770510367,PA,Full gear
 Satellite Aim,2273182629,PA,Satellite Aim (hit 2)
 Satellite Aim,2273181786,PA,Partial gear
 Satellite Aim,2273181787,PA,Full gear
-Satellite Aim,2273181784,PA,???
 Elder Rebellion,1108337397,PA,Elder Rebellion (5 hits)
 Elder Rebellion,1108337396,PA,Partial gear
 Elder Rebellion,1108337395,PA,Full gear
@@ -620,3 +619,5 @@ Vinto Gigue,2398433897,PA,Vinto (explode any gear)
 Vinto Gigue,3958422470,PA,Vinto (kick)
 Vinto Gigue,1528400162,PA,Vinto (kick half gear)
 Vinto Gigue,598735040,PA,Vinto (kick full gear)
+BOOSTO KICKU,85303029,Special,Tokyo speed-pad kick
+Clobber,3104220402,Special,Mag action - Clobber

@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
+using NHotkey.Wpf;
+using NHotkey;
 
 namespace OverParse
 {
@@ -67,6 +69,7 @@ namespace OverParse
             SeparateZanverse.IsChecked = Properties.Settings.Default.SeparateZanverse;
             ClickthroughMode.IsChecked = Properties.Settings.Default.ClickthroughEnabled;
 
+            HotkeyManager.Current.AddOrReplace("Increment", Key.E, ModifierKeys.Control | ModifierKeys.Shift, EndEncounter_Key);
 
             if (Properties.Settings.Default.Maximized)
             {
@@ -88,6 +91,12 @@ namespace OverParse
             dispatcherTimer.Tick += new EventHandler(UpdateForm);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+        }
+
+        private void EndEncounter_Key(object sender, HotkeyEventArgs e)
+        {
+            EndEncounter_Click(null, null);
+            e.Handled = true;
         }
 
         private void ClickthroughToggle(object sender, RoutedEventArgs e)

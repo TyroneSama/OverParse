@@ -73,7 +73,7 @@
                     <MenuItem Style="{StaticResource submenu}" x:Name="SeparateZanverse" IsCheckable="True" IsChecked="True" Header="Show Zanverse damage separately" Click="SeparateZanverse_Click"/>
                 </MenuItem>
                 <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Encounter">
-                    <MenuItem Style="{StaticResource submenu}" Header="End encounter" x:Name="EndEncounter" Click="EndEncounter_Click"/>
+                    <MenuItem Style="{StaticResource submenu}" Header="End encounter" x:Name="EndEncounter" InputGestureText="Ctrl+Shift+E" Click="EndEncounter_Click"/>
                 </MenuItem>
                 <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Display">
                     <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Always on top" x:Name="AlwaysOnTop"/>
