@@ -133,6 +133,10 @@ namespace OverParse
             Application.Current.MainWindow.Title = "OverParse WDF Alpha";
             EncounterStatus.Content = encounterlog.logStatus();
 
+            EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 100, 100));
+            if (encounterlog.valid) { EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 100)); }
+            if (encounterlog.running) { EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 100, 255, 100)); }
+
             if (encounterlog.running)
             {
                 CombatantData.Items.Clear();
@@ -374,7 +378,7 @@ namespace OverParse
 
     public class Log
     {
-        bool valid;
+        public bool valid;
         public bool running;
         int startTimestamp = 0;
         public int newTimestamp = 0;
@@ -447,7 +451,7 @@ namespace OverParse
         {
             if (!valid)
             {
-                return "No damagelogs found...";
+                return "No logs, check \"System > Locate install folder\"!";
             }
             if (!running)
             {
