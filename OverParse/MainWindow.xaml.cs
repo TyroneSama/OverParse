@@ -417,10 +417,60 @@ namespace OverParse
                 TimeSpan timespan = TimeSpan.FromSeconds(elapsed);
                 string timer = timespan.ToString(@"mm\:ss");
 
-                string log = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + " | " + timer + Environment.NewLine;
+                string log = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + " | " + timer + Environment.NewLine + Environment.NewLine;
+
                 foreach (Combatant c in combatants)
                 {
-                    log += $"{c.Name} | {c.Damage} Damage | {c.DPSReadout} Contribution | {c.DPS} DPS | Max Hit: {c.MaxHit}" + Environment.NewLine;
+                    if (Int32.Parse(c.ID) >= 10000000)
+                    {
+                        log += $"### {c.Name} - {c.Damage} Dmg ### " + Environment.NewLine;
+
+                        List<string> attackTypes = new List<string>();
+                        List<int> damageTotals = new List<int>();
+
+                        foreach (Attack a in c.Attacks)
+                        {
+                            string name = a.ID;
+
+                            if (MainWindow.skillDict.ContainsKey(a.ID))
+                            {
+                                name = MainWindow.skillDict[a.ID];
+
+                            }
+
+                            if (attackTypes.Contains(name))
+                            {
+                                int index = attackTypes.IndexOf(name);
+                                damageTotals[index] += a.Damage;
+                            } else
+                            {
+                                attackTypes.Add(name);
+                                damageTotals.Add(a.Damage);
+                            }
+                        }
+
+                        int total = damageTotals.Sum();
+
+                        List<Tuple<string, int>> finalAttacks = new List<Tuple<string, int>>();
+                        
+                        foreach (string str in attackTypes)
+                        {
+                            finalAttacks.Add(new Tuple<string,int>(str, damageTotals[attackTypes.IndexOf(str)]));
+                        }
+
+                        finalAttacks = finalAttacks.OrderBy(x => x.Item2).Reverse().ToList();
+
+                        foreach (Tuple<string, int> t in finalAttacks)
+                        {
+                            log += $"{t.Item2 * 100 / total}% | {t.Item1} ({t.Item2} dmg)" + Environment.NewLine;
+                        }
+                        log += Environment.NewLine;
+                    }
+                }
+
+                foreach (Combatant c in combatants)
+                {
+                    log += $"{c.Name} | {c.Damage} dmg | {c.DPSReadout} contrib | {c.DPS} DPS | Max: {c.MaxHit}" + Environment.NewLine;
                 }
 
                 File.WriteAllText("logs/OverParse Log - " + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", log);
