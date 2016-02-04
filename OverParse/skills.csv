@@ -1,4 +1,4 @@
-oie,2875245395,Tech,Uncharged
+Foie,2875245395,Tech,Uncharged
 Foie,169905548,Tech,Charged
 Gifoie,46933754,Tech,Uncharged
 Gifoie,1396192371,Tech,Charged
@@ -537,6 +537,7 @@ Bullet Squall,443425899,PA,Full gear
 Dead Approach,232817712,PA,Dead Approach
 Dead Approach,232817719,PA,Partial gear
 Dead Approach,232817718,PA,Full gear
+Dead Approach,232817717,PA,???
 Messiah Time,3991628327,PA,Messiah Time (every shot)
 Messiah Time,3991628324,PA,Partial gear
 Messiah Time,3991628325,PA,Full gear
@@ -619,5 +620,33 @@ Vinto Gigue,2398433897,PA,Vinto (explode any gear)
 Vinto Gigue,3958422470,PA,Vinto (kick)
 Vinto Gigue,1528400162,PA,Vinto (kick half gear)
 Vinto Gigue,598735040,PA,Vinto (kick full gear)
+Hit,4065469038,Melee,Baton attack
+Torim Stab,4093858806,PA,Torim Stab
+Torim Spiral,2211899418,PA,Torim Spiral (uncharged)
+Torim Spiral,2211899483,PA,Torim Spiral (charge lv.1)
+Torim Spiral,2211900312,PA,Torim Spiral (charge lv.2)
+Torim Bullet,4238918539,PA,Torim Bullet
+Torim Shout,4093858743,PA,Torim Shout
+Torim Slash,4093858613,PA,Torim Slash
+Hit,487482498,Melee,Torim auto-attack 1
+Hit,487482435,Melee,Torim auto-attack 2
+Hit,487489051,Melee,Torim auto-attack 3
+Wanda Assault,933681441,PA,Wanda Assault
+Wanda Break,3960069561,PA,Wanda Break
+Wanda Shock,3960069496,PA,Wanda Shock
+Wanda Pulsar,933701936,PA,Wanda Pulsar
+Wanda Pulsar,4223323079,PA,Wanda Pulsar
+Wanda Slicer,2918501417,PA,Wanda Slicer
+Wanda Slicer,2918501480,PA,Wanda Slicer
+Hit,2785585589,Melee,Wanda auto-attack 1
+Hit,2785585652,Melee,Wanda auto-attack 2
+Hit,2785585714,Melee,Wanda auto-attack 3
+Sully Puroodo,2156897712,PA,Sully Puroodo
+Sully Territory,493814577,PA,Sully Territory
+Sully Territory,493814640,PA,Sully Territory
+Sully Curse,3581010262,PA,Sully Curse
+Sully Fall,385030021,PA,Sully Fall
+Sully Chaser,385050960,PA,Sully Chaser
+Hit,639929291,Melee,Sully auto-attack 1
 BOOSTO KICKU,85303029,Special,Tokyo speed-pad kick
 Clobber,3104220402,Special,Mag action - Clobber

@@ -154,5 +154,17 @@ namespace OverParse.Properties {
                 this["Username"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LogToClipboard {
+            get {
+                return ((bool)(this["LogToClipboard"]));
+            }
+            set {
+                this["LogToClipboard"] = value;
+            }
+        }
     }
 }

@@ -68,6 +68,7 @@ namespace OverParse
             AutoEndEncounters.IsChecked = Properties.Settings.Default.AutoEndEncounters;
             SeparateZanverse.IsChecked = Properties.Settings.Default.SeparateZanverse;
             ClickthroughMode.IsChecked = Properties.Settings.Default.ClickthroughEnabled;
+            LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard;
 
             HotkeyManager.Current.AddOrReplace("Increment", Key.E, ModifierKeys.Control | ModifierKeys.Shift, EndEncounter_Key);
 
@@ -210,9 +211,16 @@ namespace OverParse
             encounterlog.WriteLog();
         }
 
+        private void LogToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.LogToClipboard = LogToClipboard.IsChecked;
+        }
+
+
         private void EndEncounter_Click(object sender, RoutedEventArgs e)
         {
             encounterlog.WriteLog();
+            if (Properties.Settings.Default.LogToClipboard) { encounterlog.WriteClipboard(); }
             encounterlog = new Log(Properties.Settings.Default.Path);
         }
 
@@ -329,6 +337,18 @@ namespace OverParse
         public float PercentDPS { get; set; }
         public List<Attack> Attacks {get; set;}
 
+        public bool isAlly
+        {
+            get
+            {
+                if (Int32.Parse(ID) >= 10000000)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
         public string MaxHit
         {
             get
@@ -339,7 +359,7 @@ namespace OverParse
                     attack = MainWindow.skillDict[MaxHitID];
                     
                 }
-                return attack + " - " + MaxHitNum.ToString("N0");
+                return MaxHitNum.ToString("N0") + $" ({attack})";
             }
         }
 
@@ -387,6 +407,28 @@ namespace OverParse
         public List<Combatant> combatants = new List<Combatant>();
         Random random = new Random();
 
+        string FormatNumber(int num)
+        {
+            if (num >= 100000000)
+            {
+                return (num / 1000000D).ToString("0.#M");
+            }
+            if (num >= 1000000)
+            {
+                return (num / 1000000D).ToString("0.##M");
+            }
+            if (num >= 100000)
+            {
+                return (num / 1000D).ToString("0.#K");
+            }
+            if (num >= 10000)
+            {
+                return (num / 1000D).ToString("0.##K");
+            }
+
+            return num.ToString("#,0");
+        }
+
         public Log(string attemptDirectory)
         {
             valid = false;
@@ -407,6 +449,36 @@ namespace OverParse
         public void Complain()
         {
             MessageBox.Show("No damage logs were found.\n\nPlease use \"System > Locate damagelogs folder...\" to select your installation directory, and make sure that the Damage Parser plugin is enabled in the Tweaker.", "Error");
+        }
+
+        public void WriteClipboard()
+        {
+            string log = "";
+
+            foreach (Combatant c in combatants)
+            {
+                if (c.isAlly)
+                {
+                    string shortname = c.Name;
+                    if (c.Name.Length > 4)
+                    {
+                        shortname = c.Name.Substring(0, 4);
+                    }
+                    log += $"{shortname} {FormatNumber(c.Damage)} | ";
+                }
+            }
+
+
+            for (int i = 0; i < 10; i++)
+            {
+                    try
+                    {
+                        Clipboard.SetText(log);
+                        return;
+                    }
+                    catch (Exception ex) { Console.WriteLine(ex.ToString()); return; }
+            }
+
         }
 
         public void WriteLog()
@@ -532,6 +604,9 @@ namespace OverParse
                 temp.MaxHitID = "1612949165";
                 combatants.Add(temp);
             }
+
+            valid = true;
+            running = true;
         }
 
         public void UpdateLog(object sender, EventArgs e)
@@ -643,7 +718,7 @@ namespace OverParse
 
                     foreach (Combatant x in combatants)
                     {
-                        if (Int32.Parse(x.ID) >= 10000000)
+                        if (x.isAlly)
                         {
                             x.PercentDPS = (x.DPS / partyDPS * 100);
                         }

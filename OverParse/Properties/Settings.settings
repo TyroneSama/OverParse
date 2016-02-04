@@ -35,5 +35,8 @@
     <Setting Name="Username" Type="System.String" Scope="User">
       <Value Profile="(Default)">Apple</Value>
     </Setting>
+    <Setting Name="LogToClipboard" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
