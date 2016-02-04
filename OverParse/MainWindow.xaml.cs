@@ -8,6 +8,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows.Interop;
 using NHotkey.Wpf;
 using NHotkey;
+using System.Linq;
 
 namespace OverParse
 {
@@ -52,10 +53,39 @@ namespace OverParse
             encounterlog = new Log(Properties.Settings.Default.Path);
             Console.WriteLine(Properties.Settings.Default.Path);
             UpdateForm(null, null);
-            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(UpdateForm);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            dispatcherTimer.Start();
+
+            System.Windows.Threading.DispatcherTimer damageTimer = new System.Windows.Threading.DispatcherTimer();
+            damageTimer.Tick += new EventHandler(UpdateForm);
+            damageTimer.Interval = new TimeSpan(0, 0, 1);
+            damageTimer.Start();
+
+            System.Windows.Threading.DispatcherTimer logCheckTimer = new System.Windows.Threading.DispatcherTimer();
+            logCheckTimer.Tick += new EventHandler(CheckForNewLog);
+            logCheckTimer.Interval = new TimeSpan(0, 0, 10);
+            logCheckTimer.Start();
+        }
+
+        private void CheckForNewLog(object sender, EventArgs e)
+        {
+            Console.WriteLine("tick");
+            DirectoryInfo directory = new DirectoryInfo($"{Properties.Settings.Default.Path}\\damagelogs");
+            if (!directory.Exists)
+            {
+                return;
+            }
+            if (directory.GetFiles().Count() == 0)
+            {
+                return;
+            }
+
+            FileInfo log = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).First();
+
+            if (log.Name != encounterlog.filename)
+            {
+                Console.WriteLine($"BYEEEEEEEEEEEE");
+                encounterlog = new Log(Properties.Settings.Default.Path);
+            }
+
         }
 
         private void EndEncounter_Key(object sender, HotkeyEventArgs e)
@@ -287,6 +317,11 @@ namespace OverParse
             string input = Microsoft.VisualBasic.Interaction.InputBox("Enter the character name to generate a log for.", "Attack Mapping", Properties.Settings.Default.Username);
             Properties.Settings.Default.Username = input;
             Properties.Settings.Default.Save();
+        }
+
+        private void CurrentLogFilename_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(encounterlog.filename);
         }
     }
 

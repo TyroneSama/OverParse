@@ -12,6 +12,7 @@ namespace OverParse
         public bool running;
         int startTimestamp = 0;
         public int newTimestamp = 0;
+        public string filename;
         string encounterData;
         StreamReader logreader;
         public List<Combatant> combatants = new List<Combatant>();
@@ -61,6 +62,7 @@ namespace OverParse
             running = false;
             FileInfo log = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).First();
             Console.WriteLine($"Reading from {log.DirectoryName}\\{log.Name}");
+            filename = log.Name;
             FileStream fileStream = File.Open(log.DirectoryName + "\\" + log.Name, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             fileStream.Seek(0, SeekOrigin.End);
             logreader = new StreamReader(fileStream);
@@ -188,7 +190,7 @@ namespace OverParse
 
             if (!running)
             {
-                return "Waiting for combat data...";
+                return $"Watching for combat data...";
             }
 
             return encounterData;
