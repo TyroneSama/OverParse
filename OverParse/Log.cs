@@ -88,6 +88,9 @@ namespace OverParse
                 }
             }
 
+            if (log == "") { return; }
+            log = log.Substring(0, log.Length - 2);
+
             try
             {
                 Clipboard.SetText(log);
