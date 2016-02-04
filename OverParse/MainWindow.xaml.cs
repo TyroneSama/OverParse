@@ -144,7 +144,7 @@ namespace OverParse
 
                 foreach (Combatant c in encounterlog.combatants)
                 {
-                    if (Int32.Parse(c.ID) >= 10000000 || FilterPlayers.IsChecked)
+                    if (c.isAlly || FilterPlayers.IsChecked)
                     {
                         CombatantData.Items.Add(c);
                     }
@@ -341,11 +341,20 @@ namespace OverParse
         {
             get
             {
+                string[] SuAttacks = { "487482498", "2785585589", "639929291" };
+
                 if (Int32.Parse(ID) >= 10000000)
                 {
                     return true;
                 }
-                return false;
+
+                bool allied = false;
+                foreach (Attack a in Attacks)
+                {
+                    if (SuAttacks.Contains(a.ID)) { allied = true; return allied; }
+                }
+
+                return allied;
             }
         }
 
@@ -468,17 +477,8 @@ namespace OverParse
                 }
             }
 
-
-            for (int i = 0; i < 10; i++)
-            {
-                    try
-                    {
-                        Clipboard.SetText(log);
-                        return;
-                    }
-                    catch (Exception ex) { Console.WriteLine(ex.ToString()); return; }
-            }
-
+            try {Clipboard.SetText(log);}
+            catch (Exception ex) { }
         }
 
         public void WriteLog()
@@ -493,9 +493,9 @@ namespace OverParse
 
                 foreach (Combatant c in combatants)
                 {
-                    if (Int32.Parse(c.ID) >= 10000000)
+                    if (c.isAlly)
                     {
-                        log += $"### {c.Name} - {c.Damage} Dmg ### " + Environment.NewLine;
+                        log += $"### {c.Name} - {c.Damage} Dmg ({c.DPSReadout}) ### " + Environment.NewLine;
 
                         List<string> attackTypes = new List<string>();
                         List<int> damageTotals = new List<int>();
@@ -703,7 +703,7 @@ namespace OverParse
 
                     foreach (Combatant x in combatants)
                     {
-                        if (Int32.Parse(x.ID) >= 10000000)
+                        if (x.isAlly)
                         {
 
                             float dps = x.Damage / (newTimestamp - startTimestamp);
