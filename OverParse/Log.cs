@@ -97,8 +97,9 @@ namespace OverParse
             {
                 Clipboard.SetText(log);
             }
-            catch (Exception ex)
+            catch
             {
+                //LMAO
             }
         }
 
@@ -163,19 +164,22 @@ namespace OverParse
                 string result = "";
                 foreach (Combatant c in combatants)
                 {
-                    if (c.Name == Properties.Settings.Default.Username)
+                    if (c.Name == "YOU")
                     {
-                        Console.WriteLine("found combatant matching name");
                         foreach (Attack a in c.Attacks)
                         {
                             if (!MainWindow.skillDict.ContainsKey(a.ID))
                             {
-                                Console.WriteLine("found unmapped attack");
-                                result += $"{a.Timestamp / 60}:{a.Timestamp % 60} -- {a.ID} dealing {a.Damage} dmg" + Environment.NewLine;
+                                TimeSpan t = TimeSpan.FromSeconds(a.Timestamp);
+                                
+                                result += $"{t.ToString(@"hh\h\:mm\m\:ss\s\:fff\m\s")} -- {a.ID} dealing {a.Damage} dmg" + Environment.NewLine;
                             }
                         }
 
-                        File.WriteAllText($"logs/Attack Mapping Debug - " + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", result);
+                        if (result != "")
+                        {
+                            File.WriteAllText($"logs/Unmapped Attack Log - " + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", result);
+                        }
                     }
                 }
             }
@@ -305,13 +309,6 @@ namespace OverParse
                             source.MaxHitID = attackID;
                         }
 
-                        string attack = attackID.ToString();
-                        if (MainWindow.skillDict.ContainsKey(attackID))
-                        {
-                            attack = MainWindow.skillDict[attackID];
-                        }
-
-                        Console.WriteLine($" attack: {attack} {hitDamage} | misc: {isMultiHit} {isMisc} {isMisc2} | source: {source.Name} {source.ID}");
                     }
                 }
 

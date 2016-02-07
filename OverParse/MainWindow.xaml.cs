@@ -312,13 +312,6 @@ namespace OverParse
             }
         }
 
-        private void LogUnmappedAttacks_Click(object sender, RoutedEventArgs e)
-        {
-            string input = Microsoft.VisualBasic.Interaction.InputBox("Enter the character name to generate a log for.", "Attack Mapping", Properties.Settings.Default.Username);
-            Properties.Settings.Default.Username = input;
-            Properties.Settings.Default.Save();
-        }
-
         private void CurrentLogFilename_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(encounterlog.filename);

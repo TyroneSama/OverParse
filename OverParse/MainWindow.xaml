@@ -84,7 +84,6 @@
                 <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Debug">
                     <MenuItem Style="{StaticResource submenu}" Header="Generate fake entries" x:Name="GenerateFakeEntries" Click="GenerateFakeEntries_Click"/>
                     <MenuItem Style="{StaticResource submenu}" Header="Window stats" x:Name="WindowStats" Click="WindowStats_Click"/>
-                    <MenuItem Style="{StaticResource submenu}" Header="Log unmapped attacks..." x:Name="LogUnmappedAttacks" Click="LogUnmappedAttacks_Click"/>
                     <MenuItem Style="{StaticResource submenu}" Header="Current log filename" x:Name="CurrentLogFilename" Click="CurrentLogFilename_Click"/>
                 </MenuItem>
                 <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Help">
