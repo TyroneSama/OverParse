@@ -28,6 +28,11 @@
                 <Trigger Property="ItemsControl.AlternationIndex" Value="1">
                     <Setter Property="Background" Value="#A0101010"></Setter>
                 </Trigger>
+                <DataTrigger Binding="{Binding Path=Name}" Value="YOU">
+                    <Setter Property="Background" Value="#A0205020" />
+
+                </DataTrigger>
+
             </Style.Triggers>
         </Style>
         <Style TargetType="ListView">
