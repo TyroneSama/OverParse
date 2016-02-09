@@ -1,5 +1,4 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -53,22 +52,12 @@ namespace OverParse
             while (!File.Exists($"{attemptDirectory}\\pso2.exe")) {
                 MessageBox.Show("Please select your pso2_bin directory.\nThis is the same folder you selected while setting up the Tweaker.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                var dlg = new CommonOpenFileDialog();
-                dlg.Title = "Select your pso2_bin folder...";
-                dlg.IsFolderPicker = true;
-                dlg.InitialDirectory = Directory.GetCurrentDirectory();
-                dlg.AddToMostRecentlyUsedList = false;
-                dlg.AllowNonFileSystemItems = false;
-                dlg.DefaultDirectory = Directory.GetCurrentDirectory();
-                dlg.EnsureFileExists = true;
-                dlg.EnsurePathExists = true;
-                dlg.EnsureReadOnly = false;
-                dlg.EnsureValidNames = true;
-                dlg.Multiselect = false;
-                dlg.ShowPlacesList = true;
-                if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
+                var dialog = new System.Windows.Forms.FolderBrowserDialog();
+                var result = dialog.ShowDialog();
+
+                if (result == System.Windows.Forms.DialogResult.OK)
                 {
-                    attemptDirectory = dlg.FileName;
+                    attemptDirectory = dialog.SelectedPath;
                     Console.WriteLine(attemptDirectory);
                     Properties.Settings.Default.Path = attemptDirectory;
                 } else

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:OverParse"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         mc:Ignorable="d" AllowsTransparency="True" WindowStyle="None" Activated="Window_Activated"
-        Title="OverParse WDF Alpha" Height="270" Width="470" ResizeMode="CanResizeWithGrip"
+        Title="OverParse" Height="270" Width="470" ResizeMode="CanResizeWithGrip"
         Deactivated="Window_Deactivated" Closing="Window_Closing" MouseDown="Window_MouseDown">
     <Window.Background>
         <SolidColorBrush Opacity="0.5" Color="#FF101010"/>

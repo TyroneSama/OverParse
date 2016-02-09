@@ -124,7 +124,6 @@ namespace OverParse
         public void UpdateForm(object sender, EventArgs e)
         {
             encounterlog.UpdateLog(this, null);
-            Application.Current.MainWindow.Title = "OverParse WDF Alpha";
             EncounterStatus.Content = encounterlog.logStatus();
             EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 100, 100));
             if (encounterlog.valid && encounterlog.notEmpty)
@@ -241,7 +240,7 @@ namespace OverParse
         private void About_Click(object sender, RoutedEventArgs e)
         {
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            MessageBox.Show($"OverParse v{version} - WDF Alpha\nAnything and everything may be broken.\n\nPlease use damage information responsibly.", "OverParse");
+            MessageBox.Show($"OverParse v{version}\nAnything and everything may be broken.\n\nPlease use damage information responsibly.", "OverParse");
         }
 
         private void Website_Click(object sender, RoutedEventArgs e)
