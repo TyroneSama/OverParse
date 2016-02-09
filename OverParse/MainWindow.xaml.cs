@@ -127,7 +127,7 @@ namespace OverParse
             Application.Current.MainWindow.Title = "OverParse WDF Alpha";
             EncounterStatus.Content = encounterlog.logStatus();
             EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 100, 100));
-            if (encounterlog.valid)
+            if (encounterlog.valid && encounterlog.notEmpty)
             {
                 EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 100));
             }
@@ -157,33 +157,6 @@ namespace OverParse
                     }
                 }
             }
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Select your pso2_bin folder.\n\nThis is the same folder you selected when setting up the Tweaker.\n\nIf you installed to the default location, it will be at \"C:\\PHANTASYSTARONLINE2\\pso2_bin\".", "Help");
-            var dlg = new CommonOpenFileDialog();
-            dlg.Title = "Select your pso2_bin folder...";
-            dlg.IsFolderPicker = true;
-            dlg.InitialDirectory = Directory.GetCurrentDirectory();
-            dlg.AddToMostRecentlyUsedList = false;
-            dlg.AllowNonFileSystemItems = false;
-            dlg.DefaultDirectory = Directory.GetCurrentDirectory();
-            dlg.EnsureFileExists = true;
-            dlg.EnsurePathExists = true;
-            dlg.EnsureReadOnly = false;
-            dlg.EnsureValidNames = true;
-            dlg.Multiselect = false;
-            dlg.ShowPlacesList = true;
-            if (dlg.ShowDialog() != CommonFileDialogResult.Ok)
-            {
-                return;
-            }
-
-            var folder = dlg.FileName;
-            Console.WriteLine(folder);
-            Properties.Settings.Default.Path = folder;
-            encounterlog = new Log(folder);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace OverParse
 {
     public class Log
     {
+        public bool notEmpty;
         public bool valid;
         public bool running;
         int startTimestamp = 0;
@@ -45,20 +47,50 @@ namespace OverParse
         public Log(string attemptDirectory)
         {
             valid = false;
-            DirectoryInfo directory = new DirectoryInfo($"{attemptDirectory}\\damagelogs");
-            if (!directory.Exists)
-            {
-                Complain();
-                return;
+            notEmpty = false;
+            running = false;
+
+            while (!File.Exists($"{attemptDirectory}\\pso2.exe")) {
+                MessageBox.Show("Please select your pso2_bin directory.\nThis is the same folder you selected while setting up the Tweaker.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                var dlg = new CommonOpenFileDialog();
+                dlg.Title = "Select your pso2_bin folder...";
+                dlg.IsFolderPicker = true;
+                dlg.InitialDirectory = Directory.GetCurrentDirectory();
+                dlg.AddToMostRecentlyUsedList = false;
+                dlg.AllowNonFileSystemItems = false;
+                dlg.DefaultDirectory = Directory.GetCurrentDirectory();
+                dlg.EnsureFileExists = true;
+                dlg.EnsurePathExists = true;
+                dlg.EnsureReadOnly = false;
+                dlg.EnsureValidNames = true;
+                dlg.Multiselect = false;
+                dlg.ShowPlacesList = true;
+                if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    attemptDirectory = dlg.FileName;
+                    Console.WriteLine(attemptDirectory);
+                    Properties.Settings.Default.Path = attemptDirectory;
+                } else
+                {
+                    MessageBox.Show("OverParse needs a valid PSO2 installation to function.\nThe application will now close.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Application.Current.Shutdown(); // ABORT ABORT ABORT
+                    break;
+                }
             }
+
+            if (!File.Exists($"{attemptDirectory}\\pso2.exe")) { return; }
+
+            valid = true;
+
+            DirectoryInfo directory = Directory.CreateDirectory($"{attemptDirectory}\\damagelogs");
 
             if (directory.GetFiles().Count() == 0)
             {
-                Complain();
                 return;
             }
 
-            valid = true;
+            notEmpty = true;
             running = false;
             FileInfo log = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).First();
             Console.WriteLine($"Reading from {log.DirectoryName}\\{log.Name}");
@@ -66,11 +98,6 @@ namespace OverParse
             FileStream fileStream = File.Open(log.DirectoryName + "\\" + log.Name, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             fileStream.Seek(0, SeekOrigin.End);
             logreader = new StreamReader(fileStream);
-        }
-
-        public void Complain()
-        {
-            MessageBox.Show("No damage logs were found.\n\nPlease use \"System > Locate damagelogs folder...\" to select your installation directory, and make sure that the Damage Parser plugin is enabled in the Tweaker.", "Error");
         }
 
         public void WriteClipboard()
@@ -189,12 +216,17 @@ namespace OverParse
         {
             if (!valid)
             {
-                return "No logs, check \"System > Locate install folder\"!";
+                return "USER SHOULD PROBABLY NEVER SEE THIS";
+            }
+
+            if (!notEmpty)
+            {
+                return "No logs: launch PSO2 with Damage Parser plugin enabled.";
             }
 
             if (!running)
             {
-                return $"Watching for combat data...";
+                return $"Waiting for combat data...";
             }
 
             return encounterData;
@@ -230,7 +262,7 @@ namespace OverParse
 
         public void UpdateLog(object sender, EventArgs e)
         {
-            if (!valid)
+            if (!valid || !notEmpty)
             {
                 return;
             }

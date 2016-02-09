@@ -71,19 +71,19 @@
         <DockPanel HorizontalAlignment="Left">
             <Image x:Name="image" Height="16" VerticalAlignment="Top" Width="16" Source="pa_0105.ico" MouseDown="Window_MouseDown" ToolTip="Drag me!"/>
             <Menu x:Name="MenuBar" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="16">
-                <MenuItem Style="{StaticResource topmenu}" Background="Transparent" x:Name="MenuSystem" Header="System">
-                    <MenuItem Style="{StaticResource submenu}" Header="Locate install folder..." Click="MenuItem_Click"/>
-                    <MenuItem Style="{StaticResource submenu}" Header="Set encounter timeout..." Click="SetEncounterTimeout_Click"/>
-                    <MenuItem Style="{StaticResource submenu}" x:Name="SeparateZanverse" IsCheckable="True" IsChecked="True" Header="Show Zanverse damage separately" Click="SeparateZanverse_Click"/>
-                </MenuItem>
-                <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Encounter">
+                <MenuItem Style="{StaticResource topmenu}" x:Name="MenuSystem" Background="Transparent" Header="Encounter">
                     <MenuItem Style="{StaticResource submenu}" Header="End encounter" x:Name="EndEncounter" InputGestureText="Ctrl+Shift+E" Click="EndEncounter_Click"/>
+                    <Separator />
                     <MenuItem Style="{StaticResource submenu}" x:Name="AutoEndEncounters" IsCheckable="True" IsChecked="True" Header="Automatically end encounters" Click="AutoEndEncounters_Click"/>
-                    <MenuItem Style="{StaticResource submenu}" x:Name="LogToClipboard" IsCheckable="True" IsChecked="True" Header="Copy to clipboard when encounter ends" Click="LogToClipboard_Click"/>
+                    <MenuItem Style="{StaticResource submenu}" Header="Set encounter timeout..." Click="SetEncounterTimeout_Click"/>
+                    <Separator />
+                    <MenuItem Style="{StaticResource submenu}" x:Name="LogToClipboard" IsCheckable="True" IsChecked="True" Header="Log results to clipboard" Click="LogToClipboard_Click"/>
                 </MenuItem>
                 <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Display">
-                    <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Always on top" x:Name="AlwaysOnTop"/>
                     <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Show all entities" x:Name="FilterPlayers"/>
+                    <MenuItem Style="{StaticResource submenu}" x:Name="SeparateZanverse" IsCheckable="True" IsChecked="True" Header="Show Zanverse damage separately" Click="SeparateZanverse_Click"/>
+                    <Separator />
+                    <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Always on top" x:Name="AlwaysOnTop"/>
                     <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Clickthrough while inactive" x:Name="ClickthroughMode" Click="ClickthroughToggle"/>
                 </MenuItem>
                 <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Debug">
