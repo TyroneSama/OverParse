@@ -93,7 +93,8 @@
                 </MenuItem>
                 <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Help">
                     <MenuItem Style="{StaticResource submenu}" Header="About" x:Name="About" Click="About_Click"/>
-                    <MenuItem Style="{StaticResource submenu}" Header="Website" x:Name="Website" Click="Website_Click"/>
+                    <MenuItem Style="{StaticResource submenu}" Header="PSO-World release thread" Click="PSOWorld_Click"/>
+                    <MenuItem Style="{StaticResource submenu}" Header="Website" Click="Website_Click"/>
                 </MenuItem>
             </Menu>
         </DockPanel>

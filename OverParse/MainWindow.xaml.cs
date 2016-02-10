@@ -256,6 +256,11 @@ namespace OverParse
             System.Diagnostics.Process.Start("http://www.tyronesama.moe/");
         }
 
+        private void PSOWorld_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.pso-world.com/forums/showthread.php?t=232386");
+        }
+
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
