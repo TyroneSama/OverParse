@@ -51,7 +51,7 @@ namespace OverParse
             running = false;
 
             while (!File.Exists($"{attemptDirectory}\\pso2.exe")) {
-                MessageBox.Show("Please select your pso2_bin directory.\nThis is the same folder you selected while setting up the Tweaker.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Please select your pso2_bin directory.\nThis is the same folder you selected while setting up the Tweaker.", "Notice", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 VistaFolderBrowserDialog oDialog = new VistaFolderBrowserDialog();
                 oDialog.Description = "Select your pso2_bin folder...";
@@ -78,6 +78,7 @@ namespace OverParse
 
             if (directory.GetFiles().Count() == 0)
             {
+                MessageBox.Show("Your PSO2 folder doesn't contain any damagelogs. This is not an error, just a reminder!\n\nPlease turn on the Damage Parser plugin in PSO2 Tweaker (orb menu > Plugins). OverParse needs this to function. You may also want to update the plugins while you're there.\n\nIf you don't use the Tweaker, instructions for use can be found in the PSO-World release thread (under the Help menu).", "Notice", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
