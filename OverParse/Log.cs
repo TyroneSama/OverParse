@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ookii.Dialogs.Wpf;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -52,12 +53,13 @@ namespace OverParse
             while (!File.Exists($"{attemptDirectory}\\pso2.exe")) {
                 MessageBox.Show("Please select your pso2_bin directory.\nThis is the same folder you selected while setting up the Tweaker.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                var dialog = new System.Windows.Forms.FolderBrowserDialog();
-                var result = dialog.ShowDialog();
+                VistaFolderBrowserDialog oDialog = new VistaFolderBrowserDialog();
+                oDialog.Description = "Select your pso2_bin folder...";
+                oDialog.UseDescriptionForTitle = true;
 
-                if (result == System.Windows.Forms.DialogResult.OK)
+                if ((bool)oDialog.ShowDialog(Application.Current.MainWindow))
                 {
-                    attemptDirectory = dialog.SelectedPath;
+                    attemptDirectory = oDialog.SelectedPath;
                     Console.WriteLine(attemptDirectory);
                     Properties.Settings.Default.Path = attemptDirectory;
                 } else
