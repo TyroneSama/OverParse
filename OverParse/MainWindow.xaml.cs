@@ -110,6 +110,14 @@ namespace OverParse
             }
         }
 
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+        }
+
         private void Window_Activated(object sender, EventArgs e)
         {
             Window window = (Window)sender;
