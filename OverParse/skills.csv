@@ -88,7 +88,11 @@ Ilmegid,3041296659,Tech,
 Fomelgion,9380787,Tech,???
 Fomelgion,1671704953,Tech,???
 Burn,2505928584,Status,Burn status
-Wand Gear,1775820799,Tech,Wand explosions
+Hit,1775819901,Melee,Wand
+Hit,1775820734,Melee,Wand
+Hit,1775820799,Melee,Wand
+Hit,1777037248,Melee,Wand (step attack)
+Wand Gear,2614865725,Tech,Wand explosions
 Just Guard,1612949165,Special,Hunter Weapon JG
 Snatch Step,3943870236,Melee,Braver Snatch Step
 Step Attack,1216456228,Melee,Sword
