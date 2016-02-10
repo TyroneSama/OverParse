@@ -25,7 +25,7 @@ namespace OverParse.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\BROKEN\\PATH")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\PHANTASYSTARONLINE2\\pso2_bin")]
         public string Path {
             get {
                 return ((string)(this["Path"]));

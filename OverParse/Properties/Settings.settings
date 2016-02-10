@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Path" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\BROKEN\PATH</Value>
+      <Value Profile="(Default)">C:\PHANTASYSTARONLINE2\pso2_bin</Value>
     </Setting>
     <Setting Name="Top" Type="System.Double" Scope="User">
       <Value Profile="(Default)">50</Value>
