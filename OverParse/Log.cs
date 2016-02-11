@@ -279,6 +279,10 @@ namespace OverParse
                         string isMisc = parts[11];
                         string isMisc2 = parts[12];
                         int index = -1;
+
+                        if (hitDamage < 1)
+                            continue;
+
                         foreach (Combatant x in combatants)
                         {
                             if (x.ID == sourceID)
@@ -309,25 +313,16 @@ namespace OverParse
                         }
 
                         Combatant source = combatants[index];
-                        if (hitDamage > 0)
-                        {
-                            source.Damage += hitDamage;
-                            newTimestamp = int.Parse(lineTimestamp);
-                            if (startTimestamp == 0)
-                            {
-                                startTimestamp = newTimestamp;
-                            }
 
-                            source.Attacks.Add(new Attack(attackID, hitDamage, newTimestamp - startTimestamp));
-                            running = true;
-                        }
-                        else
+                        source.Damage += hitDamage;
+                        newTimestamp = int.Parse(lineTimestamp);
+                        if (startTimestamp == 0)
                         {
-                            if (startTimestamp != 0)
-                            {
-                                source.Healing -= hitDamage;
-                            }
+                            startTimestamp = newTimestamp;
                         }
+
+                        source.Attacks.Add(new Attack(attackID, hitDamage, newTimestamp - startTimestamp));
+                        running = true;
 
                         if (source.MaxHitNum < hitDamage)
                         {
