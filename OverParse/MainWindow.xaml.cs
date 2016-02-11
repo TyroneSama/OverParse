@@ -9,6 +9,7 @@ using System.Windows.Interop;
 using NHotkey.Wpf;
 using NHotkey;
 using System.Linq;
+using System.Diagnostics;
 
 namespace OverParse
 {
@@ -204,6 +205,12 @@ namespace OverParse
             }
 
             encounterlog = new Log(Properties.Settings.Default.Path);
+        }
+
+        private void OpenLogsFolder_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(Directory.GetCurrentDirectory() + "\\logs");
+            Process.Start(Directory.GetCurrentDirectory() + "\\logs");
         }
 
         private void AutoEndEncounters_Click(object sender, RoutedEventArgs e)
