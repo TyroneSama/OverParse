@@ -334,6 +334,12 @@ namespace OverParse
                 }
 
                 combatants.Sort((x, y) => y.Damage.CompareTo(x.Damage));
+
+                if (startTimestamp != 0 && newTimestamp == startTimestamp)
+                {
+                    encounterData = "00:00 - ∞ DPS";
+                }
+
                 if (startTimestamp != 0 && newTimestamp != startTimestamp)
                 {
                     int elapsed = newTimestamp - startTimestamp;
