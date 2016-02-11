@@ -16,7 +16,7 @@ namespace OverParse
         public int newTimestamp = 0;
         public string filename;
         string encounterData;
-        StreamReader logreader;
+        StreamReader logReader;
         public List<Combatant> combatants = new List<Combatant>();
         Random random = new Random();
         string FormatNumber(int num)
@@ -50,7 +50,8 @@ namespace OverParse
             notEmpty = false;
             running = false;
 
-            while (!File.Exists($"{attemptDirectory}\\pso2.exe")) {
+            while (!File.Exists($"{attemptDirectory}\\pso2.exe"))
+            {
                 MessageBox.Show("Please select your pso2_bin directory.\nThis is the same folder you selected while setting up the Tweaker.", "Notice", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 VistaFolderBrowserDialog oDialog = new VistaFolderBrowserDialog();
@@ -62,7 +63,8 @@ namespace OverParse
                     attemptDirectory = oDialog.SelectedPath;
                     Console.WriteLine(attemptDirectory);
                     Properties.Settings.Default.Path = attemptDirectory;
-                } else
+                }
+                else
                 {
                     MessageBox.Show("OverParse needs a valid PSO2 installation to function.\nThe application will now close.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                     Application.Current.Shutdown(); // ABORT ABORT ABORT
@@ -89,7 +91,7 @@ namespace OverParse
             filename = log.Name;
             FileStream fileStream = File.Open(log.DirectoryName + "\\" + log.Name, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             fileStream.Seek(0, SeekOrigin.End);
-            logreader = new StreamReader(fileStream);
+            logReader = new StreamReader(fileStream);
         }
 
         public void WriteClipboard()
@@ -190,7 +192,7 @@ namespace OverParse
                             if (!MainWindow.skillDict.ContainsKey(a.ID))
                             {
                                 TimeSpan t = TimeSpan.FromSeconds(a.Timestamp);
-                                
+
                                 result += $"{t.ToString(@"hh\h\:mm\m\:ss\s\:fff\m\s")} -- {a.ID} dealing {a.Damage} dmg" + Environment.NewLine;
                             }
                         }
@@ -259,7 +261,7 @@ namespace OverParse
                 return;
             }
 
-            string newLines = logreader.ReadToEnd();
+            string newLines = logReader.ReadToEnd();
             if (newLines != "")
             {
                 string[] result = newLines.Split('\n');
@@ -271,7 +273,7 @@ namespace OverParse
                         string lineTimestamp = parts[0];
                         string sourceID = parts[2];
                         string sourceName = parts[3];
-                        int hitDamage = Int32.Parse(parts[7]);
+                        int hitDamage = int.Parse(parts[7]);
                         string attackID = parts[6];
                         string isMultiHit = parts[10];
                         string isMisc = parts[11];
@@ -310,7 +312,7 @@ namespace OverParse
                         if (hitDamage > 0)
                         {
                             source.Damage += hitDamage;
-                            newTimestamp = Int32.Parse(lineTimestamp);
+                            newTimestamp = int.Parse(lineTimestamp);
                             if (startTimestamp == 0)
                             {
                                 startTimestamp = newTimestamp;

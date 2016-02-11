@@ -6,66 +6,22 @@ namespace OverParse
 {
     public class Combatant
     {
-        public int Damage
-        {
-            get;
-            set;
-        }
-
-        public int Healing
-        {
-            get;
-            set;
-        }
-
-        public string ID
-        {
-            get;
-            set;
-        }
-
-        public string Name
-        {
-            get;
-            set;
-        }
-
-        public int MaxHitNum
-        {
-            get;
-            set;
-        }
-
-        public string MaxHitID
-        {
-            get;
-            set;
-        }
-
-        public float DPS
-        {
-            get;
-            set;
-        }
-
-        public float PercentDPS
-        {
-            get;
-            set;
-        }
-
-        public List<Attack> Attacks
-        {
-            get;
-            set;
-        }
+        public int Damage;
+        public int Healing;
+        public string ID;
+        public string Name;
+        public int MaxHitNum;
+        public string MaxHitID;
+        public float DPS;
+        public float PercentDPS;
+        public List<Attack> Attacks;
 
         public bool isAlly
         {
             get
             {
                 string[] SuAttacks = {"487482498", "2785585589", "639929291"};
-                if (Int32.Parse(ID) >= 10000000)
+                if (int.Parse(ID) >= 10000000)
                 {
                     return true;
                 }
