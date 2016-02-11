@@ -9,7 +9,8 @@ namespace OverParse
         public int Damage;
         public int Healing;
         public string ID;
-        public string Name;
+        public string Name {
+            get; set; }
         public int MaxHitNum;
         public string MaxHitID;
         public float DPS;
