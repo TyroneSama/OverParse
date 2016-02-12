@@ -335,7 +335,7 @@ namespace OverParse
 
                 combatants.Sort((x, y) => y.Damage.CompareTo(x.Damage));
 
-                if (startTimestamp != 0 && newTimestamp == startTimestamp)
+                if (startTimestamp != 0)
                 {
                     encounterData = "00:00 - ∞ DPS";
                 }
