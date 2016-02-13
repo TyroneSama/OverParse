@@ -86,7 +86,7 @@
                     <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Show all entities" x:Name="FilterPlayers"/>
                     <MenuItem Style="{StaticResource submenu}" x:Name="SeparateZanverse" IsCheckable="True" IsChecked="True" Header="Show Zanverse damage separately" Click="SeparateZanverse_Click"/>
                     <Separator />
-                    <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Always on top" x:Name="AlwaysOnTop"/>
+                    <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Always on top" x:Name="AlwaysOnTop" Click="AlwaysOnTop_Click"/>
                     <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Clickthrough while inactive" x:Name="ClickthroughMode" Click="ClickthroughToggle"/>
                 </MenuItem>
                 <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Debug">

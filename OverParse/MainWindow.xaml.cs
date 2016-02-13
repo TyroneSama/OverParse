@@ -45,6 +45,7 @@ namespace OverParse
             SeparateZanverse.IsChecked = Properties.Settings.Default.SeparateZanverse;
             ClickthroughMode.IsChecked = Properties.Settings.Default.ClickthroughEnabled;
             LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard;
+            AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop;
             HotkeyManager.Current.AddOrReplace("Increment", Key.E, ModifierKeys.Control | ModifierKeys.Shift, EndEncounter_Key);
             if (Properties.Settings.Default.Maximized)
             {
@@ -107,6 +108,12 @@ namespace OverParse
             Properties.Settings.Default.ClickthroughEnabled = ClickthroughMode.IsChecked;
         }
 
+
+        private void AlwaysOnTop_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AlwaysOnTop = AlwaysOnTop.IsChecked;
+        }
+
         private void Window_Deactivated(object sender, EventArgs e)
         {
             Window window = (Window)sender;
@@ -155,12 +162,29 @@ namespace OverParse
             if (encounterlog.running)
             {
                 CombatantData.Items.Clear();
+
                 foreach (Combatant c in encounterlog.combatants)
                 {
                     if (c.isAlly || FilterPlayers.IsChecked)
                     {
                         CombatantData.Items.Add(c);
                     }
+                }
+
+                int index = -1; // there's probably a way better way of doing this, maybe someday i'll learn LINQ
+                Combatant reorder = null;
+                foreach (Combatant c in encounterlog.combatants)
+                {
+                    if (c.Name == "Zanverse")
+                    {
+                        index = encounterlog.combatants.IndexOf(c);
+                        reorder = c;
+                    }
+                }
+                if (index != -1)
+                {
+                    encounterlog.combatants.RemoveAt(index);
+                    encounterlog.combatants.Add(reorder);
                 }
 
                 if (Properties.Settings.Default.AutoEndEncounters)
