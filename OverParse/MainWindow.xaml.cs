@@ -10,6 +10,7 @@ using NHotkey.Wpf;
 using NHotkey;
 using System.Linq;
 using System.Diagnostics;
+using System.Net;
 
 namespace OverParse
 {
@@ -29,6 +30,12 @@ namespace OverParse
         public MainWindow()
         {
             InitializeComponent();
+
+            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://107.170.16.100/Plugins/PSO2DamageDump.dll");
+            //request.Method = "HEAD";
+            //HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
+            //Console.WriteLine(resp.LastModified);
+
             Directory.CreateDirectory("logs");
             this.Top = Properties.Settings.Default.Top;
             this.Left = Properties.Settings.Default.Left;
