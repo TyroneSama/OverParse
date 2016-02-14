@@ -36,6 +36,12 @@ namespace OverParse
             //HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
             //Console.WriteLine(resp.LastModified);
 
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+            }
+
             Directory.CreateDirectory("logs");
             this.Top = Properties.Settings.Default.Top;
             this.Left = Properties.Settings.Default.Left;
