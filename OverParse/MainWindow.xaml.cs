@@ -40,6 +40,7 @@ namespace OverParse
             {
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.FirstRun = true;
             }
 
             try { Directory.CreateDirectory("logs"); }
