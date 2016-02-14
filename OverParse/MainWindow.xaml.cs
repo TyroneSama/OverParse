@@ -163,14 +163,6 @@ namespace OverParse
             {
                 CombatantData.Items.Clear();
 
-                foreach (Combatant c in encounterlog.combatants)
-                {
-                    if (c.isAlly || FilterPlayers.IsChecked)
-                    {
-                        CombatantData.Items.Add(c);
-                    }
-                }
-
                 int index = -1; // there's probably a way better way of doing this, maybe someday i'll learn LINQ
                 Combatant reorder = null;
                 foreach (Combatant c in encounterlog.combatants)
@@ -185,6 +177,14 @@ namespace OverParse
                 {
                     encounterlog.combatants.RemoveAt(index);
                     encounterlog.combatants.Add(reorder);
+                }
+
+                foreach (Combatant c in encounterlog.combatants)
+                {
+                    if (c.isAlly || FilterPlayers.IsChecked)
+                    {
+                        CombatantData.Items.Add(c);
+                    }
                 }
 
                 if (Properties.Settings.Default.AutoEndEncounters)
