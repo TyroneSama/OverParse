@@ -76,16 +76,30 @@ namespace OverParse
 
             valid = true;
 
-            DirectoryInfo directory = Directory.CreateDirectory($"{attemptDirectory}\\damagelogs");
+            Console.WriteLine("attempting");
+            DirectoryInfo directory =  new DirectoryInfo($"{attemptDirectory}\\damagelogs");
+            Console.WriteLine("w0nr");
 
             if (Properties.Settings.Default.FirstRun)
             {
                 MessageBoxResult tweakerResult = MessageBox.Show("Do you use the PSO2 Tweaker?", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (tweakerResult == MessageBoxResult.OK)
+                if (tweakerResult == MessageBoxResult.Yes)
                 {
-                    if (directory.GetFiles().Count() == 0)
+                    bool warn = true;
+                    if (directory.Exists)
                     {
+                        if (directory.GetFiles().Count() > 0)
+                        {
+                            warn = false;
+                        }
+                    }
+
+                    if (warn)
+                    {
+                        Console.WriteLine("hurr");
                         MessageBox.Show("Your PSO2 folder doesn't contain any damagelogs. This is not an error, just a reminder!\n\nPlease turn on the Damage Parser plugin in PSO2 Tweaker (orb menu > Plugins). OverParse needs this to function. You may also want to update the plugins while you're there.", "Notice", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Properties.Settings.Default.FirstRun = false;
+                        Properties.Settings.Default.Save();
                         return;
                     }
                 }
@@ -124,8 +138,13 @@ namespace OverParse
                 Properties.Settings.Default.Save();
             }
 
+            if (!directory.Exists)
+                return;
+            if (directory.GetFiles().Count() == 0)
+                return;
+
             notEmpty = true;
-            running = false;
+
             FileInfo log = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).First();
             Console.WriteLine($"Reading from {log.DirectoryName}\\{log.Name}");
             filename = log.Name;
