@@ -59,7 +59,7 @@ namespace OverParse
         {
             get
             {
-                if (PercentDPS == -1)
+                if (Math.Round(PercentDPS) == -1)
                 {
                     return "--";
                 }
