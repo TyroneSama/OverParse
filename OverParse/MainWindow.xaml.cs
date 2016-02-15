@@ -391,6 +391,11 @@ namespace OverParse
             Process.Start("http://twitch.tv/tyronesama");
         }
 
+        private void SWiki_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("http://pso2.swiki.jp/");
+        }
+
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

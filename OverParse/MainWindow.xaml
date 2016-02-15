@@ -107,6 +107,7 @@
                                     <MenuItem Style="{StaticResource submenu}" Header="EQ Schedule" Click="EQSchedule_Click"/>
                                     <MenuItem Style="{StaticResource submenu}" Header="Arks Layer" Click="ArksLayer_Click"/>
                                     <MenuItem Style="{StaticResource submenu}" Header="Bumped" Click="Bumped_Click"/>
+                                    <MenuItem Style="{StaticResource submenu}" Header="SWiki" Click="SWiki_Click"/> "
                                     <MenuItem Style="{StaticResource submenu}" Header="Fulldive" Click="Fulldive_Click"/>
                                     <MenuItem Style="{StaticResource submenu}" Header="twitch.tv/tyronesama" Click="ShamelessPlug_Click"/>
                                     <Separator />
