@@ -79,7 +79,8 @@ namespace OverParse
             }
 
             Console.WriteLine("Initializing hotkeys");
-            HotkeyManager.Current.AddOrReplace("Increment", Key.E, ModifierKeys.Control | ModifierKeys.Shift, EndEncounter_Key);
+            HotkeyManager.Current.AddOrReplace("End Encounter", Key.E, ModifierKeys.Control | ModifierKeys.Shift, EndEncounter_Key);
+            HotkeyManager.Current.AddOrReplace("Debug Menu", Key.F11, ModifierKeys.Control | ModifierKeys.Shift, DebugMenu_Key);
 
             Console.WriteLine("Reading skills.csv");
             string[] tmp = File.ReadAllLines("skills.csv");
@@ -135,6 +136,13 @@ namespace OverParse
         {
             Console.WriteLine("Encounter hotkey pressed");
             EndEncounter_Click(null, null);
+            e.Handled = true;
+        }
+
+        private void DebugMenu_Key(object sender, HotkeyEventArgs e)
+        {
+            Console.WriteLine("Debug hotkey pressed");
+            DebugMenu.Visibility = Visibility.Visible;
             e.Handled = true;
         }
 

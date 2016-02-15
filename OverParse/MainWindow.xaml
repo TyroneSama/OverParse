@@ -95,7 +95,7 @@
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Always on top" x:Name="AlwaysOnTop" Click="AlwaysOnTop_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Clickthrough while inactive" x:Name="ClickthroughMode" Click="ClickthroughToggle"/>
                             </MenuItem>
-                            <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Debug">
+                            <MenuItem Style="{StaticResource topmenu}" x:Name="DebugMenu" Visibility="Collapsed" Background="Transparent" Header="Debug">
                                 <MenuItem Style="{StaticResource submenu}" Header="Generate fake entries" x:Name="GenerateFakeEntries" Click="GenerateFakeEntries_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" Header="Window stats" x:Name="WindowStats" Click="WindowStats_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" Header="Current log filename" x:Name="CurrentLogFilename" Click="CurrentLogFilename_Click"/>
