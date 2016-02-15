@@ -72,6 +72,7 @@ namespace OverParse
             ClickthroughMode.IsChecked = Properties.Settings.Default.ClickthroughEnabled;
             LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard;
             AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop;
+            CompactMode.IsChecked = Properties.Settings.Default.CompactMode; CompactMode_Click(null, null);
             if (Properties.Settings.Default.Maximized)
             {
                 WindowState = WindowState.Maximized;
@@ -146,6 +147,18 @@ namespace OverParse
         private void AlwaysOnTop_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.AlwaysOnTop = AlwaysOnTop.IsChecked;
+        }
+
+        private void CompactMode_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.CompactMode = CompactMode.IsChecked;
+            if (CompactMode.IsChecked)
+            {
+                MaxHitHelper.Width = new GridLength(0, GridUnitType.Star);
+            } else
+            {
+                MaxHitHelper.Width = new GridLength(3, GridUnitType.Star);
+            }
         }
 
         private void Window_Deactivated(object sender, EventArgs e)

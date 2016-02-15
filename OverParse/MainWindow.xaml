@@ -91,6 +91,7 @@
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Show all entities" x:Name="FilterPlayers"/>
                                 <MenuItem Style="{StaticResource submenu}" x:Name="SeparateZanverse" IsCheckable="True" IsChecked="True" Header="Show Zanverse damage separately" Click="SeparateZanverse_Click"/>
                                 <Separator />
+                                <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Compact mode" x:Name="CompactMode" Click="CompactMode_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Always on top" x:Name="AlwaysOnTop" Click="AlwaysOnTop_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Clickthrough while inactive" x:Name="ClickthroughMode" Click="ClickthroughToggle"/>
                             </MenuItem>
@@ -158,7 +159,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Max Hit" Width="{Binding ElementName=helper4, Path=ActualWidth}">
+                                <GridViewColumn Header="Max Hit" x:Name="MaxHitColumn" Width="{Binding ElementName=helper4, Path=ActualWidth}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Margin="-4,0" Text="{Binding MaxHit}" TextAlignment="Right"/>
@@ -173,7 +174,7 @@
                             <ColumnDefinition Width="1.5*"/>
                             <ColumnDefinition Width="1.5*"/>
                             <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition x:Name="MaxHitHelper" Width="3*"/>
                         </Grid.ColumnDefinitions>
                         <!--This is the hidden helper Field which is used to bind to, using the "Fill" column of the helper grid-->
                         <Grid Grid.Column="0" x:Name="helper1"/>
