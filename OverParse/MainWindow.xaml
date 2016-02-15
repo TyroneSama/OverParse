@@ -85,7 +85,6 @@
                                 <MenuItem Style="{StaticResource submenu}" x:Name="LogToClipboard" IsCheckable="True" IsChecked="True" Header="Log results to clipboard" Click="LogToClipboard_Click"/>
                                 <Separator />
                                 <MenuItem Style="{StaticResource submenu}" Header="Open logs folder..." Click="OpenLogsFolder_Click"/>
-                                <Separator />
                             </MenuItem>
                             <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Display">
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Show only players" x:Name="FilterPlayers"/>
