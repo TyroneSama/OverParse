@@ -303,17 +303,42 @@ namespace OverParse
 
         private void Website_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.tyronesama.moe/");
+            Process.Start("http://www.tyronesama.moe/");
         }
 
         private void PSOWorld_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.pso-world.com/forums/showthread.php?t=232386");
+            Process.Start("http://www.pso-world.com/forums/showthread.php?t=232386");
         }
 
         private void GitHub_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.pso-world.com/forums/showthread.php?t=232386");
+            Process.Start("http://www.pso-world.com/forums/showthread.php?t=232386");
+        }
+
+        private void EQSchedule_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://calendar.google.com/calendar/embed?src=pso2emgquest@gmail.com&mode=agenda");
+        }
+
+        private void ArksLayer_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("http://arks-layer.com/");
+        }
+
+        private void Bumped_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("http://www.bumped.org/psublog/");
+        }
+
+        private void Fulldive_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("http://www.fulldive.nu/");
+        }
+
+        private void ShamelessPlug_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("http://twitch.tv/tyronesama");
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
