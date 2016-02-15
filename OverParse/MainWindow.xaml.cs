@@ -228,7 +228,7 @@ namespace OverParse
 
                 foreach (Combatant c in encounterlog.combatants)
                 {
-                    if (c.isAlly || FilterPlayers.IsChecked)
+                    if (c.isAlly || !FilterPlayers.IsChecked)
                     {
                         CombatantData.Items.Add(c);
                     }
