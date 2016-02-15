@@ -54,6 +54,7 @@ namespace OverParse
             this.Height = Properties.Settings.Default.Height;
             this.Width = Properties.Settings.Default.Width;
             AutoEndEncounters.IsChecked = Properties.Settings.Default.AutoEndEncounters;
+            SetEncounterTimeout.IsEnabled = AutoEndEncounters.IsChecked;
             SeparateZanverse.IsChecked = Properties.Settings.Default.SeparateZanverse;
             ClickthroughMode.IsChecked = Properties.Settings.Default.ClickthroughEnabled;
             LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard;
@@ -259,6 +260,7 @@ namespace OverParse
         private void AutoEndEncounters_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.AutoEndEncounters = AutoEndEncounters.IsChecked;
+            SetEncounterTimeout.IsEnabled = AutoEndEncounters.IsChecked;
         }
 
         private void SeparateZanverse_Click(object sender, RoutedEventArgs e)
@@ -268,6 +270,8 @@ namespace OverParse
 
         private void SetEncounterTimeout_Click(object sender, RoutedEventArgs e)
         {
+            AlwaysOnTop.IsChecked = false;
+
             int x;
             string input = Microsoft.VisualBasic.Interaction.InputBox("How many seconds should the system wait before stopping an encounter?", "Encounter Timeout", Properties.Settings.Default.EncounterTimeout.ToString());
             if (Int32.TryParse(input, out x))
@@ -288,6 +292,8 @@ namespace OverParse
                     MessageBox.Show("Couldn't parse your input. Enter only a number.");
                 }
             }
+
+            AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop;
         }
 
         private void Placeholder_Click(object sender, RoutedEventArgs e)
