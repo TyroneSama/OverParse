@@ -164,7 +164,7 @@ namespace OverParse
             EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 100, 100));
             if (encounterlog.valid && encounterlog.notEmpty)
             {
-                EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 100));
+                EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
             }
 
             if (encounterlog.running)
