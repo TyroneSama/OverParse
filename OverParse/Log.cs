@@ -19,30 +19,6 @@ namespace OverParse
         StreamReader logReader;
         public List<Combatant> combatants = new List<Combatant>();
         Random random = new Random();
-        string FormatNumber(int num)
-        {
-            if (num >= 100000000)
-            {
-                return (num / 1000000D).ToString("0.#M");
-            }
-
-            if (num >= 1000000)
-            {
-                return (num / 1000000D).ToString("0.##M");
-            }
-
-            if (num >= 100000)
-            {
-                return (num / 1000D).ToString("0.#K");
-            }
-
-            if (num >= 10000)
-            {
-                return (num / 1000D).ToString("0.##K");
-            }
-
-            return num.ToString("#,0");
-        }
 
         public Log(string attemptDirectory)
         {
@@ -82,6 +58,7 @@ namespace OverParse
 
             if (Properties.Settings.Default.FirstRun)
             {
+                bool unsetFirstRun = true;
                 MessageBoxResult tweakerResult = MessageBox.Show("Do you use the PSO2 Tweaker?", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (tweakerResult == MessageBoxResult.Yes)
                 {
@@ -105,8 +82,21 @@ namespace OverParse
                 }
                 else if (tweakerResult == MessageBoxResult.No)
                 {
-                    MessageBoxResult selfdestructResult = MessageBox.Show("OverParse needs a Tweaker plugin to recieve its damage information.\n\nThe plugin can be installed without the Tweaker, but it won't be automatically updated, and I can't provide support for this method.\n\nDo you want to try to manually install the Damage Parser plugin?", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (selfdestructResult == MessageBoxResult.No)
+                    bool pluginsExist = File.Exists(attemptDirectory + "\\pso2h.dll") && File.Exists(attemptDirectory + "\\ddraw.dll") && File.Exists(attemptDirectory + "\\plugins" + "\\PSO2DamageDump.dll");
+
+                    MessageBoxResult selfdestructResult;
+                    if (pluginsExist)
+                    {
+                        selfdestructResult = MessageBox.Show("Would you like to update your plugins to the version included with OverParse?\n\nOverParse may behave unpredictably if you use a different version than it expects.", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    } else
+                    {
+                        selfdestructResult = MessageBox.Show("OverParse needs a Tweaker plugin to recieve its damage information.\n\nThe plugin can be installed without the Tweaker, but it won't be automatically updated, and I can't provide support for this method.\n\nDo you want to try to manually install the Damage Parser plugin?", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    }
+
+                    if (selfdestructResult == MessageBoxResult.No && pluginsExist)
+                        unsetFirstRun = false;
+                    
+                    if (selfdestructResult == MessageBoxResult.No && !pluginsExist)
                     {
                         MessageBox.Show("OverParse needs the Damage Parser plugin to function.\n\nThe application will now close.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
                         Application.Current.Shutdown();
@@ -124,7 +114,7 @@ namespace OverParse
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Something went wrong with manual installation. When you complain to TyroneSama, please include the following text:\n\n" + ex.ToString(), "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("Something went wrong with manual installation. (This usually means that some of the files were in use: try again with PSO2 closed.)\n\nIf that's not the problem, then when you complain to TyroneSama, please include the following text:\n\n" + ex.ToString(), "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Error);
                             Application.Current.Shutdown();
                             return;
                         }
@@ -134,8 +124,12 @@ namespace OverParse
                     }
                 }
 
-                Properties.Settings.Default.FirstRun = false;
-                Properties.Settings.Default.Save();
+                if (unsetFirstRun)
+                {
+                    Properties.Settings.Default.FirstRun = false;
+                    Properties.Settings.Default.Save();
+                }
+
             }
 
             if (!directory.Exists)
@@ -436,6 +430,61 @@ namespace OverParse
                     encounterData += $" - {partyDPS.ToString("0.00")} DPS";
                 }
             }
+        }
+
+        private bool FileCompare(string file1, string file2)
+        {
+            int file1byte;
+            int file2byte;
+            FileStream fs1;
+            FileStream fs2;
+            if (file1 == file2)
+            {
+                return true;
+            }
+            fs1 = new FileStream(file1, FileMode.Open, FileAccess.Read);
+            fs2 = new FileStream(file2, FileMode.Open, FileAccess.Read);
+            if (fs1.Length != fs2.Length)
+            {
+                fs1.Close();
+                fs2.Close();
+                return false;
+            }
+
+            do
+            {
+                file1byte = fs1.ReadByte();
+                file2byte = fs2.ReadByte();
+            }
+            while ((file1byte == file2byte) && (file1byte != -1));
+            fs1.Close();
+            fs2.Close();
+            return ((file1byte - file2byte) == 0);
+        }
+
+        string FormatNumber(int num)
+        {
+            if (num >= 100000000)
+            {
+                return (num / 1000000D).ToString("0.#M");
+            }
+
+            if (num >= 1000000)
+            {
+                return (num / 1000000D).ToString("0.##M");
+            }
+
+            if (num >= 100000)
+            {
+                return (num / 1000D).ToString("0.#K");
+            }
+
+            if (num >= 10000)
+            {
+                return (num / 1000D).ToString("0.##K");
+            }
+
+            return num.ToString("#,0");
         }
     }
 }
