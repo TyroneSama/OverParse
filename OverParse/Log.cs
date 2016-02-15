@@ -28,6 +28,7 @@ namespace OverParse
 
             while (!File.Exists($"{attemptDirectory}\\pso2.exe"))
             {
+                Console.WriteLine("Invalid pso2_bin directory, prompting for new one...");
                 MessageBox.Show("Please select your pso2_bin directory.\nThis is the same folder you selected while setting up the Tweaker.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 VistaFolderBrowserDialog oDialog = new VistaFolderBrowserDialog();
@@ -37,11 +38,12 @@ namespace OverParse
                 if ((bool)oDialog.ShowDialog(Application.Current.MainWindow))
                 {
                     attemptDirectory = oDialog.SelectedPath;
-                    Console.WriteLine(attemptDirectory);
+                    Console.WriteLine($"Testing {attemptDirectory} as pso2_bin directory...");
                     Properties.Settings.Default.Path = attemptDirectory;
                 }
                 else
                 {
+                    Console.WriteLine("Canceled out of directory picker");
                     MessageBox.Show("OverParse needs a valid PSO2 installation to function.\nThe application will now close.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
                     Application.Current.Shutdown(); // ABORT ABORT ABORT
                     break;
@@ -52,12 +54,12 @@ namespace OverParse
 
             valid = true;
 
-            Console.WriteLine("attempting");
+            Console.WriteLine("Making sure pso2_bin\\damagelogs exists");
             DirectoryInfo directory =  new DirectoryInfo($"{attemptDirectory}\\damagelogs");
-            Console.WriteLine("w0nr");
 
             if (Properties.Settings.Default.FirstRun)
             {
+                Console.WriteLine("First run");
                 bool unsetFirstRun = true;
                 MessageBoxResult tweakerResult = MessageBox.Show("Do you use the PSO2 Tweaker?", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (tweakerResult == MessageBoxResult.Yes)
@@ -73,7 +75,7 @@ namespace OverParse
 
                     if (warn)
                     {
-                        Console.WriteLine("hurr");
+                        Console.WriteLine("No damagelog warning");
                         MessageBox.Show("Your PSO2 folder doesn't contain any damagelogs. This is not an error, just a reminder!\n\nPlease turn on the Damage Parser plugin in PSO2 Tweaker (orb menu > Plugins). OverParse needs this to function. You may also want to update the plugins while you're there.", "Notice", MessageBoxButton.OK, MessageBoxImage.Information);
                         Properties.Settings.Default.FirstRun = false;
                         Properties.Settings.Default.Save();
@@ -87,9 +89,11 @@ namespace OverParse
                     MessageBoxResult selfdestructResult;
                     if (pluginsExist)
                     {
+                        Console.WriteLine("Prompting for plugin update");
                         selfdestructResult = MessageBox.Show("Would you like to update your plugins to the version included with OverParse?\n\nOverParse may behave unpredictably if you use a different version than it expects.", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     } else
                     {
+                        Console.WriteLine("Prompting for plugin install");
                         selfdestructResult = MessageBox.Show("OverParse needs a Tweaker plugin to recieve its damage information.\n\nThe plugin can be installed without the Tweaker, but it won't be automatically updated, and I can't provide support for this method.\n\nDo you want to try to manually install the Damage Parser plugin?", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     }
 
@@ -98,12 +102,14 @@ namespace OverParse
                     
                     if (selfdestructResult == MessageBoxResult.No && !pluginsExist)
                     {
+                        Console.WriteLine("Denied plugin install");
                         MessageBox.Show("OverParse needs the Damage Parser plugin to function.\n\nThe application will now close.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
                         Application.Current.Shutdown();
                         return;
                     }
                     else if (selfdestructResult == MessageBoxResult.Yes)
                     {
+                        Console.WriteLine("Accepted plugin install");
                         try
                         {
                             File.Copy(Directory.GetCurrentDirectory() + "\\resources\\pso2h.dll", attemptDirectory + "\\pso2h.dll", true);
@@ -111,10 +117,12 @@ namespace OverParse
                             Directory.CreateDirectory(attemptDirectory + "\\plugins");
                             File.Copy(Directory.GetCurrentDirectory() + "\\resources\\PSO2DamageDump.dll", attemptDirectory + "\\plugins" + "\\PSO2DamageDump.dll", true);
                             MessageBox.Show("Setup complete! A few files have been copied to your pso2_bin folder.\n\nIf PSO2 is running right now, you'll need to close it before the changes can take effect.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
+                            Console.WriteLine("Plugin install successful");
                         }
                         catch (Exception ex)
                         {
                             MessageBox.Show("Something went wrong with manual installation. (This usually means that some of the files were in use: try again with PSO2 closed.)\n\nIf that's not the problem, then when you complain to TyroneSama, please include the following text:\n\n" + ex.ToString(), "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Error);
+                            Console.WriteLine($"PLUGIN INSTALL FAILED: {ex.ToString()}");
                             Application.Current.Shutdown();
                             return;
                         }
@@ -179,12 +187,24 @@ namespace OverParse
 
         public void WriteLog()
         {
+            Console.WriteLine("Logging encounter information to file");
             if (combatants.Count != 0)
             {
                 int elapsed = newTimestamp - startTimestamp;
                 TimeSpan timespan = TimeSpan.FromSeconds(elapsed);
                 string timer = timespan.ToString(@"mm\:ss");
                 string log = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + " | " + timer + Environment.NewLine;
+
+                log += Environment.NewLine;
+
+                foreach (Combatant c in combatants)
+                {
+                    if (c.isAlly)
+                        log += $"{c.Name} | {c.Damage} dmg | {c.DPSReadout} contrib | {c.DPS} DPS | Max: {c.MaxHit}" + Environment.NewLine;
+                }
+
+                log += Environment.NewLine;
+
                 foreach (Combatant c in combatants)
                 {
                     if (c.isAlly)
@@ -229,13 +249,8 @@ namespace OverParse
                     }
                 }
 
-                foreach (Combatant c in combatants)
-                {
-                    log += $"{c.Name} | {c.Damage} dmg | {c.DPSReadout} contrib | {c.DPS} DPS | Max: {c.MaxHit}" + Environment.NewLine;
-                }
-
                 File.WriteAllText("logs/OverParse Log - " + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", log);
-                string result = "";
+
                 foreach (Combatant c in combatants)
                 {
                     if (c.Name == "YOU")
@@ -245,15 +260,10 @@ namespace OverParse
                             if (!MainWindow.skillDict.ContainsKey(a.ID))
                             {
                                 TimeSpan t = TimeSpan.FromSeconds(a.Timestamp);
-
-                                result += $"{t.ToString(@"hh\h\:mm\m\:ss\s\:fff\m\s")} -- {a.ID} dealing {a.Damage} dmg" + Environment.NewLine;
+                                Console.WriteLine($"UNMAPPED ATTACK - {t.ToString(@"hh\h\:mm\m\:ss\s\:fff\m\s")} -- {a.ID} dealing {a.Damage} dmg" + Environment.NewLine);
                             }
                         }
 
-                        if (result != "")
-                        {
-                            File.WriteAllText($"logs/Unmapped Attack Log - " + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", result);
-                        }
                     }
                 }
             }
@@ -371,6 +381,7 @@ namespace OverParse
                         newTimestamp = int.Parse(lineTimestamp);
                         if (startTimestamp == 0)
                         {
+                            Console.WriteLine($"FIRST ATTACK RECORDED: {hitDamage} from {sourceID} with {attackID}");
                             startTimestamp = newTimestamp;
                         }
 
@@ -430,36 +441,6 @@ namespace OverParse
                     encounterData += $" - {partyDPS.ToString("0.00")} DPS";
                 }
             }
-        }
-
-        private bool FileCompare(string file1, string file2)
-        {
-            int file1byte;
-            int file2byte;
-            FileStream fs1;
-            FileStream fs2;
-            if (file1 == file2)
-            {
-                return true;
-            }
-            fs1 = new FileStream(file1, FileMode.Open, FileAccess.Read);
-            fs2 = new FileStream(file2, FileMode.Open, FileAccess.Read);
-            if (fs1.Length != fs2.Length)
-            {
-                fs1.Close();
-                fs2.Close();
-                return false;
-            }
-
-            do
-            {
-                file1byte = fs1.ReadByte();
-                file2byte = fs2.ReadByte();
-            }
-            while ((file1byte == file2byte) && (file1byte != -1));
-            fs1.Close();
-            fs2.Close();
-            return ((file1byte - file2byte) == 0);
         }
 
         string FormatNumber(int num)

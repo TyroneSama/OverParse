@@ -43,13 +43,25 @@ namespace OverParse
                 Application.Current.Shutdown();
             }
 
+            Directory.CreateDirectory("debug");
+
+            FileStream filestream = new FileStream("debug\\log_" + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", FileMode.Create);
+            var streamwriter = new StreamWriter(filestream);
+            streamwriter.AutoFlush = true;
+            Console.SetOut(streamwriter);
+            Console.SetError(streamwriter);
+
+            Console.WriteLine("OVERPARSE V." + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+
             if (Properties.Settings.Default.UpgradeRequired)
             {
+                Console.WriteLine("Upgrading settings");
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.UpgradeRequired = false;
                 Properties.Settings.Default.FirstRun = true;
             }
 
+            Console.WriteLine("Loading settings from file");
             this.Top = Properties.Settings.Default.Top;
             this.Left = Properties.Settings.Default.Left;
             this.Height = Properties.Settings.Default.Height;
@@ -60,37 +72,44 @@ namespace OverParse
             ClickthroughMode.IsChecked = Properties.Settings.Default.ClickthroughEnabled;
             LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard;
             AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop;
-            HotkeyManager.Current.AddOrReplace("Increment", Key.E, ModifierKeys.Control | ModifierKeys.Shift, EndEncounter_Key);
             if (Properties.Settings.Default.Maximized)
             {
                 WindowState = WindowState.Maximized;
             }
 
+            Console.WriteLine("Initializing hotkeys");
+            HotkeyManager.Current.AddOrReplace("Increment", Key.E, ModifierKeys.Control | ModifierKeys.Shift, EndEncounter_Key);
+
+            Console.WriteLine("Reading skills.csv");
             string[] tmp = File.ReadAllLines("skills.csv");
             foreach (string s in tmp)
             {
                 string[] split = s.Split(',');
                 skillDict.Add(split[1], split[0]);
             }
+            Console.WriteLine("Keys in skill dict: " + skillDict.Count());
 
+            Console.WriteLine("Initializing default log");
             encounterlog = new Log(Properties.Settings.Default.Path);
-            Console.WriteLine(Properties.Settings.Default.Path);
             UpdateForm(null, null);
 
+            Console.WriteLine("Initializing damageTimer");
             System.Windows.Threading.DispatcherTimer damageTimer = new System.Windows.Threading.DispatcherTimer();
             damageTimer.Tick += new EventHandler(UpdateForm);
             damageTimer.Interval = new TimeSpan(0, 0, 1);
             damageTimer.Start();
 
+            Console.WriteLine("Initializing logCheckTimer");
             System.Windows.Threading.DispatcherTimer logCheckTimer = new System.Windows.Threading.DispatcherTimer();
             logCheckTimer.Tick += new EventHandler(CheckForNewLog);
             logCheckTimer.Interval = new TimeSpan(0, 0, 10);
             logCheckTimer.Start();
+
+            Console.WriteLine("End of MainWindow constructor");
         }
 
         private void CheckForNewLog(object sender, EventArgs e)
         {
-            Console.WriteLine("tick");
             DirectoryInfo directory = new DirectoryInfo($"{Properties.Settings.Default.Path}\\damagelogs");
             if (!directory.Exists)
             {
@@ -105,7 +124,7 @@ namespace OverParse
 
             if (log.Name != encounterlog.filename)
             {
-                Console.WriteLine($"BYEEEEEEEEEEEE");
+                Console.WriteLine($"Found a new log file ({log.Name}), switching...");
                 encounterlog = new Log(Properties.Settings.Default.Path);
             }
 
@@ -113,6 +132,7 @@ namespace OverParse
 
         private void EndEncounter_Key(object sender, HotkeyEventArgs e)
         {
+            Console.WriteLine("Encounter hotkey pressed");
             EndEncounter_Click(null, null);
             e.Handled = true;
         }
@@ -206,6 +226,7 @@ namespace OverParse
                     int unixTimestamp = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
                     if ((unixTimestamp - encounterlog.newTimestamp) >= Properties.Settings.Default.EncounterTimeout)
                     {
+                        Console.WriteLine("Automatically ending an encounter");
                         encounterlog = new Log(Properties.Settings.Default.Path);
                     }
                 }
@@ -214,6 +235,7 @@ namespace OverParse
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            Console.WriteLine("Closing...");
             if (WindowState == WindowState.Maximized)
             {
                 // Use the RestoreBounds as the current values will be 0, 0 and the size of the screen
@@ -243,18 +265,18 @@ namespace OverParse
 
         private void EndEncounter_Click(object sender, RoutedEventArgs e)
         {
+            Console.WriteLine("Ending encounter");
             encounterlog.WriteLog();
             if (Properties.Settings.Default.LogToClipboard)
             {
                 encounterlog.WriteClipboard();
             }
-
+            Console.WriteLine("Reinitializing log");
             encounterlog = new Log(Properties.Settings.Default.Path);
         }
 
         private void OpenLogsFolder_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(Directory.GetCurrentDirectory() + "\\logs");
             Process.Start(Directory.GetCurrentDirectory() + "\\logs");
         }
 
@@ -400,7 +422,6 @@ namespace OverParse
             ID = initID;
             Damage = initDamage;
             Timestamp = initTimestamp;
-            Console.WriteLine($"Attack generated: {ID} - {Damage}");
         }
     }
 }
