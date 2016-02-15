@@ -45,7 +45,7 @@ namespace OverParse
 
             try { Directory.CreateDirectory("logs"); }
             catch {
-                MessageBox.Show("OverParse doesn't have write access to its folder, and won't be able to save logs. This usually happens when you run it from Program Files.\n\nThis is a Windows restriction, and unfortunately I can't do anything about it.\n\nPlease run OverParse as administrator, or move it somewhere else. Sorry for the inconvenience!");
+                MessageBox.Show("OverParse doesn't have write access to its folder, and won't be able to save logs. This usually happens when you run it from Program Files.\n\nThis is a Windows restriction, and unfortunately I can't do anything about it.\n\nPlease run OverParse as administrator, or move it somewhere else. Sorry for the inconvenience!", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Error);
                 Application.Current.Shutdown();
             }
 
