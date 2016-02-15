@@ -412,6 +412,17 @@ namespace OverParse
                     TimeSpan timespan = TimeSpan.FromSeconds(elapsed);
                     string timer = timespan.ToString(@"mm\:ss");
                     encounterData = $"{timer}";
+
+                    if (Properties.Settings.Default.CompactMode) {
+                        foreach (Combatant c in combatants)
+                        {
+                            if (c.Name == "YOU")
+                                encounterData += $" - MAX: {c.MaxHit}";
+                        }
+
+                    }
+
+
                     foreach (Combatant x in combatants)
                     {
                         if (x.isAlly)
