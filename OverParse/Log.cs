@@ -249,7 +249,7 @@ namespace OverParse
                     }
                 }
 
-                File.WriteAllText("logs/OverParse Log - " + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", log);
+                File.WriteAllText("Logs/OverParse Log - " + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", log);
 
                 foreach (Combatant c in combatants)
                 {

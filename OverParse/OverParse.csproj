@@ -167,13 +167,13 @@
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources\ddraw.dll">
+    <Content Include="Resources\ddraw.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="resources\PSO2DamageDump.dll">
+    <Content Include="Resources\PSO2DamageDump.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="resources\pso2h.dll">
+    <Content Include="Resources\pso2h.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

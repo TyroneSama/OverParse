@@ -36,16 +36,16 @@ namespace OverParse
             //HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
             //Console.WriteLine(resp.LastModified);
 
-            try { Directory.CreateDirectory("logs"); }
+            try { Directory.CreateDirectory("Logs"); }
             catch
             {
                 MessageBox.Show("OverParse doesn't have write access to its folder, and won't be able to save logs. This usually happens when you run it from Program Files.\n\nThis is a Windows restriction, and unfortunately I can't do anything about it.\n\nPlease run OverParse as administrator, or move it somewhere else. Sorry for the inconvenience!", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Error);
                 Application.Current.Shutdown();
             }
 
-            Directory.CreateDirectory("debug");
+            Directory.CreateDirectory("Debug");
 
-            FileStream filestream = new FileStream("debug\\log_" + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", FileMode.Create);
+            FileStream filestream = new FileStream("Debug\\log_" + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", FileMode.Create);
             var streamwriter = new StreamWriter(filestream);
             streamwriter.AutoFlush = true;
             Console.SetOut(streamwriter);
@@ -290,7 +290,7 @@ namespace OverParse
 
         private void OpenLogsFolder_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(Directory.GetCurrentDirectory() + "\\logs");
+            Process.Start(Directory.GetCurrentDirectory() + "\\Logs");
         }
 
         private void AutoEndEncounters_Click(object sender, RoutedEventArgs e)
