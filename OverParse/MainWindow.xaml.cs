@@ -186,10 +186,11 @@ namespace OverParse
 
         private void Panic(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            string errorMessage = string.Format("Oops. This is embarassing.\n\nOverParse encountered an unexpected error. Please complain to TyroneSama at your earliest convenience. Include your log from OverParse\\logs and the following message:\n\n{0}\n\nSorry for the inconvenience!", e.Exception.Message);
-            Console.WriteLine(e.Exception.Message);
+            string errorMessage = string.Format("Oops. This is embarassing.\n\nOverParse encountered an unexpected error. If this happens again, please complain to TyroneSama at your earliest convenience. Include your log from OverParse\\logs and the following message:\n\n{0}\n\nSorry for the inconvenience!", e.Exception.Message);
+            Console.WriteLine("=== UNHANDLED EXCEPTION ===");
             Console.WriteLine(e.Exception.ToString());
-            MessageBox.Show(errorMessage, "OverParse Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(errorMessage, "OverParse Error - 素晴らしく運がないね君は!", MessageBoxButton.OK, MessageBoxImage.Error);
+            Environment.Exit(-1);
         }
 
         private void EndEncounter_Key(object sender, HotkeyEventArgs e)
