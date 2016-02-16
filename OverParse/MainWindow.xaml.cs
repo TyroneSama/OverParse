@@ -31,6 +31,8 @@ namespace OverParse
         {
             InitializeComponent();
 
+            this.Dispatcher.UnhandledException += Panic;
+
             //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://107.170.16.100/Plugins/PSO2DamageDump.dll");
             //request.Method = "HEAD";
             //HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
@@ -130,6 +132,14 @@ namespace OverParse
                 encounterlog = new Log(Properties.Settings.Default.Path);
             }
 
+        }
+
+        private void Panic(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            string errorMessage = string.Format("Oops. This is embarassing.\n\nOverParse encountered an unexpected error. Please complain to TyroneSama at your earliest convenience. Include your log from OverParse\\logs and the following message:\n\n{0}\n\nSorry for the inconvenience!", e.Exception.Message);
+            Console.WriteLine(e.Exception.Message);
+            Console.WriteLine(e.Exception.ToString());
+            MessageBox.Show(errorMessage, "OverParse Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void EndEncounter_Key(object sender, HotkeyEventArgs e)
