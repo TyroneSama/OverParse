@@ -379,7 +379,7 @@ namespace OverParse
 
                         source.Damage += hitDamage;
                         newTimestamp = int.Parse(lineTimestamp);
-                        if (startTimestamp == 0)
+                        if (startTimestamp == 0 && sourceID != "0")
                         {
                             Console.WriteLine($"FIRST ATTACK RECORDED: {hitDamage} from {sourceID} with {attackID}");
                             startTimestamp = newTimestamp;
