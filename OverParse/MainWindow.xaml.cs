@@ -11,6 +11,8 @@ using NHotkey;
 using System.Linq;
 using System.Diagnostics;
 using System.Net;
+using Newtonsoft.Json.Linq;
+using System.Reflection;
 
 namespace OverParse
 {
@@ -53,7 +55,7 @@ namespace OverParse
             Console.SetOut(streamwriter);
             Console.SetError(streamwriter);
 
-            Console.WriteLine("OVERPARSE V." + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+            Console.WriteLine("OVERPARSE V." + Assembly.GetExecutingAssembly().GetName().Version);
 
             if (Properties.Settings.Default.UpgradeRequired)
             {
@@ -119,6 +121,43 @@ namespace OverParse
             logCheckTimer.Tick += new EventHandler(CheckForNewLog);
             logCheckTimer.Interval = new TimeSpan(0, 0, 10);
             logCheckTimer.Start();
+
+            Console.WriteLine("Checking for release updates");
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.github.com/repos/tyronesama/overparse/releases/latest");
+                request.UserAgent = "OverParse";
+                WebResponse response = request.GetResponse();
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream);
+                string responseFromServer = reader.ReadToEnd();
+                Console.WriteLine(responseFromServer);
+                reader.Close();
+                response.Close();
+                JObject responseJSON = JObject.Parse(responseFromServer);
+                string responseVersion = Version.Parse(responseJSON["tag_name"].ToString()).ToString();
+                string thisVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+                while (thisVersion.Substring(Math.Max(0, thisVersion.Length - 2)) == ".0")
+                {
+                    thisVersion = thisVersion.Substring(0, thisVersion.Length - 2);
+                }
+
+                while (responseVersion.Substring(Math.Max(0, responseVersion.Length - 2)) == ".0")
+                {
+                    responseVersion = responseVersion.Substring(0, responseVersion.Length - 2);
+                }
+
+                Console.WriteLine($"JSON version: {responseVersion} / Assembly version: {thisVersion}");
+                if (responseVersion != thisVersion)
+                {
+                    MessageBoxResult result = MessageBox.Show($"There's a new version of OverParse available!\n\nYou're running version {thisVersion}. The latest version is version {responseVersion}.\n\nWould you like to download it now from GitHub?", "OverParse Update", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        Process.Start("https://github.com/TyroneSama/OverParse/releases/latest");
+                    }
+                }
+            } catch (Exception ex) { Console.WriteLine($"Failed to update check: {ex.ToString()}"); }
 
             Console.WriteLine("End of MainWindow constructor");
         }
