@@ -74,15 +74,26 @@ namespace OverParse
             ClickthroughMode.IsChecked = Properties.Settings.Default.ClickthroughEnabled;
             LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard;
             AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop;
+
             CompactMode.IsChecked = Properties.Settings.Default.CompactMode; CompactMode_Click(null, null);
+            HandleOpacity();
+
             if (Properties.Settings.Default.Maximized)
             {
                 WindowState = WindowState.Maximized;
             }
 
             Console.WriteLine("Initializing hotkeys");
-            HotkeyManager.Current.AddOrReplace("End Encounter", Key.E, ModifierKeys.Control | ModifierKeys.Shift, EndEncounter_Key);
-            HotkeyManager.Current.AddOrReplace("Debug Menu", Key.F11, ModifierKeys.Control | ModifierKeys.Shift, DebugMenu_Key);
+            try
+            {
+                HotkeyManager.Current.AddOrReplace("End Encounter", Key.E, ModifierKeys.Control | ModifierKeys.Shift, EndEncounter_Key);
+                HotkeyManager.Current.AddOrReplace("Debug Menu", Key.F11, ModifierKeys.Control | ModifierKeys.Shift, DebugMenu_Key);
+            } catch
+            {
+                Console.WriteLine("Hotkeys failed to initialize");
+                MessageBox.Show("OverParse failed to initialize hotkeys. This is usually because something else is already using them.\n\nThe program will still work, but hotkeys will not function. Sorry for the inconvenience!","OverParse Setup",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+
 
             Console.WriteLine("Reading skills.csv");
             string[] tmp = File.ReadAllLines("skills.csv");
@@ -161,10 +172,71 @@ namespace OverParse
             Properties.Settings.Default.ClickthroughEnabled = ClickthroughMode.IsChecked;
         }
 
-
         private void AlwaysOnTop_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.AlwaysOnTop = AlwaysOnTop.IsChecked;
+        }
+
+        private void Opacity_0_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.Opacity = 0;
+            HandleOpacity();
+        }
+
+        private void Opacity_25_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.Opacity = .25;
+            HandleOpacity();
+        }
+
+        private void Opacity_50_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.Opacity = .50;
+            HandleOpacity();
+        }
+
+        private void Opacity_75_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.Opacity = .75;
+            HandleOpacity();
+        }
+
+        private void Opacity_100_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.Opacity = 1;
+            HandleOpacity();
+        }
+
+        private void HandleOpacity()
+        {
+            TheWindow.Opacity = Properties.Settings.Default.Opacity;
+            // ACHTUNG ACHTUNG ACHTUNG ACHTUNG ACHTUNG ACHTUNG ACHTUNG ACHTUNG
+            Opacity_0.IsChecked = false;
+            Opacity_25.IsChecked = false;
+            Opacity_50.IsChecked = false;
+            Opacity_75.IsChecked = false;
+            Opacity_100.IsChecked = false;
+
+            if (Properties.Settings.Default.Opacity == 0)
+            {
+                Opacity_0.IsChecked = true;
+            }
+            else if (Properties.Settings.Default.Opacity == .25)
+            {
+                Opacity_25.IsChecked = true;
+            } else if (Properties.Settings.Default.Opacity == .50)
+            {
+                Opacity_50.IsChecked = true;
+            }
+            else if (Properties.Settings.Default.Opacity == .75)
+            {
+                Opacity_75.IsChecked = true;
+            }
+            else if (Properties.Settings.Default.Opacity == 1)
+            {
+                Opacity_100.IsChecked = true;
+            }
+
         }
 
         private void CompactMode_Click(object sender, RoutedEventArgs e)

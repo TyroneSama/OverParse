@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:OverParse"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         mc:Ignorable="d" AllowsTransparency="True" WindowStyle="None" Activated="Window_Activated"
-        Title="OverParse" Height="270" Width="470" ResizeMode="CanResizeWithGrip"
+        Title="OverParse" Height="270" Width="470" ResizeMode="CanResizeWithGrip" x:Name="TheWindow"
         Deactivated="Window_Deactivated" StateChanged="Window_StateChanged" Closing="Window_Closing" MouseDown="Window_MouseDown">
 
 
@@ -63,7 +63,7 @@
     </Window.Resources>
     <Border BorderBrush="#FFB0D2ED" BorderThickness="1" CornerRadius="6" >
         <Border.Background>
-            <SolidColorBrush Opacity="0.8" Color="#FF212a3a"/>
+            <SolidColorBrush x:Name="WinBorderBackground" Opacity="0.75" Color="#FF212a3a"/>
         </Border.Background>
         <Border BorderBrush="#FF536D7F" BorderThickness="1" CornerRadius="6" >
             <Border BorderBrush="#FF2E4A61" BorderThickness="1" CornerRadius="6" >
@@ -91,6 +91,13 @@
                                 <MenuItem Style="{StaticResource submenu}" x:Name="SeparateZanverse" IsCheckable="True" IsChecked="False" Header="Show Zanverse damage separately" Click="SeparateZanverse_Click"/>
                                 <Separator />
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Compact mode" x:Name="CompactMode" Click="CompactMode_Click"/>
+                                <MenuItem Style="{StaticResource submenu}" Header="Window opacity">
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_0" Visibility="Collapsed" IsCheckable="True" IsChecked="False" Header="Transparent" Click="Opacity_0_Click" />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_25" IsCheckable="True" IsChecked="False" Header="25%" Click="Opacity_25_Click" />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_50" IsCheckable="True" IsChecked="False" Header="50%" Click="Opacity_50_Click" />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_75" IsCheckable="True" IsChecked="True" Header="75%" Click="Opacity_75_Click" />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_100" IsCheckable="True" IsChecked="False" Header="Opaque" Click="Opacity_100_Click" />
+                                </MenuItem>
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Always on top" x:Name="AlwaysOnTop" Click="AlwaysOnTop_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Clickthrough while inactive" x:Name="ClickthroughMode" Click="ClickthroughToggle"/>
                             </MenuItem>
@@ -118,7 +125,7 @@
                     </DockPanel>
                     <ListView x:Name="CombatantData" AlternationCount="2" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="-2,0,0,0" BorderThickness="0" Padding="0" FontSize="10.667" Grid.RowSpan="2">
                         <ListView.Background>
-                            <SolidColorBrush Opacity="0.4" Color="#FF101010"/>
+                            <SolidColorBrush Opacity="0.0" Color="#FF101010"/>
                         </ListView.Background>
                         <ListView.View>
                             <GridView x:Name="CombatantView">
