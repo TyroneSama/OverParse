@@ -326,6 +326,7 @@ namespace OverParse
             encounterlog.UpdateLog(this, null);
             EncounterStatus.Content = encounterlog.logStatus();
             EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 100, 100));
+
             if (encounterlog.valid && encounterlog.notEmpty)
             {
                 EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
@@ -338,6 +339,8 @@ namespace OverParse
 
             if (encounterlog.running)
             {
+                SeparateZanverse.IsEnabled = false;
+
                 CombatantData.Items.Clear();
 
                 int index = -1; // there's probably a way better way of doing this, maybe someday i'll learn LINQ
@@ -415,6 +418,7 @@ namespace OverParse
                 encounterlog.WriteClipboard();
             }
             Console.WriteLine("Reinitializing log");
+            SeparateZanverse.IsEnabled = true;
             encounterlog = new Log(Properties.Settings.Default.Path);
         }
 
