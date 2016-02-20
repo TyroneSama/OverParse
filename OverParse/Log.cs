@@ -347,6 +347,8 @@ namespace OverParse
 
                         if (hitDamage < 1)
                             continue;
+                        if (sourceID == "0" || attackID == "0")
+                            continue;
 
                         foreach (Combatant x in combatants)
                         {
@@ -381,11 +383,10 @@ namespace OverParse
 
                         source.Damage += hitDamage;
                         newTimestamp = int.Parse(lineTimestamp);
-                        if (startTimestamp == 0 && sourceID != "0")
+                        if (startTimestamp == 0)
                         {
                             Console.WriteLine($"FIRST ATTACK RECORDED: {hitDamage} dmg from {sourceID} ({sourceName}) with {attackID}, to {targetID} ({targetName})");
-                            if (sourceID != "0" && attackID != "0")
-                                startTimestamp = newTimestamp;
+                            startTimestamp = newTimestamp;
                         }
 
                         source.Attacks.Add(new Attack(attackID, hitDamage, newTimestamp - startTimestamp));
