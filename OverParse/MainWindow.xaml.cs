@@ -174,7 +174,7 @@ namespace OverParse
                 return;
             }
 
-            FileInfo log = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).First();
+            FileInfo log = directory.GetFiles().OrderByDescending(f => f.Name).First();
 
             if (log.Name != encounterlog.filename)
             {

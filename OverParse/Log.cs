@@ -147,7 +147,7 @@ namespace OverParse
 
             notEmpty = true;
 
-            FileInfo log = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).First();
+            FileInfo log = directory.GetFiles().OrderByDescending(f => f.Name).First();
             Console.WriteLine($"Reading from {log.DirectoryName}\\{log.Name}");
             filename = log.Name;
             FileStream fileStream = File.Open(log.DirectoryName + "\\" + log.Name, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
