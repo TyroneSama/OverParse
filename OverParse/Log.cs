@@ -382,7 +382,8 @@ namespace OverParse
                         if (startTimestamp == 0 && sourceID != "0")
                         {
                             Console.WriteLine($"FIRST ATTACK RECORDED: {hitDamage} from {sourceID} with {attackID}");
-                            startTimestamp = newTimestamp;
+                            if (sourceID != "0" || attackID != "0")
+                                startTimestamp = newTimestamp;
                         }
 
                         source.Attacks.Add(new Attack(attackID, hitDamage, newTimestamp - startTimestamp));
