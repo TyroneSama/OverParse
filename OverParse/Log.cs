@@ -335,6 +335,8 @@ namespace OverParse
                         string[] parts = str.Split(',');
                         string lineTimestamp = parts[0];
                         string sourceID = parts[2];
+                        string targetID = parts[4];
+                        string targetName = parts[5];
                         string sourceName = parts[3];
                         int hitDamage = int.Parse(parts[7]);
                         string attackID = parts[6];
@@ -381,8 +383,8 @@ namespace OverParse
                         newTimestamp = int.Parse(lineTimestamp);
                         if (startTimestamp == 0 && sourceID != "0")
                         {
-                            Console.WriteLine($"FIRST ATTACK RECORDED: {hitDamage} from {sourceID} with {attackID}");
-                            if (sourceID != "0" || attackID != "0")
+                            Console.WriteLine($"FIRST ATTACK RECORDED: {hitDamage} dmg from {sourceID} ({sourceName}) with {attackID}, to {targetID} ({targetName})");
+                            if (sourceID != "0" && attackID != "0")
                                 startTimestamp = newTimestamp;
                         }
 
