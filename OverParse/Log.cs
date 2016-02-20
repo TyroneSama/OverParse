@@ -409,6 +409,7 @@ namespace OverParse
                 {
                     int elapsed = newTimestamp - startTimestamp;
                     float partyDPS = 0;
+                    float zanverseCompensation = 0;
                     int filtered = 0;
                     TimeSpan timespan = TimeSpan.FromSeconds(elapsed);
                     string timer = timespan.ToString(@"mm\:ss");
@@ -436,13 +437,19 @@ namespace OverParse
                         {
                             filtered++;
                         }
+
+                        if (x.Name == "Zanverse")
+                            zanverseCompensation = x.DPS;
                     }
+
+                    float workingPartyDPS = partyDPS - zanverseCompensation;
+
 
                     foreach (Combatant x in combatants)
                     {
                         if (x.isAlly && x.Name != "Zanverse")
                         {
-                            x.PercentDPS = (x.DPS / partyDPS * 100);
+                            x.PercentDPS = (x.DPS / workingPartyDPS * 100);
                         }
                         else
                         {
