@@ -373,7 +373,7 @@ namespace OverParse
                     if ((unixTimestamp - encounterlog.newTimestamp) >= Properties.Settings.Default.EncounterTimeout)
                     {
                         Console.WriteLine("Automatically ending an encounter");
-                        encounterlog = new Log(Properties.Settings.Default.Path);
+                        EndEncounter_Click(null, null);
                     }
                 }
             }
