@@ -440,7 +440,7 @@ namespace OverParse
 
                     foreach (Combatant x in combatants)
                     {
-                        if (x.isAlly)
+                        if (x.isAlly && x.Name != "Zanverse")
                         {
                             x.PercentDPS = (x.DPS / partyDPS * 100);
                         }
