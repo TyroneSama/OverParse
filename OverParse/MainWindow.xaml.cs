@@ -218,6 +218,7 @@ namespace OverParse
         {
             Properties.Settings.Default.ShowRawDPS = ShowRawDPS.IsChecked;
             RawDPSHack.ShowRawDPS = ShowRawDPS.IsChecked;
+            DPSColumn.Header = ShowRawDPS.IsChecked ? "DPS" : "%";
         }
 
         private void AlwaysOnTop_Click(object sender, RoutedEventArgs e)
