@@ -59,15 +59,49 @@ namespace OverParse
         {
             get
             {
-                if (PercentDPS < -.5)
+                if (RawDPSHack.ShowRawDPS)
                 {
-                    return "--";
-                }
-                else
+                    return FormatNumber(DPS);
+                } else
                 {
-                    return string.Format("{0:0.0}", PercentDPS) + "%";
+                    if (PercentDPS < -.5)
+                    {
+                        return "--";
+                    }
+                    else
+                    {
+                        return string.Format("{0:0.0}", PercentDPS) + "%";
+                    }
                 }
+
             }
+        }
+
+        string FormatNumber(float input)
+        {
+            int num = (int)Math.Round(input);
+
+            if (num >= 100000000)
+            {
+                return (num / 1000000D).ToString("0.#M");
+            }
+
+            if (num >= 1000000)
+            {
+                return (num / 1000000D).ToString("0.##M");
+            }
+
+            if (num >= 100000)
+            {
+                return (num / 1000D).ToString("0.#K");
+            }
+
+            if (num >= 10000)
+            {
+                return (num / 1000D).ToString("0.##K");
+            }
+
+            return num.ToString("#,0");
         }
 
         public string DamageReadout

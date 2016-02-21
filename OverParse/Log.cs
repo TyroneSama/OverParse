@@ -295,8 +295,8 @@ namespace OverParse
             {
                 Combatant temp = new Combatant("1000000" + i.ToString(), "TestPlayer_" + i.ToString());
                 temp.PercentDPS = (float)random.Next(0, 10000) / 100;
-                temp.DPS = random.Next(0, 1000);
-                temp.Damage = random.Next(0, 10000000);
+                temp.DPS = random.Next(0, 10000000);
+                temp.Damage = random.Next(0, 1000000);
                 temp.MaxHitNum = random.Next(0, 1000000);
                 temp.MaxHitID = "2368738938";
                 combatants.Add(temp);
@@ -306,7 +306,7 @@ namespace OverParse
             {
                 Combatant temp = new Combatant(i.ToString(), "TestEnemy_" + i.ToString());
                 temp.PercentDPS = -1;
-                temp.DPS = random.Next(0, 1000);
+                temp.DPS = random.Next(0, 1000000);
                 temp.Damage = random.Next(0, 10000000);
                 temp.MaxHitNum = random.Next(0, 1000000);
                 temp.MaxHitID = "1612949165";

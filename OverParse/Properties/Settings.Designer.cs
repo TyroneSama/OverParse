@@ -214,5 +214,17 @@ namespace OverParse.Properties {
                 this["Opacity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowRawDPS {
+            get {
+                return ((bool)(this["ShowRawDPS"]));
+            }
+            set {
+                this["ShowRawDPS"] = value;
+            }
+        }
     }
 }

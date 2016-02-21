@@ -77,6 +77,7 @@ namespace OverParse
             LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard;
             AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop;
 
+            ShowRawDPS.IsChecked = Properties.Settings.Default.ShowRawDPS; ShowRawDPS_Click(null, null);
             CompactMode.IsChecked = Properties.Settings.Default.CompactMode; CompactMode_Click(null, null);
             HandleOpacity();
 
@@ -210,6 +211,12 @@ namespace OverParse
         private void ClickthroughToggle(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.ClickthroughEnabled = ClickthroughMode.IsChecked;
+        }
+
+        private void ShowRawDPS_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ShowRawDPS = ShowRawDPS.IsChecked;
+            RawDPSHack.ShowRawDPS = ShowRawDPS.IsChecked;
         }
 
         private void AlwaysOnTop_Click(object sender, RoutedEventArgs e)
