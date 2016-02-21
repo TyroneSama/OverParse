@@ -20,6 +20,7 @@ namespace OverParse
     {
         Log encounterlog;
         public static Dictionary<string, string> skillDict = new Dictionary<string, string>();
+        string lastStatus = "";
         IntPtr hwndcontainer;
         protected override void OnSourceInitialized(EventArgs e)
         {
@@ -331,17 +332,32 @@ namespace OverParse
         public void UpdateForm(object sender, EventArgs e)
         {
             encounterlog.UpdateLog(this, null);
-            EncounterStatus.Content = encounterlog.logStatus();
+
+            // every part of this section is fucking stupid
+
             EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 100, 100));
+            EncounterStatus.Content = encounterlog.logStatus();
+            EncounterRunning.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 100, 100));
+            EncounterRunning.Content = "Error";
+
 
             if (encounterlog.valid && encounterlog.notEmpty)
             {
                 EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
+                EncounterStatus.Content = $"Waiting... [{lastStatus}]";
+                if (lastStatus == "")
+                    EncounterStatus.Content = "Waiting for combat data...";
+                EncounterRunning.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
+                EncounterRunning.Content = "Waiting";
             }
 
             if (encounterlog.running)
             {
                 EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 100, 255, 100));
+                EncounterStatus.Content = encounterlog.logStatus();
+                lastStatus = encounterlog.logStatus();
+                EncounterRunning.Foreground = new SolidColorBrush(Color.FromArgb(255, 100, 255, 100));
+                EncounterRunning.Content = "Running";
             }
 
             if (encounterlog.running)
@@ -419,6 +435,7 @@ namespace OverParse
         private void EndEncounter_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Ending encounter");
+            UpdateForm(null, null);
             encounterlog.WriteLog();
             if (Properties.Settings.Default.LogToClipboard)
             {

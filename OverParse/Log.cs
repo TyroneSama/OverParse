@@ -422,7 +422,7 @@ namespace OverParse
                         foreach (Combatant c in combatants)
                         {
                             if (c.Name == "YOU")
-                                encounterData += $" - MAX: {c.MaxHit}";
+                                encounterData += $" - MAX: {c.MaxHitNum}";
                         }
 
                     }

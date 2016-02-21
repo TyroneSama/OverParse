@@ -190,9 +190,9 @@
                         <Grid Grid.Column="2" x:Name="helper3"/>
                         <Grid Grid.Column="3" x:Name="helper4"/>
                     </Grid>
-                    <Label x:Name="EncounterStatus" Grid.Row="2" Foreground="#FFEEEEEE" Background="#FF010a1a" Margin="0" Padding="3">
-                    </Label>
-                    <Rectangle x:Name="EncounterIndicator" Fill="#FFF4F4F5" Grid.Row="2" Height="2" Stroke="Transparent" VerticalAlignment="Top"/>
+                    <Label x:Name="EncounterStatus" Grid.Row="2" Foreground="#FFEEEEEE" Background="#FF010a1a" Margin="0" Padding="3"/>
+                    <Label x:Name="EncounterRunning" Visibility="Hidden" Panel.ZIndex="9999" Grid.Row="2" Foreground="#FFEEEEEE" Background="Transparent" Margin="0" Padding="3" HorizontalAlignment="Right" Content=""/>
+                        <Rectangle x:Name="EncounterIndicator" Fill="#FFF4F4F5" Grid.Row="2" Height="2" Stroke="Transparent" VerticalAlignment="Top"/>
                     <Rectangle Stroke="Transparent" Panel.ZIndex="-1">
                         <Rectangle.Fill>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" >
