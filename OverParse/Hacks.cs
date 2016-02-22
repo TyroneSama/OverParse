@@ -10,5 +10,6 @@ namespace OverParse
     {
         public static bool ShowRawDPS;
         public static bool ShowDamageGraph;
+        public static bool DontAsk = false;
     }
 }

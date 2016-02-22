@@ -57,7 +57,7 @@ namespace OverParse
             Console.WriteLine("Making sure pso2_bin\\damagelogs exists");
             DirectoryInfo directory = new DirectoryInfo($"{attemptDirectory}\\damagelogs");
 
-            if (Properties.Settings.Default.FirstRun)
+            if (Properties.Settings.Default.FirstRun && !Hacks.DontAsk)
             {
                 Console.WriteLine("First run");
                 bool unsetFirstRun = true;
@@ -140,6 +140,8 @@ namespace OverParse
                 }
 
             }
+
+            Hacks.DontAsk = true;
 
             if (!directory.Exists)
                 return;
