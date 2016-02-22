@@ -450,7 +450,10 @@ namespace OverParse
         private void EndEncounter_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Ending encounter");
-            UpdateForm(null, null);
+            bool temp = Properties.Settings.Default.AutoEndEncounters;
+            Properties.Settings.Default.AutoEndEncounters = false;
+            UpdateForm(null, null); // I'M FUCKING STUPID
+            Properties.Settings.Default.AutoEndEncounters = temp;
             encounterlog.WriteLog();
             if (Properties.Settings.Default.LogToClipboard)
             {

@@ -18,19 +18,20 @@ namespace OverParse
         public float DPS;
         public float PercentDPS;
         public List<Attack> Attacks;
+        Color green = Color.FromArgb(160, 32, 130, 32);
 
         public Brush Brush
         {
             get
             {
-                if (Hacks.ShowDamageGraph)
+                if (Hacks.ShowDamageGraph && PercentDPS != -1)
                 {
-                    return generateBarBrush(Color.FromArgb(200, 55, 95, 141), new Color());
+                    return generateBarBrush(Color.FromArgb(200, 65, 112, 166), new Color());
                 }
                 else
                 {
                     if (Name == "YOU")
-                        return new SolidColorBrush(Color.FromArgb(160, 32, 80, 32));
+                        return new SolidColorBrush(green);
                     return new SolidColorBrush(new Color());
                 }
 
@@ -41,14 +42,14 @@ namespace OverParse
         {
             get
             {
-                if (Hacks.ShowDamageGraph)
+                if (Hacks.ShowDamageGraph && PercentDPS != -1)
                 {
-                    return generateBarBrush(Color.FromArgb(140, 55, 95, 141), Color.FromArgb(64, 16, 16, 16));
+                    return generateBarBrush(Color.FromArgb(140, 65, 112, 166), Color.FromArgb(64, 16, 16, 16));
                 }
                 else
                 {
                     if (Name == "YOU")
-                        return new SolidColorBrush(Color.FromArgb(160, 32, 80, 32));
+                        return new SolidColorBrush(green);
                     return new SolidColorBrush(Color.FromArgb(64, 16, 16, 16));
                 }
             }
@@ -60,7 +61,7 @@ namespace OverParse
                 c = new Color();
 
             if (Name == "YOU")
-                c = Color.FromArgb(160, 32, 80, 32);
+                c = green;
 
             LinearGradientBrush lgb = new LinearGradientBrush();
             lgb.StartPoint = new System.Windows.Point(0, 0);
