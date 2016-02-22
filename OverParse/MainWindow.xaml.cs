@@ -360,7 +360,7 @@ namespace OverParse
             if (encounterlog.valid && encounterlog.notEmpty)
             {
                 EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
-                EncounterStatus.Content = $"Waiting... | {lastStatus}";
+                EncounterStatus.Content = $"Waiting - {lastStatus}";
                 if (lastStatus == "")
                     EncounterStatus.Content = "Waiting for combat data...";
             }
