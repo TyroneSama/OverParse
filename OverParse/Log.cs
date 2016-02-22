@@ -351,16 +351,34 @@ namespace OverParse
                         string isMisc2 = parts[12];
                         int index = -1;
 
+                        bool isAuxDamage = false;
+
                         if (hitDamage < 1)
                             continue;
                         if (sourceID == "0" || attackID == "0")
                             continue;
+
+                        if (sourceName.Contains("|"))
+                        {
+                            string[] separate = sourceName.Split('|');
+                            if (Properties.Settings.Default.SeparateAuxDamage)
+                                sourceName = separate[0] + " (Aux)";
+                            else
+                                sourceName = separate[0];
+                            isAuxDamage = true;
+                        }
 
                         foreach (Combatant x in combatants)
                         {
                             if (x.ID == sourceID)
                             {
                                 index = combatants.IndexOf(x);
+                            }
+
+                            if (x.Name == sourceName)
+                            {
+                                if (!(!isAuxDamage && !x.isAux))
+                                    index = combatants.IndexOf(x);
                             }
                         }
 
@@ -386,6 +404,9 @@ namespace OverParse
                         }
 
                         Combatant source = combatants[index];
+
+                        if (!source.isAux)
+                            source.isAux = isAuxDamage;
 
                         source.Damage += hitDamage;
                         newTimestamp = int.Parse(lineTimestamp);

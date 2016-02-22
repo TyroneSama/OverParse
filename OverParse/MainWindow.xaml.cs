@@ -82,6 +82,7 @@ namespace OverParse
             ClickthroughMode.IsChecked = Properties.Settings.Default.ClickthroughEnabled;
             LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard;
             AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop;
+            SeparateAuxDamage.IsChecked = Properties.Settings.Default.SeparateAuxDamage;
 
             ShowDamageGraph.IsChecked = Properties.Settings.Default.ShowDamageGraph; ShowDamageGraph_Click(null, null);
             ShowRawDPS.IsChecked = Properties.Settings.Default.ShowRawDPS; ShowRawDPS_Click(null, null);
@@ -215,6 +216,11 @@ namespace OverParse
             Console.WriteLine("Debug hotkey pressed");
             DebugMenu.Visibility = Visibility.Visible;
             e.Handled = true;
+        }
+
+        private void SeparateAuxDamage_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.SeparateAuxDamage = SeparateAuxDamage.IsChecked;
         }
 
         private void ClickthroughToggle(object sender, RoutedEventArgs e)
@@ -375,6 +381,7 @@ namespace OverParse
             if (encounterlog.running)
             {
                 SeparateZanverse.IsEnabled = false;
+                SeparateAuxDamage.IsEnabled = false;
 
                 CombatantData.Items.Clear();
 
@@ -461,6 +468,7 @@ namespace OverParse
             }
             Console.WriteLine("Reinitializing log");
             SeparateZanverse.IsEnabled = true;
+            SeparateAuxDamage.IsEnabled = true;
             encounterlog = new Log(Properties.Settings.Default.Path);
         }
 

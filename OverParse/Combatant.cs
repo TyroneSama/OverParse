@@ -15,10 +15,16 @@ namespace OverParse
         public string Name { get; set; }
         public int MaxHitNum;
         public string MaxHitID;
+        public bool isAux;
         public float DPS;
         public float PercentDPS;
         public List<Attack> Attacks;
         Color green = Color.FromArgb(160, 32, 130, 32);
+
+        bool isYou()
+        {
+            return (Name == "YOU" || Name == "YOU (Aux)");
+        }
 
         public Brush Brush
         {
@@ -30,7 +36,7 @@ namespace OverParse
                 }
                 else
                 {
-                    if (Name == "YOU")
+                    if (isYou())
                         return new SolidColorBrush(green);
                     return new SolidColorBrush(new Color());
                 }
@@ -48,7 +54,7 @@ namespace OverParse
                 }
                 else
                 {
-                    if (Name == "YOU")
+                    if (isYou())
                         return new SolidColorBrush(green);
                     return new SolidColorBrush(Color.FromArgb(64, 16, 16, 16));
                 }
@@ -60,7 +66,7 @@ namespace OverParse
             if (!Hacks.ShowDamageGraph)
                 c = new Color();
 
-            if (Name == "YOU")
+            if (isYou())
                 c = green;
 
             LinearGradientBrush lgb = new LinearGradientBrush();
@@ -80,6 +86,9 @@ namespace OverParse
         {
             get
             {
+                if (isAux)
+                    return true;
+
                 string[] SuAttacks = { "487482498", "2785585589", "639929291" };
                 if (int.Parse(ID) >= 10000000)
                 {

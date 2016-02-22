@@ -238,5 +238,17 @@ namespace OverParse.Properties {
                 this["ShowDamageGraph"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SeparateAuxDamage {
+            get {
+                return ((bool)(this["SeparateAuxDamage"]));
+            }
+            set {
+                this["SeparateAuxDamage"] = value;
+            }
+        }
     }
 }
