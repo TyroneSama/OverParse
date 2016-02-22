@@ -11,8 +11,13 @@ using NHotkey;
 using System.Linq;
 using System.Diagnostics;
 using System.Net;
+
+using System.Windows.Controls;
+using System.Windows.Shapes;
+
 using Newtonsoft.Json.Linq;
 using System.Reflection;
+
 
 namespace OverParse
 {
@@ -78,6 +83,7 @@ namespace OverParse
             LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard;
             AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop;
 
+            ShowDamageGraph.IsChecked = Properties.Settings.Default.ShowDamageGraph; ShowDamageGraph_Click(null, null);
             ShowRawDPS.IsChecked = Properties.Settings.Default.ShowRawDPS; ShowRawDPS_Click(null, null);
             CompactMode.IsChecked = Properties.Settings.Default.CompactMode; CompactMode_Click(null, null);
             HandleOpacity();
@@ -92,10 +98,11 @@ namespace OverParse
             {
                 HotkeyManager.Current.AddOrReplace("End Encounter", Key.E, ModifierKeys.Control | ModifierKeys.Shift, EndEncounter_Key);
                 HotkeyManager.Current.AddOrReplace("Debug Menu", Key.F11, ModifierKeys.Control | ModifierKeys.Shift, DebugMenu_Key);
-            } catch
+            }
+            catch
             {
                 Console.WriteLine("Hotkeys failed to initialize");
-                MessageBox.Show("OverParse failed to initialize hotkeys. This is usually because something else is already using them.\n\nThe program will still work, but hotkeys will not function. Sorry for the inconvenience!","OverParse Setup",MessageBoxButton.OK,MessageBoxImage.Information);
+                MessageBox.Show("OverParse failed to initialize hotkeys. This is usually because something else is already using them.\n\nThe program will still work, but hotkeys will not function. Sorry for the inconvenience!", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
 
@@ -159,7 +166,8 @@ namespace OverParse
                         Process.Start("https://github.com/TyroneSama/OverParse/releases/latest");
                     }
                 }
-            } catch (Exception ex) { Console.WriteLine($"Failed to update check: {ex.ToString()}"); }
+            }
+            catch (Exception ex) { Console.WriteLine($"Failed to update check: {ex.ToString()}"); }
 
             Console.WriteLine("End of MainWindow constructor");
         }
@@ -214,10 +222,16 @@ namespace OverParse
             Properties.Settings.Default.ClickthroughEnabled = ClickthroughMode.IsChecked;
         }
 
+        private void ShowDamageGraph_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ShowDamageGraph = ShowDamageGraph.IsChecked;
+            Hacks.ShowDamageGraph = ShowDamageGraph.IsChecked;
+        }
+
         private void ShowRawDPS_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.ShowRawDPS = ShowRawDPS.IsChecked;
-            RawDPSHack.ShowRawDPS = ShowRawDPS.IsChecked;
+            Hacks.ShowRawDPS = ShowRawDPS.IsChecked;
             DPSColumn.Header = ShowRawDPS.IsChecked ? "DPS" : "%";
         }
 
@@ -273,7 +287,8 @@ namespace OverParse
             else if (Properties.Settings.Default.Opacity == .25)
             {
                 Opacity_25.IsChecked = true;
-            } else if (Properties.Settings.Default.Opacity == .50)
+            }
+            else if (Properties.Settings.Default.Opacity == .50)
             {
                 Opacity_50.IsChecked = true;
             }
@@ -294,7 +309,8 @@ namespace OverParse
             if (CompactMode.IsChecked)
             {
                 MaxHitHelper.Width = new GridLength(0, GridUnitType.Star);
-            } else
+            }
+            else
             {
                 MaxHitHelper.Width = new GridLength(3, GridUnitType.Star);
             }
@@ -334,22 +350,19 @@ namespace OverParse
         {
             encounterlog.UpdateLog(this, null);
 
+            EncounterStatus.Content = encounterlog.logStatus();
+
             // every part of this section is fucking stupid
 
             EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 100, 100));
             EncounterStatus.Content = encounterlog.logStatus();
-            EncounterRunning.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 100, 100));
-            EncounterRunning.Content = "Error";
-
 
             if (encounterlog.valid && encounterlog.notEmpty)
             {
                 EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
-                EncounterStatus.Content = $"Waiting... [{lastStatus}]";
+                EncounterStatus.Content = $"Waiting... | {lastStatus}";
                 if (lastStatus == "")
                     EncounterStatus.Content = "Waiting for combat data...";
-                EncounterRunning.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
-                EncounterRunning.Content = "Waiting";
             }
 
             if (encounterlog.running)
@@ -357,8 +370,6 @@ namespace OverParse
                 EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 100, 255, 100));
                 EncounterStatus.Content = encounterlog.logStatus();
                 lastStatus = encounterlog.logStatus();
-                EncounterRunning.Foreground = new SolidColorBrush(Color.FromArgb(255, 100, 255, 100));
-                EncounterRunning.Content = "Running";
             }
 
             if (encounterlog.running)
@@ -383,13 +394,16 @@ namespace OverParse
                     encounterlog.combatants.Add(reorder);
                 }
 
+
+                Combatant.maxShare = 0;
+
                 foreach (Combatant c in encounterlog.combatants)
-                {
                     if (c.isAlly || !FilterPlayers.IsChecked)
                     {
                         CombatantData.Items.Add(c);
+                        if (c.PercentDPS > Combatant.maxShare)
+                            Combatant.maxShare = c.PercentDPS;
                     }
-                }
 
                 if (Properties.Settings.Default.AutoEndEncounters)
                 {

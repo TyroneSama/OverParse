@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace OverParse
 {
-    class RawDPSHack
+    class Hacks
     {
         public static bool ShowRawDPS;
+        public static bool ShowDamageGraph;
     }
 }

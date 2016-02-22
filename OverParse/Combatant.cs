@@ -1,27 +1,85 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace OverParse
 {
     public class Combatant
     {
+        private const float maxBGopacity = 0.6f;
         public int Damage;
         public int Healing;
         public string ID;
-        public string Name {
-            get; set; }
+        public string Name { get; set; }
         public int MaxHitNum;
         public string MaxHitID;
         public float DPS;
         public float PercentDPS;
         public List<Attack> Attacks;
 
+        public Brush Brush
+        {
+            get
+            {
+                if (Hacks.ShowDamageGraph)
+                {
+                    return generateBarBrush(Color.FromArgb(200, 55, 95, 141), new Color());
+                }
+                else
+                {
+                    if (Name == "YOU")
+                        return new SolidColorBrush(Color.FromArgb(160, 32, 80, 32));
+                    return new SolidColorBrush(new Color());
+                }
+
+            }
+        }
+
+        public Brush Brush2
+        {
+            get
+            {
+                if (Hacks.ShowDamageGraph)
+                {
+                    return generateBarBrush(Color.FromArgb(140, 55, 95, 141), Color.FromArgb(64, 16, 16, 16));
+                }
+                else
+                {
+                    if (Name == "YOU")
+                        return new SolidColorBrush(Color.FromArgb(160, 32, 80, 32));
+                    return new SolidColorBrush(Color.FromArgb(64, 16, 16, 16));
+                }
+            }
+        }
+
+        LinearGradientBrush generateBarBrush(Color c, Color c2)
+        {
+            if (!Hacks.ShowDamageGraph)
+                c = new Color();
+
+            if (Name == "YOU")
+                c = Color.FromArgb(160, 32, 80, 32);
+
+            LinearGradientBrush lgb = new LinearGradientBrush();
+            lgb.StartPoint = new System.Windows.Point(0, 0);
+            lgb.EndPoint = new System.Windows.Point(1, 0);
+            lgb.GradientStops.Add(new GradientStop(c, 0));
+            lgb.GradientStops.Add(new GradientStop(c, PercentDPS / maxShare));
+            lgb.GradientStops.Add(new GradientStop(c2, PercentDPS / maxShare));
+            lgb.GradientStops.Add(new GradientStop(c2, 1));
+            lgb.SpreadMethod = GradientSpreadMethod.Repeat;
+            return lgb;
+        }
+
+        public static float maxShare = 0;
+
         public bool isAlly
         {
             get
             {
-                string[] SuAttacks = {"487482498", "2785585589", "639929291"};
+                string[] SuAttacks = { "487482498", "2785585589", "639929291" };
                 if (int.Parse(ID) >= 10000000)
                 {
                     return true;
@@ -59,10 +117,11 @@ namespace OverParse
         {
             get
             {
-                if (RawDPSHack.ShowRawDPS)
+                if (Hacks.ShowRawDPS)
                 {
                     return FormatNumber(DPS);
-                } else
+                }
+                else
                 {
                     if (PercentDPS < -.5)
                     {

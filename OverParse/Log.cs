@@ -55,7 +55,7 @@ namespace OverParse
             valid = true;
 
             Console.WriteLine("Making sure pso2_bin\\damagelogs exists");
-            DirectoryInfo directory =  new DirectoryInfo($"{attemptDirectory}\\damagelogs");
+            DirectoryInfo directory = new DirectoryInfo($"{attemptDirectory}\\damagelogs");
 
             if (Properties.Settings.Default.FirstRun)
             {
@@ -91,7 +91,8 @@ namespace OverParse
                     {
                         Console.WriteLine("Prompting for plugin update");
                         selfdestructResult = MessageBox.Show("Would you like to update your plugins to the version included with OverParse?\n\nOverParse may behave unpredictably if you use a different version than it expects.", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    } else
+                    }
+                    else
                     {
                         Console.WriteLine("Prompting for plugin install");
                         selfdestructResult = MessageBox.Show("OverParse needs a Tweaker plugin to recieve its damage information.\n\nThe plugin can be installed without the Tweaker, but it won't be automatically updated, and I can't provide support for this method.\n\nDo you want to try to manually install the Damage Parser plugin?", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -99,7 +100,7 @@ namespace OverParse
 
                     if (selfdestructResult == MessageBoxResult.No && pluginsExist)
                         unsetFirstRun = false;
-                    
+
                     if (selfdestructResult == MessageBoxResult.No && !pluginsExist)
                     {
                         Console.WriteLine("Denied plugin install");
@@ -128,7 +129,7 @@ namespace OverParse
                         }
 
 
-                        
+
                     }
                 }
 
@@ -291,16 +292,19 @@ namespace OverParse
 
         public void GenerateFakeEntries()
         {
-            for (int i = 0; i <= 9; i++)
+            float totalDPS = 0;
+            for (int i = 0; i <= 12; i++)
             {
-                Combatant temp = new Combatant("1000000" + i.ToString(), "TestPlayer_" + i.ToString());
-                temp.PercentDPS = (float)random.Next(0, 10000) / 100;
-                temp.DPS = random.Next(0, 10000000);
+                Combatant temp = new Combatant("1000000" + i.ToString(), "TestPlayer_" + random.Next(0, 99).ToString());
+                totalDPS += temp.DPS = random.Next(0, 10000000);
                 temp.Damage = random.Next(0, 1000000);
                 temp.MaxHitNum = random.Next(0, 1000000);
                 temp.MaxHitID = "2368738938";
                 combatants.Add(temp);
             }
+
+            foreach (Combatant c in combatants)
+                c.PercentDPS = c.DPS / totalDPS * 100;
 
             for (int i = 0; i <= 9; i++)
             {
@@ -312,6 +316,8 @@ namespace OverParse
                 temp.MaxHitID = "1612949165";
                 combatants.Add(temp);
             }
+
+            combatants.Sort((x, y) => y.DPS.CompareTo(x.DPS));
 
             valid = true;
             running = true;
@@ -418,7 +424,8 @@ namespace OverParse
                     string timer = timespan.ToString(@"mm\:ss");
                     encounterData = $"{timer}";
 
-                    if (Properties.Settings.Default.CompactMode) {
+                    if (Properties.Settings.Default.CompactMode)
+                    {
                         foreach (Combatant c in combatants)
                         {
                             if (c.Name == "YOU")

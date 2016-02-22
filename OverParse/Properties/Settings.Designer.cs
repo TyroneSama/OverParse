@@ -226,5 +226,17 @@ namespace OverParse.Properties {
                 this["ShowRawDPS"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowDamageGraph {
+            get {
+                return ((bool)(this["ShowDamageGraph"]));
+            }
+            set {
+                this["ShowDamageGraph"] = value;
+            }
+        }
     }
 }
