@@ -196,7 +196,7 @@ namespace OverParse
                 int elapsed = newTimestamp - startTimestamp;
                 TimeSpan timespan = TimeSpan.FromSeconds(elapsed);
                 string timer = timespan.ToString(@"mm\:ss");
-                string log = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + " | " + timer + Environment.NewLine;
+                string log = string.Format("{0:yyyy-MM-dd_HH-mm-ss}", DateTime.Now) + " | " + timer + Environment.NewLine;
 
                 log += Environment.NewLine;
 
@@ -252,7 +252,7 @@ namespace OverParse
                     }
                 }
 
-                File.WriteAllText("Logs/OverParse Log - " + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", log);
+                File.WriteAllText("Logs/OverParse Log - " + string.Format("{0:yyyy-MM-dd_HH-mm-ss}", DateTime.Now) + ".txt", log);
 
                 foreach (Combatant c in combatants)
                 {
