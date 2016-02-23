@@ -191,6 +191,7 @@ namespace OverParse
             MaxHitID = "none";
             DPS = 0;
             PercentDPS = -1;
+            isAux = false;
             Attacks = new List<Attack>();
         }
     }
