@@ -203,7 +203,7 @@ namespace OverParse
                 foreach (Combatant c in combatants)
                 {
                     if (c.isAlly)
-                        log += $"{c.Name} | {c.Damage} dmg | {c.DPSReadout} contrib | {c.DPS} DPS | Max: {c.MaxHit}" + Environment.NewLine;
+                        log += $"{c.Name} | {c.Damage.ToString("N0")} dmg | {c.DPSReadout} contrib | {c.DPS} DPS | Max: {c.MaxHit}" + Environment.NewLine;
                 }
 
                 log += Environment.NewLine;
@@ -212,7 +212,7 @@ namespace OverParse
                 {
                     if (c.isAlly)
                     {
-                        log += $"### {c.Name} - {c.Damage} Dmg ({c.DPSReadout}) ### " + Environment.NewLine;
+                        log += $"### {c.Name} - {c.Damage.ToString("N0")} Dmg ({c.DPSReadout}) ### " + Environment.NewLine;
                         List<string> attackTypes = new List<string>();
                         List<int> damageTotals = new List<int>();
                         foreach (Attack a in c.Attacks)
@@ -245,7 +245,7 @@ namespace OverParse
                         finalAttacks = finalAttacks.OrderBy(x => x.Item2).Reverse().ToList();
                         foreach (Tuple<string, int> t in finalAttacks)
                         {
-                            log += $"{t.Item2 * 100 / total}% | {t.Item1} ({t.Item2} dmg)" + Environment.NewLine;
+                            log += $"{t.Item2 * 100 / total}% | {t.Item1} ({t.Item2.ToString("N0")} dmg)" + Environment.NewLine;
                         }
 
                         log += Environment.NewLine;
