@@ -189,7 +189,7 @@ namespace OverParse
             }
         }
 
-        public void WriteLog()
+        public string WriteLog()
         {
             Console.WriteLine("Logging encounter information to file");
             if (combatants.Count != 0)
@@ -260,7 +260,8 @@ namespace OverParse
                 string directory = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                 Directory.CreateDirectory($"Logs/{directory}");
                 string datetime = string.Format("{0:yyyy-MM-dd_HH-mm-ss}", DateTime.Now);
-                File.WriteAllText($"Logs/{directory}/OverParse - {datetime}.txt", log);
+                string filename = $"Logs/{directory}/OverParse - {datetime}.txt";
+                File.WriteAllText(filename, log);
 
                 foreach (Combatant c in combatants)
                 {
@@ -277,7 +278,10 @@ namespace OverParse
 
                     }
                 }
+                return filename;
             }
+
+            return null;
         }
 
         public string logStatus()

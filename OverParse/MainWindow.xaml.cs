@@ -25,6 +25,7 @@ namespace OverParse
     {
         Log encounterlog;
         public static Dictionary<string, string> skillDict = new Dictionary<string, string>();
+        List<string> sessionLogFilenames = new List<string>();
         string lastStatus = "";
         IntPtr hwndcontainer;
         protected override void OnSourceInitialized(EventArgs e)
@@ -98,6 +99,7 @@ namespace OverParse
             try
             {
                 HotkeyManager.Current.AddOrReplace("End Encounter", Key.E, ModifierKeys.Control | ModifierKeys.Shift, EndEncounter_Key);
+                HotkeyManager.Current.AddOrReplace("End Encounter (No log)", Key.R, ModifierKeys.Control | ModifierKeys.Shift, EndEncounterNoLog_Key);
                 HotkeyManager.Current.AddOrReplace("Debug Menu", Key.F11, ModifierKeys.Control | ModifierKeys.Shift, DebugMenu_Key);
             }
             catch
@@ -208,6 +210,13 @@ namespace OverParse
         {
             Console.WriteLine("Encounter hotkey pressed");
             EndEncounter_Click(null, null);
+            e.Handled = true;
+        }
+
+        private void EndEncounterNoLog_Key(object sender, HotkeyEventArgs e)
+        {
+            Console.WriteLine("Encounter hotkey (no log) pressed");
+            EndEncounterNoLog_Click(null, null);
             e.Handled = true;
         }
 
@@ -454,6 +463,21 @@ namespace OverParse
             Properties.Settings.Default.LogToClipboard = LogToClipboard.IsChecked;
         }
 
+        private void EndEncounterNoLog_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Ending encounter (no log)");
+            encounterlog.combatants.Clear();
+            bool temp = Properties.Settings.Default.AutoEndEncounters;
+            Properties.Settings.Default.AutoEndEncounters = false;
+            UpdateForm(null, null);
+            Properties.Settings.Default.AutoEndEncounters = temp;
+            Console.WriteLine("Reinitializing log");
+            SeparateZanverse.IsEnabled = true;
+            SeparateAuxDamage.IsEnabled = true;
+            lastStatus = "";
+            encounterlog = new Log(Properties.Settings.Default.Path);
+        }
+
         private void EndEncounter_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Ending encounter");
@@ -461,7 +485,20 @@ namespace OverParse
             Properties.Settings.Default.AutoEndEncounters = false;
             UpdateForm(null, null); // I'M FUCKING STUPID
             Properties.Settings.Default.AutoEndEncounters = temp;
-            encounterlog.WriteLog();
+            string filename = encounterlog.WriteLog();
+            if (filename != null) {
+                if ((SessionLogs.Items[0] as MenuItem).Name == "SessionLogPlaceholder")
+                    SessionLogs.Items.Clear();
+                int items = SessionLogs.Items.Count;
+
+                string prettyName = filename.Split('/').LastOrDefault();
+
+                sessionLogFilenames.Add(filename);
+
+                var menuItem = new MenuItem() { Name = "SessionLog_" + items.ToString(), Header = prettyName };
+                menuItem.Click += OpenRecentLog_Click;
+                SessionLogs.Items.Add(menuItem);
+            }
             if (Properties.Settings.Default.LogToClipboard)
             {
                 encounterlog.WriteClipboard();
@@ -470,6 +507,13 @@ namespace OverParse
             SeparateZanverse.IsEnabled = true;
             SeparateAuxDamage.IsEnabled = true;
             encounterlog = new Log(Properties.Settings.Default.Path);
+        }
+
+        private void OpenRecentLog_Click(object sender, RoutedEventArgs e)
+        {
+            string filename = sessionLogFilenames[SessionLogs.Items.IndexOf((e.OriginalSource as MenuItem))];
+            Console.WriteLine($"attempting to open {filename}");
+            Process.Start(Directory.GetCurrentDirectory() + "\\" + filename);
         }
 
         private void OpenLogsFolder_Click(object sender, RoutedEventArgs e)
