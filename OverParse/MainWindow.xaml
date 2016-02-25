@@ -77,7 +77,7 @@
                         <Menu x:Name="MenuBar" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="16">
                             <MenuItem Style="{StaticResource topmenu}" x:Name="MenuSystem" Background="Transparent" Header="Encounter">
                                 <MenuItem Style="{StaticResource submenu}" Header="End encounter" x:Name="EndEncounter" InputGestureText="Ctrl+Shift+E" Click="EndEncounter_Click"/>
-                                <MenuItem Style="{StaticResource submenu}" Header="End encounter (discard log)" x:Name="EndEncounterNoLog" InputGestureText="Ctrl+Shift+R" Click="EndEncounterNoLog_Click"/>
+                                <MenuItem Style="{StaticResource submenu}" Header="Discard encounter" x:Name="EndEncounterNoLog" InputGestureText="Ctrl+Shift+R" Click="EndEncounterNoLog_Click"/>
                                 <Separator />
                                 <MenuItem Style="{StaticResource submenu}" x:Name="AutoEndEncounters" IsCheckable="True" IsChecked="True" Header="Automatically end encounters" Click="AutoEndEncounters_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" x:Name="SetEncounterTimeout" Header="Set encounter timeout..." Click="SetEncounterTimeout_Click"/>
