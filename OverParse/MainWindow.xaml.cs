@@ -285,6 +285,7 @@ namespace OverParse
         private void AlwaysOnTop_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.AlwaysOnTop = AlwaysOnTop.IsChecked;
+            this.OnActivated(e);
         }
 
         private void Opacity_0_Click(object sender, RoutedEventArgs e)
