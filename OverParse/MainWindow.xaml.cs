@@ -84,6 +84,7 @@ namespace OverParse
             LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard;
             AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop;
             SeparateAuxDamage.IsChecked = Properties.Settings.Default.SeparateAuxDamage;
+            AutoHideWindow.IsChecked = Properties.Settings.Default.AutoHideWindow;
 
             ShowDamageGraph.IsChecked = Properties.Settings.Default.ShowDamageGraph; ShowDamageGraph_Click(null, null);
             ShowRawDPS.IsChecked = Properties.Settings.Default.ShowRawDPS; ShowRawDPS_Click(null, null);
@@ -127,6 +128,12 @@ namespace OverParse
             damageTimer.Tick += new EventHandler(UpdateForm);
             damageTimer.Interval = new TimeSpan(0, 0, 1);
             damageTimer.Start();
+
+            Console.WriteLine("Initializing damageTimer");
+            System.Windows.Threading.DispatcherTimer inactiveTimer = new System.Windows.Threading.DispatcherTimer();
+            inactiveTimer.Tick += new EventHandler(HideIfInactive);
+            inactiveTimer.Interval = TimeSpan.FromMilliseconds(200);
+            inactiveTimer.Start();
 
             Console.WriteLine("Initializing logCheckTimer");
             System.Windows.Threading.DispatcherTimer logCheckTimer = new System.Windows.Threading.DispatcherTimer();
@@ -173,6 +180,21 @@ namespace OverParse
             catch (Exception ex) { Console.WriteLine($"Failed to update check: {ex.ToString()}"); }
 
             Console.WriteLine("End of MainWindow constructor");
+        }
+
+        private void HideIfInactive(object sender, EventArgs e)
+        {
+            if (!Properties.Settings.Default.AutoHideWindow)
+                return;
+            string title = WindowsServices.GetActiveWindowTitle();
+            if (title != "OverParse" && title != "Phantasy Star Online 2")
+            {
+                this.Opacity = 0;
+            }
+            else
+            {
+                this.Opacity = 1;
+            }
         }
 
         private void CheckForNewLog(object sender, EventArgs e)
@@ -225,6 +247,16 @@ namespace OverParse
             Console.WriteLine("Debug hotkey pressed");
             DebugMenu.Visibility = Visibility.Visible;
             e.Handled = true;
+        }
+
+        private void AutoHideWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (AutoHideWindow.IsChecked && Properties.Settings.Default.AutoHideWindowWarning)
+            {
+                MessageBox.Show("This will make the OverParse window invisible whenever PSO2 or OverParse are not in the foreground.\n\nTo show the window, Alt+Tab into OverParse, or click the icon on your taskbar.","OverParse Setup",MessageBoxButton.OK,MessageBoxImage.Information);
+                Properties.Settings.Default.AutoHideWindowWarning = false;
+            }
+            Properties.Settings.Default.AutoHideWindow = AutoHideWindow.IsChecked;
         }
 
         private void SeparateAuxDamage_Click(object sender, RoutedEventArgs e)
@@ -285,7 +317,7 @@ namespace OverParse
             HandleOpacity();
         }
 
-        private void HandleOpacity()
+        public void HandleOpacity()
         {
             TheWindow.Opacity = Properties.Settings.Default.Opacity;
             // ACHTUNG ACHTUNG ACHTUNG ACHTUNG ACHTUNG ACHTUNG ACHTUNG ACHTUNG
@@ -352,6 +384,7 @@ namespace OverParse
 
         private void Window_Activated(object sender, EventArgs e)
         {
+            this.Opacity = 1;
             Window window = (Window)sender;
             window.Topmost = AlwaysOnTop.IsChecked;
             if (Properties.Settings.Default.ClickthroughEnabled)

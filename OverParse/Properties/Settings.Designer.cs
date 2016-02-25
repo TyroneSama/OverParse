@@ -250,5 +250,29 @@ namespace OverParse.Properties {
                 this["SeparateAuxDamage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoHideWindow {
+            get {
+                return ((bool)(this["AutoHideWindow"]));
+            }
+            set {
+                this["AutoHideWindow"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoHideWindowWarning {
+            get {
+                return ((bool)(this["AutoHideWindowWarning"]));
+            }
+            set {
+                this["AutoHideWindowWarning"] = value;
+            }
+        }
     }
 }
