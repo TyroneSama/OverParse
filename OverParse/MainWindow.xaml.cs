@@ -193,7 +193,7 @@ namespace OverParse
             }
             else
             {
-                this.Opacity = 1;
+                HandleOpacity();
             }
         }
 
@@ -384,7 +384,7 @@ namespace OverParse
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            this.Opacity = 1;
+            HandleOpacity();
             Window window = (Window)sender;
             window.Topmost = AlwaysOnTop.IsChecked;
             if (Properties.Settings.Default.ClickthroughEnabled)
