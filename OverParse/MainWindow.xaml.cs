@@ -232,6 +232,12 @@ namespace OverParse
             Environment.Exit(-1);
         }
 
+        private void ResetLogFolder_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.Path = "Z:\\OBVIOUSLY\\BROKEN\\DEFAULT\\PATH";
+            EndEncounterNoLog_Click(this, null);
+        }
+
         private void ResetOverParse(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you SURE you want to reset OverParse?\n\nThis will clear all of your application settings and allow you to reselect your pso2_bin folder, but won't delete your stored logs.", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Information);
