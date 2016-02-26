@@ -116,7 +116,7 @@
                             <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Help">
                                 <MenuItem Style="{StaticResource submenu}" Header="About" x:Name="About" Click="About_Click"/>
                                 <Separator />
-                                <MenuItem Style="{StaticResource submenu}" Header="Reselect pso2_bin..." x:Name="ResetLogFolder" Click="ResetLogFolder_Click"/>
+                                <MenuItem Style="{StaticResource submenu}" Header="Reselect pso2__bin..." x:Name="ResetLogFolder" Click="ResetLogFolder_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" Header="Reset OverParse..." x:Name="Reset" Click="ResetOverParse"/>
                                 <Separator />
                                 <MenuItem Style="{StaticResource submenu}" Header="OverParse on GitHub" Click="GitHub_Click"/>
