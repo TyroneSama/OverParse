@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Path" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\PHANTASYSTARONLINE2\pso2_bin</Value>
+      <Value Profile="(Default)">Z:\CLEARLY\IMPOSSIBLE\BROKEN\PATH</Value>
     </Setting>
     <Setting Name="Top" Type="System.Double" Scope="User">
       <Value Profile="(Default)">50</Value>
@@ -64,6 +64,9 @@
     </Setting>
     <Setting Name="AutoHideWindowWarning" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ResetInvoked" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

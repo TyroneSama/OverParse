@@ -75,27 +75,27 @@
                     <DockPanel HorizontalAlignment="Left">
                         <Image x:Name="image" Height="16" VerticalAlignment="Top" Width="16" Source="pa_0105.ico" MouseDown="Window_MouseDown" ToolTip="Drag me!"/>
                         <Menu x:Name="MenuBar" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="16">
-                            <MenuItem Style="{StaticResource topmenu}" x:Name="MenuSystem" Background="Transparent" Header="Encounter">
+                            <MenuItem Style="{StaticResource topmenu}" x:Name="MenuSystem" Background="Transparent" Header="Logging">
                                 <MenuItem Style="{StaticResource submenu}" Header="End encounter" x:Name="EndEncounter" InputGestureText="Ctrl+Shift+E" Click="EndEncounter_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" Header="Discard encounter" x:Name="EndEncounterNoLog" InputGestureText="Ctrl+Shift+R" Click="EndEncounterNoLog_Click"/>
-                                <Separator />
                                 <MenuItem Style="{StaticResource submenu}" x:Name="AutoEndEncounters" IsCheckable="True" IsChecked="True" Header="Automatically end encounters" Click="AutoEndEncounters_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" x:Name="SetEncounterTimeout" Header="Set encounter timeout..." Click="SetEncounterTimeout_Click"/>
                                 <Separator />
                                 <MenuItem Style="{StaticResource submenu}" x:Name="LogToClipboard" IsCheckable="True" IsChecked="True" Header="Log results to clipboard" Click="LogToClipboard_Click"/>
                                 <Separator />
-                                <MenuItem Style="{StaticResource submenu}" x:Name="SessionLogs" Header="Session logs">
-                                    <MenuItem Style="{StaticResource submenu}" x:Name="SessionLogPlaceholder" Header="No logs recorded this session." IsEnabled="False"/>
-                                </MenuItem>
                                 <MenuItem Style="{StaticResource submenu}" Header="Open logs folder..." Click="OpenLogsFolder_Click"/>
+                                <MenuItem Style="{StaticResource submenu}" x:Name="SessionLogs" Header="Session logs">
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="SessionLogPlaceholder" Header="No logs recorded in this session." IsEnabled="False"/>
+                                </MenuItem>
                             </MenuItem>
-                            <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Display">
+                            <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Parsing">
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Show only players" x:Name="FilterPlayers"/>
                                 <MenuItem Style="{StaticResource submenu}" x:Name="ShowRawDPS" IsCheckable="True" IsChecked="False" Header="Show raw DPS" Click="ShowRawDPS_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" x:Name="SeparateZanverse" IsCheckable="True" IsChecked="False" Header="Show Zanverse damage separately" Click="SeparateZanverse_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" x:Name="SeparateAuxDamage" Visibility="Collapsed" IsCheckable="True" IsChecked="False" Header="Show AIS/Turret damage separately" Click="SeparateAuxDamage_Click"/>
-                                <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Show damage graph" x:Name="ShowDamageGraph" Click="ShowDamageGraph_Click"/>
-                                <Separator />
+                                <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Show damage graph" x:Name="ShowDamageGraph" Click="ShowDamageGraph_Click"/>                            
+                            </MenuItem>
+                            <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Window">
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Compact mode" x:Name="CompactMode" Click="CompactMode_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" Header="Window opacity">
                                     <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_0" Visibility="Collapsed" IsCheckable="True" IsChecked="False" Header="Transparent" Click="Opacity_0_Click" />
@@ -115,6 +115,9 @@
                             </MenuItem>
                             <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Help">
                                 <MenuItem Style="{StaticResource submenu}" Header="About" x:Name="About" Click="About_Click"/>
+                                <Separator />
+                                <MenuItem Style="{StaticResource submenu}" Header="Reset OverParse" x:Name="Reset" Click="ResetOverParse"/>
+                                <Separator />
                                 <MenuItem Style="{StaticResource submenu}" Header="OverParse on GitHub" Click="GitHub_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" Header="OverParse on PSO-World" Click="PSOWorld_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" Header="Quick reference">

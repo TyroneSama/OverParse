@@ -25,7 +25,7 @@ namespace OverParse.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\PHANTASYSTARONLINE2\\pso2_bin")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Z:\\CLEARLY\\IMPOSSIBLE\\BROKEN\\PATH")]
         public string Path {
             get {
                 return ((string)(this["Path"]));
@@ -272,6 +272,18 @@ namespace OverParse.Properties {
             }
             set {
                 this["AutoHideWindowWarning"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ResetInvoked {
+            get {
+                return ((bool)(this["ResetInvoked"]));
+            }
+            set {
+                this["ResetInvoked"] = value;
             }
         }
     }

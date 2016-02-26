@@ -64,7 +64,7 @@ namespace OverParse
 
             Console.WriteLine("OVERPARSE V." + Assembly.GetExecutingAssembly().GetName().Version);
 
-            if (Properties.Settings.Default.UpgradeRequired)
+            if (Properties.Settings.Default.UpgradeRequired && !Properties.Settings.Default.ResetInvoked)
             {
                 Console.WriteLine("Upgrading settings");
                 Properties.Settings.Default.Upgrade();
@@ -72,19 +72,20 @@ namespace OverParse
                 Properties.Settings.Default.FirstRun = true;
             }
 
-            Console.WriteLine("Loading settings from file");
-            this.Top = Properties.Settings.Default.Top;
-            this.Left = Properties.Settings.Default.Left;
-            this.Height = Properties.Settings.Default.Height;
-            this.Width = Properties.Settings.Default.Width;
-            AutoEndEncounters.IsChecked = Properties.Settings.Default.AutoEndEncounters;
-            SetEncounterTimeout.IsEnabled = AutoEndEncounters.IsChecked;
-            SeparateZanverse.IsChecked = Properties.Settings.Default.SeparateZanverse;
-            ClickthroughMode.IsChecked = Properties.Settings.Default.ClickthroughEnabled;
-            LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard;
-            AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop;
-            SeparateAuxDamage.IsChecked = Properties.Settings.Default.SeparateAuxDamage;
-            AutoHideWindow.IsChecked = Properties.Settings.Default.AutoHideWindow;
+            Console.WriteLine("Applying UI settings");
+            Console.WriteLine(this.Top = Properties.Settings.Default.Top);
+            Console.WriteLine(this.Left = Properties.Settings.Default.Left);
+            Console.WriteLine(this.Height = Properties.Settings.Default.Height);
+            Console.WriteLine(this.Width = Properties.Settings.Default.Width);
+            Console.WriteLine(AutoEndEncounters.IsChecked = Properties.Settings.Default.AutoEndEncounters);
+            Console.WriteLine(SetEncounterTimeout.IsEnabled = AutoEndEncounters.IsChecked);
+            Console.WriteLine(SeparateZanverse.IsChecked = Properties.Settings.Default.SeparateZanverse);
+            Console.WriteLine(ClickthroughMode.IsChecked = Properties.Settings.Default.ClickthroughEnabled);
+            Console.WriteLine(LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard);
+            Console.WriteLine(AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop);
+            Console.WriteLine(SeparateAuxDamage.IsChecked = Properties.Settings.Default.SeparateAuxDamage);
+            Console.WriteLine(AutoHideWindow.IsChecked = Properties.Settings.Default.AutoHideWindow);
+            Console.WriteLine("Finished applying settings");
 
             ShowDamageGraph.IsChecked = Properties.Settings.Default.ShowDamageGraph; ShowDamageGraph_Click(null, null);
             ShowRawDPS.IsChecked = Properties.Settings.Default.ShowRawDPS; ShowRawDPS_Click(null, null);
@@ -186,8 +187,11 @@ namespace OverParse
         {
             if (!Properties.Settings.Default.AutoHideWindow)
                 return;
+
             string title = WindowsServices.GetActiveWindowTitle();
-            if (title != "OverParse" && title != "Phantasy Star Online 2")
+            string[] relevant = { "OverParse", "OverParse Setup", "OverParse Error", "Encounter Timeout","Phantasy Star Online 2" };
+
+            if (!relevant.Contains(title))
             {
                 this.Opacity = 0;
             }
@@ -226,6 +230,21 @@ namespace OverParse
             Console.WriteLine(e.Exception.ToString());
             MessageBox.Show(errorMessage, "OverParse Error - 素晴らしく運がないね君は!", MessageBoxButton.OK, MessageBoxImage.Error);
             Environment.Exit(-1);
+        }
+
+        private void ResetOverParse(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you SURE you want to reset OverParse?\n\nThis will clear all of your application settings, but won't delete your stored logs.", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            Console.WriteLine("Resetting");
+            Properties.Settings.Default.Reset();
+            Properties.Settings.Default.ResetInvoked = true;
+            Properties.Settings.Default.Save();
+
+            Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
         }
 
         private void EndEncounter_Key(object sender, HotkeyEventArgs e)
@@ -470,26 +489,31 @@ namespace OverParse
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Console.WriteLine("Closing...");
-            if (WindowState == WindowState.Maximized)
+
+            if (!Properties.Settings.Default.ResetInvoked)
             {
-                // Use the RestoreBounds as the current values will be 0, 0 and the size of the screen
-                Properties.Settings.Default.Top = RestoreBounds.Top;
-                Properties.Settings.Default.Left = RestoreBounds.Left;
-                Properties.Settings.Default.Height = RestoreBounds.Height;
-                Properties.Settings.Default.Width = RestoreBounds.Width;
-                Properties.Settings.Default.Maximized = true;
-            }
-            else
-            {
-                Properties.Settings.Default.Top = this.Top;
-                Properties.Settings.Default.Left = this.Left;
-                Properties.Settings.Default.Height = this.Height;
-                Properties.Settings.Default.Width = this.Width;
-                Properties.Settings.Default.Maximized = false;
+                if (WindowState == WindowState.Maximized)
+                {
+                    Properties.Settings.Default.Top = RestoreBounds.Top;
+                    Properties.Settings.Default.Left = RestoreBounds.Left;
+                    Properties.Settings.Default.Height = RestoreBounds.Height;
+                    Properties.Settings.Default.Width = RestoreBounds.Width;
+                    Properties.Settings.Default.Maximized = true;
+                }
+                else
+                {
+                    Properties.Settings.Default.Top = this.Top;
+                    Properties.Settings.Default.Left = this.Left;
+                    Properties.Settings.Default.Height = this.Height;
+                    Properties.Settings.Default.Width = this.Width;
+                    Properties.Settings.Default.Maximized = false;
+                }
             }
 
-            Properties.Settings.Default.Save();
             encounterlog.WriteLog();
+
+            Properties.Settings.Default.Save();
+
         }
 
         private void LogToClipboard_Click(object sender, RoutedEventArgs e)
