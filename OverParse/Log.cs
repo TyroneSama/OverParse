@@ -30,7 +30,7 @@ namespace OverParse
             while (!File.Exists($"{attemptDirectory}\\pso2.exe"))
             {
                 Console.WriteLine("Invalid pso2_bin directory, prompting for new one...");
-                MessageBox.Show("Please select your pso2_bin directory.\nThis is the same folder you selected while setting up the Tweaker.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Please select your pso2_bin directory.\n\nThis folder will be inside your PSO2 install folder, which is usually at C:\\PHANTASYSTARONLINE2\\.\n\nIf you installed the game multiple times (e.g. through the torrent), please make sure you pick the right one, or OverParse won't be able to read your logs!", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 VistaFolderBrowserDialog oDialog = new VistaFolderBrowserDialog();
                 oDialog.Description = "Select your pso2_bin folder...";
@@ -293,7 +293,7 @@ namespace OverParse
 
             if (!notEmpty)
             {
-                return "No logs: check Damage Parser plugin!";
+                return "No logs: Enable plugin and check pso2_bin!";
             }
 
             if (!running)
