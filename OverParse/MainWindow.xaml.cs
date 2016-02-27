@@ -40,7 +40,7 @@ namespace OverParse
         {
             InitializeComponent();
 
-            this.Dispatcher.UnhandledException += Panic;
+            //this.Dispatcher.UnhandledException += Panic;
 
             //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://107.170.16.100/Plugins/PSO2DamageDump.dll");
             //request.Method = "HEAD";
@@ -71,6 +71,8 @@ namespace OverParse
                 Properties.Settings.Default.UpgradeRequired = false;
                 Properties.Settings.Default.FirstRun = true;
             }
+
+            Properties.Settings.Default.ResetInvoked = false;
 
             Console.WriteLine("Applying UI settings");
             Console.WriteLine(this.Top = Properties.Settings.Default.Top);
