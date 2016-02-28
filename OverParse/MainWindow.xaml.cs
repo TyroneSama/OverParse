@@ -40,7 +40,7 @@ namespace OverParse
         {
             InitializeComponent();
 
-            //this.Dispatcher.UnhandledException += Panic;
+            this.Dispatcher.UnhandledException += Panic;
 
             //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://107.170.16.100/Plugins/PSO2DamageDump.dll");
             //request.Method = "HEAD";
