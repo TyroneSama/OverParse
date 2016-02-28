@@ -1,3 +1,4 @@
+Unarmed,3085782811,PA,Unarmed
 Foie,2875245395,Tech,Uncharged
 Foie,169905548,Tech,Charged
 Gifoie,46933754,Tech,Uncharged
@@ -146,6 +147,9 @@ Sacrifice's Bite,985472180,PA,Sacrifice's bite short-charge
 Sacrifice's Bite,2606728976,PA,Sacrifice's bite smack
 Ignition Parry,3096775537,PA,Ignition Parry first four strikes
 Ignition Parry,54200585,PA,Ignition Parry final two strikes
+Ignition Parry,498184876,PA,first hit?
+Ignition Parry,915561415,PA,last two hits?
+Ignition Parry,915578993,PA,last two hits?
 Hit,2285482403,Melee,Partisan 1
 Hit,2226608029,Melee,Partisan 2
 Hit,3208780153,Melee,Partisan 3
