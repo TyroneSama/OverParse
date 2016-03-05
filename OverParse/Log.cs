@@ -172,7 +172,7 @@ namespace OverParse
 
             notEmpty = true;
 
-            FileInfo log = directory.GetFiles().OrderByDescending(f => f.Name).First();
+            FileInfo log = directory.GetFiles().OrderByDescending(f => f.CreationTime).First();
             Console.WriteLine($"Reading from {log.DirectoryName}\\{log.Name}");
             filename = log.Name;
             FileStream fileStream = File.Open(log.DirectoryName + "\\" + log.Name, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
@@ -531,7 +531,7 @@ namespace OverParse
                 }
             }
         }
-
+        
         private String FormatNumber(int value)
         {
             if (value >= 100000000)
@@ -543,7 +543,7 @@ namespace OverParse
             if (value >= 1000)
                 return (value / 1000D).ToString("0.#") + "K";
             return value.ToString("#,0");
-        }
+        
 
     }
 }
