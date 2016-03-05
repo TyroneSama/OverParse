@@ -531,7 +531,7 @@ namespace OverParse
                 }
             }
         }
-        
+
         private String FormatNumber(int value)
         {
             if (value >= 100000000)
@@ -543,7 +543,7 @@ namespace OverParse
             if (value >= 1000)
                 return (value / 1000D).ToString("0.#") + "K";
             return value.ToString("#,0");
-        
 
+        }
     }
 }
