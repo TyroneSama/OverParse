@@ -23,6 +23,27 @@ namespace OverParse
 
         public Log(string attemptDirectory)
         {
+            Console.WriteLine(FormatNumber(1));
+            Console.WriteLine(FormatNumber(10));
+            Console.WriteLine(FormatNumber(100));
+            Console.WriteLine(FormatNumber(525));
+            Console.WriteLine(FormatNumber(999));
+            Console.WriteLine(FormatNumber(1000));
+            Console.WriteLine(FormatNumber(5250));
+            Console.WriteLine(FormatNumber(10000));
+            Console.WriteLine(FormatNumber(52500));
+            Console.WriteLine(FormatNumber(100000));
+            Console.WriteLine(FormatNumber(525000));
+            Console.WriteLine(FormatNumber(999999));
+            Console.WriteLine(FormatNumber(1000000));
+            Console.WriteLine(FormatNumber(5250000));
+            Console.WriteLine(FormatNumber(10000000));
+            Console.WriteLine(FormatNumber(52500000));
+            Console.WriteLine(FormatNumber(100000000));
+            Console.WriteLine(FormatNumber(525000000));
+            Console.WriteLine(FormatNumber(999999999));
+            Console.WriteLine(FormatNumber(1000000000));
+
             valid = false;
             notEmpty = false;
             running = false;
@@ -511,29 +532,18 @@ namespace OverParse
             }
         }
 
-        string FormatNumber(int num)
+        private String FormatNumber(int value)
         {
-            if (num >= 100000000)
-            {
-                return (num / 1000000D).ToString("0.#M");
-            }
-
-            if (num >= 1000000)
-            {
-                return (num / 1000000D).ToString("0.##M");
-            }
-
-            if (num >= 100000)
-            {
-                return (num / 1000D).ToString("0.#K");
-            }
-
-            if (num >= 10000)
-            {
-                return (num / 1000D).ToString("0.##K");
-            }
-
-            return num.ToString("#,0");
+            if (value >= 100000000)
+                return (value / 1000000).ToString("#,0") + "M";
+            if (value >= 1000000)
+                return (value / 1000000D).ToString("0.#") + "M";
+            if (value >= 100000)
+                return (value / 1000).ToString("#,0") + "K";
+            if (value >= 1000)
+                return (value / 1000D).ToString("0.#") + "K";
+            return value.ToString("#,0");
         }
+
     }
 }

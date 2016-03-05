@@ -146,31 +146,19 @@ namespace OverParse
             }
         }
 
-        string FormatNumber(float input)
+        private String FormatNumber(float value)
         {
-            int num = (int)Math.Round(input);
+            int num = (int)Math.Round(value);
 
-            if (num >= 100000000)
-            {
-                return (num / 1000000D).ToString("0.#M");
-            }
-
-            if (num >= 1000000)
-            {
-                return (num / 1000000D).ToString("0.##M");
-            }
-
-            if (num >= 100000)
-            {
-                return (num / 1000D).ToString("0.#K");
-            }
-
-            if (num >= 10000)
-            {
-                return (num / 1000D).ToString("0.##K");
-            }
-
-            return num.ToString("#,0");
+            if (value >= 100000000)
+                return (value / 1000000).ToString("#,0") + "M";
+            if (value >= 1000000)
+                return (value / 1000000D).ToString("0.#") + "M";
+            if (value >= 100000)
+                return (value / 1000).ToString("#,0") + "K";
+            if (value >= 1000)
+                return (value / 1000D).ToString("0.#") + "K";
+            return value.ToString("#,0");
         }
 
         public string DamageReadout
