@@ -229,47 +229,51 @@ namespace OverParse
                         log += $"{c.Name} | {c.Damage.ToString("N0")} dmg | {c.DPSReadout} contrib | {c.DPS} DPS | Max: {c.MaxHit}" + Environment.NewLine;
                 }
 
-                log += Environment.NewLine;
+                log += Environment.NewLine + Environment.NewLine;
 
                 foreach (Combatant c in combatants)
                 {
                     if (c.isAlly)
                     {
-                        log += $"### {c.Name} - {c.Damage.ToString("N0")} Dmg ({c.DPSReadout}) ### " + Environment.NewLine;
-                        List<string> attackTypes = new List<string>();
-                        List<int> damageTotals = new List<int>();
+                        string header = $"###### {c.Name} - {c.Damage.ToString("N0")} dmg ({c.DPSReadout}) ######";
+                        // string line = "".PadLeft(header.Length, '-');
+                        log += header + Environment.NewLine + Environment.NewLine;
+
+                        List<string> attackNames = new List<string>();
+
                         foreach (Attack a in c.Attacks)
                         {
-                            string name = a.ID;
                             if (MainWindow.skillDict.ContainsKey(a.ID))
-                            {
-                                name = MainWindow.skillDict[a.ID];
-                            }
-
-                            if (attackTypes.Contains(name))
-                            {
-                                int index = attackTypes.IndexOf(name);
-                                damageTotals[index] += a.Damage;
-                            }
-                            else
-                            {
-                                attackTypes.Add(name);
-                                damageTotals.Add(a.Damage);
-                            }
+                                a.ID = MainWindow.skillDict[a.ID]; // these are getting disposed anyway, no 1 cur
+                            if (!attackNames.Contains(a.ID))
+                                attackNames.Add(a.ID);
                         }
 
-                        int total = damageTotals.Sum();
-                        List<Tuple<string, int>> finalAttacks = new List<Tuple<string, int>>();
-                        foreach (string str in attackTypes)
+                        List<Tuple<string, List<int>>> attackData = new List<Tuple<string, List<int>>>();
+
+                        foreach (string s in attackNames)
                         {
-                            finalAttacks.Add(new Tuple<string, int>(str, damageTotals[attackTypes.IndexOf(str)]));
+                            Console.WriteLine(s);
+                            List<int> matchingAttacks = c.Attacks.Where(a => a.ID == s).Select(a => a.Damage).ToList();
+                            attackData.Add(new Tuple<string, List<int>>(s, matchingAttacks));
                         }
 
-                        finalAttacks = finalAttacks.OrderBy(x => x.Item2).Reverse().ToList();
-                        foreach (Tuple<string, int> t in finalAttacks)
+                        attackData = attackData.OrderByDescending(x => x.Item2.Sum()).ToList();
+
+                        foreach (var i in attackData)
                         {
-                            string padding = (t.Item2 * 100 / total) >= 10 ? "" : " ";
-                            log += $"{t.Item2 * 100 / total}% {padding}| {t.Item1} ({t.Item2.ToString("N0")} dmg)" + Environment.NewLine;
+                            double percent = i.Item2.Sum() * 100d / c.Damage;
+                            string spacer = (percent >= 9) ? "" : " ";
+
+                            string paddedPercent = percent.ToString("00.00").Substring(0, 5);
+                            string hits = i.Item2.Count().ToString("N0");
+                            string sum = i.Item2.Sum().ToString("N0");
+                            string min = i.Item2.Min().ToString("N0");
+                            string max = i.Item2.Max().ToString("N0");
+                            string avg = i.Item2.Average().ToString("N0");
+
+                            log += $"{paddedPercent}% | {i.Item1} ({sum} dmg)" + Environment.NewLine;
+                            log += $"       |   {hits} hits - {min} min, {avg} avg, {max} max" + Environment.NewLine;
                         }
 
                         log += Environment.NewLine;
