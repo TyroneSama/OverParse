@@ -500,7 +500,7 @@ namespace OverParse
                     {
                         if (x.isAlly)
                         {
-                            float dps = x.Damage / (newTimestamp - startTimestamp);
+                            float dps = x.Damage / (float)(newTimestamp - startTimestamp);
                             x.DPS = dps;
                             partyDPS += dps;
                         }
@@ -528,7 +528,7 @@ namespace OverParse
                         }
                     }
 
-                    encounterData += $" - {partyDPS.ToString("0.00")} DPS";
+                    encounterData += $" - {partyDPS.ToString("#.00")} DPS";
                 }
             }
         }
