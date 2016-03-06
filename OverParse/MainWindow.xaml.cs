@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 
 using Newtonsoft.Json.Linq;
 using System.Reflection;
-
+using System.Text.RegularExpressions;
 
 namespace OverParse
 {
@@ -215,7 +215,7 @@ namespace OverParse
                 return;
             }
 
-            FileInfo log = directory.GetFiles().OrderByDescending(f => f.Name).First();
+            FileInfo log = directory.GetFiles().Where(f => Regex.IsMatch(f.Name, @"\d+\.csv")).OrderByDescending(f => f.Name).First();
 
             if (log.Name != encounterlog.filename)
             {
