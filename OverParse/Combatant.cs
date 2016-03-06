@@ -153,11 +153,11 @@ namespace OverParse
             if (value >= 100000000)
                 return (value / 1000000).ToString("#,0") + "M";
             if (value >= 1000000)
-                return (value / 1000000D).ToString("0.#") + "M";
+                return (value / 1000000D).ToString("0.0") + "M";
             if (value >= 100000)
                 return (value / 1000).ToString("#,0") + "K";
             if (value >= 1000)
-                return (value / 1000D).ToString("0.#") + "K";
+                return (value / 1000D).ToString("0.0") + "K";
             return value.ToString("#,0");
         }
 
