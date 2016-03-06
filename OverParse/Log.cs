@@ -24,7 +24,7 @@ namespace OverParse
 
         public Log(string attemptDirectory)
         {
-            Console.WriteLine(FormatNumber(1));
+            /* Console.WriteLine(FormatNumber(1));
             Console.WriteLine(FormatNumber(10));
             Console.WriteLine(FormatNumber(100));
             Console.WriteLine(FormatNumber(525));
@@ -43,7 +43,7 @@ namespace OverParse
             Console.WriteLine(FormatNumber(100000000));
             Console.WriteLine(FormatNumber(525000000));
             Console.WriteLine(FormatNumber(999999999));
-            Console.WriteLine(FormatNumber(1000000000));
+            Console.WriteLine(FormatNumber(1000000000)); */
 
             valid = false;
             notEmpty = false;
