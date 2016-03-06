@@ -649,7 +649,7 @@ namespace OverParse
 
         private void GitHub_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("http://www.pso-world.com/forums/showthread.php?t=232386");
+            Process.Start("https://github.com/TyroneSama/OverParse");
         }
 
         private void EQSchedule_Click(object sender, RoutedEventArgs e)
