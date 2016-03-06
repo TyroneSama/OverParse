@@ -158,6 +158,7 @@ namespace OverParse
                 response.Close();
                 JObject responseJSON = JObject.Parse(responseFromServer);
                 string responseVersion = Version.Parse(responseJSON["tag_name"].ToString()).ToString();
+                responseVersion = "9.9.9.9";
                 string thisVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
                 while (thisVersion.Substring(Math.Max(0, thisVersion.Length - 2)) == ".0")
@@ -177,6 +178,8 @@ namespace OverParse
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start("https://github.com/TyroneSama/OverParse/releases/latest");
+                        Environment.Exit(-1);
+
                     }
                 }
             }
