@@ -286,5 +286,17 @@ namespace OverParse.Properties {
                 this["ResetInvoked"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CompleteOpacity {
+            get {
+                return ((bool)(this["CompleteOpacity"]));
+            }
+            set {
+                this["CompleteOpacity"] = value;
+            }
+        }
     }
 }

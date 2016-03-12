@@ -103,6 +103,8 @@
                                     <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_50" IsCheckable="True" IsChecked="False" Header="50%" Click="Opacity_50_Click" />
                                     <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_75" IsCheckable="True" IsChecked="True" Header="75%" Click="Opacity_75_Click" />
                                     <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_100" IsCheckable="True" IsChecked="False" Header="Opaque" Click="Opacity_100_Click" />
+                                    <Separator />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="CompleteOpacity" IsCheckable="True" IsChecked="False" Header="Screenshot-friendly mode" Click="CompleteOpacity_Click" />
                                 </MenuItem>
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Always on top" x:Name="AlwaysOnTop" Click="AlwaysOnTop_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Auto-hide window" x:Name="AutoHideWindow" Click="AutoHideWindow_Click"/>
