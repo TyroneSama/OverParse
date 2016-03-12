@@ -106,6 +106,7 @@ namespace OverParse
                 HotkeyManager.Current.AddOrReplace("End Encounter", Key.E, ModifierKeys.Control | ModifierKeys.Shift, EndEncounter_Key);
                 HotkeyManager.Current.AddOrReplace("End Encounter (No log)", Key.R, ModifierKeys.Control | ModifierKeys.Shift, EndEncounterNoLog_Key);
                 HotkeyManager.Current.AddOrReplace("Debug Menu", Key.F11, ModifierKeys.Control | ModifierKeys.Shift, DebugMenu_Key);
+                HotkeyManager.Current.AddOrReplace("Always On Top", Key.T, ModifierKeys.Control | ModifierKeys.Shift, AlwaysOnTop_Key);
             }
             catch
             {
@@ -269,6 +270,23 @@ namespace OverParse
         {
             Console.WriteLine("Encounter hotkey (no log) pressed");
             EndEncounterNoLog_Click(null, null);
+            e.Handled = true;
+        }
+
+        private void AlwaysOnTop_Key(object sender, HotkeyEventArgs e)
+        {
+            Console.WriteLine("Always-on-top hotkey pressed");
+            AlwaysOnTop.IsChecked = !AlwaysOnTop.IsChecked;
+            IntPtr wasActive = WindowsServices.GetForegroundWindow();
+
+            // hack for activating overparse window
+            this.WindowState = WindowState.Minimized;
+            this.Show();
+            this.WindowState = WindowState.Normal;
+
+            this.Topmost = AlwaysOnTop.IsChecked;
+            AlwaysOnTop_Click(null, null);
+            WindowsServices.SetForegroundWindow(wasActive);
             e.Handled = true;
         }
 

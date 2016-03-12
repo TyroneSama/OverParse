@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows;
+using System.Windows.Interop;
 
 namespace OverParse
 {
@@ -13,24 +15,19 @@ namespace OverParse
         [DllImport("user32.dll")]
         public static extern int SetWindowLong(IntPtr hwnd, int index, int newStyle);
         [DllImport("user32.dll")]
-        static extern IntPtr GetForegroundWindow();
+        public static extern IntPtr GetForegroundWindow();
         [DllImport("user32.dll")]
-        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+        public static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+        [DllImport("USER32.DLL")]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
 
         public static string GetActiveWindowTitle()
         {
             int chars = 256;
             StringBuilder buff = new StringBuilder(chars);
-
-            // Obtain the handle of the active window.
             IntPtr handle = GetForegroundWindow();
-
-            // Update the controls.
             if (GetWindowText(handle, buff, chars) > 0)
-            {
                 return buff.ToString();
-                //MessageBox.Show(handle.ToString());
-            }
             return null;
         }
 
