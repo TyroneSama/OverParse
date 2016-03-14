@@ -71,5 +71,11 @@
     <Setting Name="CompleteOpacity" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="InstalledPluginVersion" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="LaunchMethod" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Unknown</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

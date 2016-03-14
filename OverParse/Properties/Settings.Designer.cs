@@ -298,5 +298,29 @@ namespace OverParse.Properties {
                 this["CompleteOpacity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int InstalledPluginVersion {
+            get {
+                return ((int)(this["InstalledPluginVersion"]));
+            }
+            set {
+                this["InstalledPluginVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Unknown")]
+        public string LaunchMethod {
+            get {
+                return ((string)(this["LaunchMethod"]));
+            }
+            set {
+                this["LaunchMethod"] = value;
+            }
+        }
     }
 }

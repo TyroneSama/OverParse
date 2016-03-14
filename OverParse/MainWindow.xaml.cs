@@ -69,7 +69,6 @@ namespace OverParse
                 Console.WriteLine("Upgrading settings");
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.UpgradeRequired = false;
-                Properties.Settings.Default.FirstRun = true;
             }
 
             Properties.Settings.Default.ResetInvoked = false;
@@ -94,6 +93,8 @@ namespace OverParse
             CompactMode.IsChecked = Properties.Settings.Default.CompactMode; CompactMode_Click(null, null);
             CompleteOpacity.IsChecked = Properties.Settings.Default.CompleteOpacity; CompleteOpacity_Click(null, null);
             HandleOpacity();
+
+            Console.WriteLine($"Launch method: {Properties.Settings.Default.LaunchMethod}");
 
             if (Properties.Settings.Default.Maximized)
             {
@@ -236,6 +237,17 @@ namespace OverParse
             Console.WriteLine(e.Exception.ToString());
             MessageBox.Show(errorMessage, "OverParse Error - 素晴らしく運がないね君は!", MessageBoxButton.OK, MessageBoxImage.Error);
             Environment.Exit(-1);
+        }
+
+        private void UpdatePlugin_Click(object sender, RoutedEventArgs e)
+        {
+            if (Properties.Settings.Default.LaunchMethod == "Tweaker")
+            {
+                MessageBox.Show("You can install the parsing plugin from the PSO2 Tweaker's orb menu, under \"Plugins\".\n\nIf you don't use the PSO2 tweaker, use \"Help > Reset OverParse...\" to go through setup again.");
+                return;
+            }
+            encounterlog.UpdatePlugin(Properties.Settings.Default.Path);
+            EndEncounterNoLog_Click(this, null);
         }
 
         private void ResetLogFolder_Click(object sender, RoutedEventArgs e)
