@@ -78,6 +78,19 @@ namespace OverParse
             Console.WriteLine(this.Left = Properties.Settings.Default.Left);
             Console.WriteLine(this.Height = Properties.Settings.Default.Height);
             Console.WriteLine(this.Width = Properties.Settings.Default.Width);
+
+            bool outOfBounds = (this.Left <= SystemParameters.VirtualScreenLeft - this.Width) || 
+                (this.Top <= SystemParameters.VirtualScreenTop - this.Height) ||
+                (SystemParameters.VirtualScreenLeft + SystemParameters.VirtualScreenWidth <= this.Left) ||
+                (SystemParameters.VirtualScreenTop + SystemParameters.VirtualScreenHeight <= this.Top);
+
+            if (outOfBounds)
+            {
+                Console.WriteLine("Window's off-screen, rseetting");
+                this.Top = 50;
+                this.Left = 50;
+            }
+
             Console.WriteLine(AutoEndEncounters.IsChecked = Properties.Settings.Default.AutoEndEncounters);
             Console.WriteLine(SetEncounterTimeout.IsEnabled = AutoEndEncounters.IsChecked);
             Console.WriteLine(SeparateZanverse.IsChecked = Properties.Settings.Default.SeparateZanverse);
