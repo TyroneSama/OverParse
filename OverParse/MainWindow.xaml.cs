@@ -86,7 +86,7 @@ namespace OverParse
 
             if (outOfBounds)
             {
-                Console.WriteLine("Window's off-screen, rseetting");
+                Console.WriteLine("Window's off-screen, resetting");
                 this.Top = 50;
                 this.Left = 50;
             }
