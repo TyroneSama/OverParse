@@ -11,6 +11,7 @@ namespace OverParse
         public static bool ShowRawDPS;
         public static bool ShowDamageGraph;
         public static bool AnonymizeNames;
+        public static string currentPlayerID = "";
         public static bool DontAsk = false;
     }
 }

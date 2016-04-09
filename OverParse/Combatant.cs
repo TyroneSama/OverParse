@@ -23,11 +23,14 @@ namespace OverParse
 
         bool isYou()
         {
-            return (Name == "YOU" || Name == "YOU (Aux)");
+            return (ID == Hacks.currentPlayerID);
         }
 
         public string AnonymousName() {
-            return (Name == "YOU") ? "YOU" : "--";
+            if (isYou())
+                return Name;
+            else
+                return "--";
         }
 
         public string DisplayName

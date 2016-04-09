@@ -10,7 +10,7 @@ namespace OverParse
 {
     public class Log
     {
-        private const int pluginVersion = 1;
+        private const int pluginVersion = 2;
 
         public bool notEmpty;
         public bool valid;
@@ -186,8 +186,22 @@ namespace OverParse
             Console.WriteLine($"Reading from {log.DirectoryName}\\{log.Name}");
             filename = log.Name;
             FileStream fileStream = File.Open(log.DirectoryName + "\\" + log.Name, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            fileStream.Seek(0, SeekOrigin.End);
+            fileStream.Seek(0, SeekOrigin.Begin);
             logReader = new StreamReader(fileStream);
+
+            string existingLines = logReader.ReadToEnd(); // gotta get the dummy line for current player name
+            string[] result = existingLines.Split('\n');
+            foreach (string s in result)
+            {
+                if (s == "")
+                    continue;
+                string[] parts = s.Split(',');
+                if (parts[0] == "0" && parts[3] == "YOU")
+                {
+                    Hacks.currentPlayerID = parts[2];
+                    Console.WriteLine("Found existing active player ID: " + parts[2]);
+                }
+            }
         }
 
         public bool UpdatePlugin(string attemptDirectory)
@@ -420,6 +434,13 @@ namespace OverParse
                         string isMisc = parts[11];
                         string isMisc2 = parts[12];
                         int index = -1;
+
+                        if (lineTimestamp == "0" && sourceName == "YOU")
+                        {
+                            Hacks.currentPlayerID = parts[2];
+                            Console.WriteLine("Found new active player ID: " + parts[2]);
+                            continue;
+                        }
 
                         bool isAuxDamage = false;
 
