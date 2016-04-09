@@ -221,6 +221,19 @@ namespace OverParse
         public string WriteLog()
         {
             Console.WriteLine("Logging encounter information to file");
+
+            foreach (Combatant c in combatants) // Debug for ID mapping
+            {
+                foreach (Attack a in c.Attacks)
+                {
+                    if (!MainWindow.skillDict.ContainsKey(a.ID))
+                    {
+                        TimeSpan t = TimeSpan.FromSeconds(a.Timestamp);
+                        Console.WriteLine($"{t.ToString(@"dd\.hh\:mm\:ss")} unmapped: {a.ID} ({a.Damage} dmg from {c.Name})");
+                    }
+                }
+            }
+
             if (combatants.Count != 0)
             {
                 int elapsed = newTimestamp - startTimestamp;
@@ -296,21 +309,6 @@ namespace OverParse
                 string filename = $"Logs/{directory}/OverParse - {datetime}.txt";
                 File.WriteAllText(filename, log);
 
-                foreach (Combatant c in combatants)
-                {
-                    if (c.Name == "YOU")
-                    {
-                        foreach (Attack a in c.Attacks)
-                        {
-                            if (!MainWindow.skillDict.ContainsKey(a.ID))
-                            {
-                                TimeSpan t = TimeSpan.FromSeconds(a.Timestamp);
-                                Console.WriteLine($"UNMAPPED ATTACK - {t.ToString(@"hh\h\:mm\m\:ss\s\:fff\m\s")} -- {a.ID} dealing {a.Damage} dmg" + Environment.NewLine);
-                            }
-                        }
-
-                    }
-                }
                 return filename;
             }
 
