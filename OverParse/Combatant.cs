@@ -26,11 +26,19 @@ namespace OverParse
             return (Name == "YOU" || Name == "YOU (Aux)");
         }
 
-        public string AnonymousName {
+        public string AnonymousName() {
+            return (Name == "YOU") ? "YOU" : "--";
+        }
+
+        public string DisplayName
+        {
             get
             {
-                return (Name == "YOU") ? "YOU" : "--";
+                if (Hacks.AnonymizeNames && isAlly)
+                    return AnonymousName();
+                return Name;
             }
+
         }
 
         public Brush Brush

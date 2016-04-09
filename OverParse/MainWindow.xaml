@@ -165,7 +165,7 @@
                                 <GridViewColumn Header="Name" x:Name="NameColumn" Width="{Binding ElementName=NameHelper, Path=ActualWidth}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Margin="-4,0" Text="{Binding Name}" TextAlignment="Left"/>
+                                            <TextBlock Margin="-4,0" Text="{Binding DisplayName}" TextAlignment="Left"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>

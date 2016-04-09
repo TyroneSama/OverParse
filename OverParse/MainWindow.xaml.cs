@@ -470,7 +470,7 @@ namespace OverParse
         private void AnonymizeNames_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.AnonymizeNames = AnonymizeNames.IsChecked;
-            // implement later
+            Hacks.AnonymizeNames = Properties.Settings.Default.AnonymizeNames;
         }
 
         private void CompactMode_Click(object sender, RoutedEventArgs e)
