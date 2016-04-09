@@ -26,6 +26,13 @@ namespace OverParse
             return (Name == "YOU" || Name == "YOU (Aux)");
         }
 
+        public string AnonymousName {
+            get
+            {
+                return (Name == "YOU") ? "YOU" : "--";
+            }
+        }
+
         public Brush Brush
         {
             get

@@ -104,6 +104,7 @@ namespace OverParse
             ShowDamageGraph.IsChecked = Properties.Settings.Default.ShowDamageGraph; ShowDamageGraph_Click(null, null);
             ShowRawDPS.IsChecked = Properties.Settings.Default.ShowRawDPS; ShowRawDPS_Click(null, null);
             CompactMode.IsChecked = Properties.Settings.Default.CompactMode; CompactMode_Click(null, null);
+            AnonymizeNames.IsChecked = Properties.Settings.Default.AnonymizeNames; AnonymizeNames_Click(null, null);
             CompleteOpacity.IsChecked = Properties.Settings.Default.CompleteOpacity; CompleteOpacity_Click(null, null);
             HandleOpacity();
 
@@ -466,16 +467,22 @@ namespace OverParse
             }
         }
 
+        private void AnonymizeNames_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AnonymizeNames = AnonymizeNames.IsChecked;
+            // implement later
+        }
+
         private void CompactMode_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.CompactMode = CompactMode.IsChecked;
             if (CompactMode.IsChecked)
             {
-                MaxHitHelper.Width = new GridLength(0, GridUnitType.Star);
+                MaxHitHelperColumn.Width = new GridLength(0, GridUnitType.Star);
             }
             else
             {
-                MaxHitHelper.Width = new GridLength(3, GridUnitType.Star);
+                MaxHitHelperColumn.Width = new GridLength(3, GridUnitType.Star);
             }
         }
 

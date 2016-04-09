@@ -322,5 +322,17 @@ namespace OverParse.Properties {
                 this["LaunchMethod"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AnonymizeNames {
+            get {
+                return ((bool)(this["AnonymizeNames"]));
+            }
+            set {
+                this["AnonymizeNames"] = value;
+            }
+        }
     }
 }

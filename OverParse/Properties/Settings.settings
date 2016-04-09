@@ -77,5 +77,8 @@
     <Setting Name="LaunchMethod" Type="System.String" Scope="User">
       <Value Profile="(Default)">Unknown</Value>
     </Setting>
+    <Setting Name="AnonymizeNames" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

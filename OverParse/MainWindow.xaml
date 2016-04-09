@@ -93,7 +93,8 @@
                                 <MenuItem Style="{StaticResource submenu}" x:Name="ShowRawDPS" IsCheckable="True" IsChecked="False" Header="Show raw DPS" Click="ShowRawDPS_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" x:Name="SeparateZanverse" IsCheckable="True" IsChecked="False" Header="Show Zanverse damage separately" Click="SeparateZanverse_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" x:Name="SeparateAuxDamage" Visibility="Collapsed" IsCheckable="True" IsChecked="False" Header="Show AIS/Turret damage separately" Click="SeparateAuxDamage_Click"/>
-                                <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Show damage graph" x:Name="ShowDamageGraph" Click="ShowDamageGraph_Click"/>                            
+                                <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Show damage graph" x:Name="ShowDamageGraph" Click="ShowDamageGraph_Click"/>
+                                <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Anonymize names" x:Name="AnonymizeNames" Click="AnonymizeNames_Click"/>
                             </MenuItem>
                             <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Window">
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Compact mode" x:Name="CompactMode" Click="CompactMode_Click"/>
@@ -161,28 +162,28 @@
                                         <Setter Property="IsHitTestVisible" Value="False"/>
                                     </Style>
                                 </GridView.ColumnHeaderContainerStyle>
-                                <GridViewColumn Header="Name" Width="{Binding ElementName=helper1, Path=ActualWidth}">
+                                <GridViewColumn Header="Name" x:Name="NameColumn" Width="{Binding ElementName=NameHelper, Path=ActualWidth}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Margin="-4,0" Text="{Binding Name}" TextAlignment="Left"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Damage" Width="{Binding ElementName=helper2, Path=ActualWidth}">
+                                <GridViewColumn Header="Damage" x:Name="DamageColumn" Width="{Binding ElementName=DamageHelper, Path=ActualWidth}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Margin="-4,0" Text="{Binding DamageReadout}" TextAlignment="Left"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="DPS" x:Name="DPSColumn" Width="{Binding ElementName=helper3, Path=ActualWidth}">
+                                <GridViewColumn Header="DPS" x:Name="DPSColumn" Width="{Binding ElementName=DPSHelper, Path=ActualWidth}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Margin="-4,0" Text="{Binding DPSReadout}" TextAlignment="Right"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Max Hit" x:Name="MaxHitColumn" Width="{Binding ElementName=helper4, Path=ActualWidth}">
+                                <GridViewColumn Header="Max Hit" x:Name="MaxHitColumn" Width="{Binding ElementName=MaxHitHelper, Path=ActualWidth}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Margin="-4,0" Text="{Binding MaxHit}" TextAlignment="Right"/>
@@ -196,16 +197,16 @@
 
                     <Grid Visibility="Hidden" Grid.Row="1" Margin="0" Grid.RowSpan="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.5*"/>
-                            <ColumnDefinition Width="1.5*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition x:Name="MaxHitHelper" Width="3*"/>
+                            <ColumnDefinition x:Name="NameHelperColumn" Width="1.5*"/>
+                            <ColumnDefinition x:Name="DamageHelperColumn" Width="1.5*"/>
+                            <ColumnDefinition x:Name="DPSHelperColumn" Width="1*"/>
+                            <ColumnDefinition x:Name="MaxHitHelperColumn" Width="3*"/>
                         </Grid.ColumnDefinitions>
                         <!--This is the hidden helper Field which is used to bind to, using the "Fill" column of the helper grid-->
-                        <Grid Grid.Column="0" x:Name="helper1"/>
-                        <Grid Grid.Column="1" x:Name="helper2"/>
-                        <Grid Grid.Column="2" x:Name="helper3"/>
-                        <Grid Grid.Column="3" x:Name="helper4"/>
+                        <Grid Grid.Column="0" x:Name="NameHelper"/>
+                        <Grid Grid.Column="1" x:Name="DamageHelper"/>
+                        <Grid Grid.Column="2" x:Name="DPSHelper"/>
+                        <Grid Grid.Column="3" x:Name="MaxHitHelper"/>
                     </Grid>
                     <Rectangle Panel.ZIndex="999" x:Name="EncounterIndicator" Fill="#FFF4F4F5" Grid.Row="2" Height="2" Stroke="Transparent" VerticalAlignment="Top"/>
                     
