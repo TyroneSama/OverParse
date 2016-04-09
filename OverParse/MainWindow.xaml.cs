@@ -1,33 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using System.Windows.Interop;
-using NHotkey.Wpf;
+﻿using Newtonsoft.Json.Linq;
 using NHotkey;
-using System.Linq;
+using NHotkey.Wpf;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Net;
-
-using System.Windows.Controls;
-using System.Windows.Shapes;
-
-using Newtonsoft.Json.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace OverParse
 {
     public partial class MainWindow : Window
     {
-        Log encounterlog;
+        private Log encounterlog;
         public static Dictionary<string, string> skillDict = new Dictionary<string, string>();
-        List<string> sessionLogFilenames = new List<string>();
-        string lastStatus = "";
-        IntPtr hwndcontainer;
+        private List<string> sessionLogFilenames = new List<string>();
+        private string lastStatus = "";
+        private IntPtr hwndcontainer;
+
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
@@ -79,7 +76,7 @@ namespace OverParse
             Console.WriteLine(this.Height = Properties.Settings.Default.Height);
             Console.WriteLine(this.Width = Properties.Settings.Default.Width);
 
-            bool outOfBounds = (this.Left <= SystemParameters.VirtualScreenLeft - this.Width) || 
+            bool outOfBounds = (this.Left <= SystemParameters.VirtualScreenLeft - this.Width) ||
                 (this.Top <= SystemParameters.VirtualScreenTop - this.Height) ||
                 (SystemParameters.VirtualScreenLeft + SystemParameters.VirtualScreenWidth <= this.Left) ||
                 (SystemParameters.VirtualScreenTop + SystemParameters.VirtualScreenHeight <= this.Top);
@@ -140,14 +137,16 @@ namespace OverParse
 
                 tmp = content.Split('\n');
                 File.WriteAllText("skills.csv", content);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine($"skills.csv update failed: {ex.ToString()}");
                 if (File.Exists("skills.csv"))
                 {
                     MessageBox.Show("OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.\n\nA local copy will be used instead. If you'd like to try and update again, just relaunch OverParse.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
                     tmp = File.ReadAllLines("skills.csv");
-                } else
+                }
+                else
                 {
                     MessageBox.Show("OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.\n\nSince you have no skill mappings downloaded, all attacks will be marked as \"Unknown\". If you'd like to try and update again, please relaunch OverParse.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
                     tmp = new string[0];
@@ -224,7 +223,6 @@ namespace OverParse
                     {
                         Process.Start("https://github.com/TyroneSama/OverParse/releases/latest");
                         Environment.Exit(-1);
-
                     }
                 }
             }
@@ -239,7 +237,7 @@ namespace OverParse
                 return;
 
             string title = WindowsServices.GetActiveWindowTitle();
-            string[] relevant = { "OverParse", "OverParse Setup", "OverParse Error", "Encounter Timeout","Phantasy Star Online 2" };
+            string[] relevant = { "OverParse", "OverParse Setup", "OverParse Error", "Encounter Timeout", "Phantasy Star Online 2" };
 
             if (!relevant.Contains(title))
             {
@@ -270,7 +268,6 @@ namespace OverParse
                 Console.WriteLine($"Found a new log file ({log.Name}), switching...");
                 encounterlog = new Log(Properties.Settings.Default.Path);
             }
-
         }
 
         private void Panic(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
@@ -356,7 +353,7 @@ namespace OverParse
         {
             if (AutoHideWindow.IsChecked && Properties.Settings.Default.AutoHideWindowWarning)
             {
-                MessageBox.Show("This will make the OverParse window invisible whenever PSO2 or OverParse are not in the foreground.\n\nTo show the window, Alt+Tab into OverParse, or click the icon on your taskbar.","OverParse Setup",MessageBoxButton.OK,MessageBoxImage.Information);
+                MessageBox.Show("This will make the OverParse window invisible whenever PSO2 or OverParse are not in the foreground.\n\nTo show the window, Alt+Tab into OverParse, or click the icon on your taskbar.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
                 Properties.Settings.Default.AutoHideWindowWarning = false;
             }
             Properties.Settings.Default.AutoHideWindow = AutoHideWindow.IsChecked;
@@ -451,7 +448,6 @@ namespace OverParse
             {
                 Opacity_100.IsChecked = true;
             }
-
         }
 
         private void CompleteOpacity_Click(object sender, RoutedEventArgs e)
@@ -534,6 +530,8 @@ namespace OverParse
                 EncounterStatus.Content = $"Waiting - {lastStatus}";
                 if (lastStatus == "")
                     EncounterStatus.Content = "Waiting for combat data...";
+
+                CombatantData.Items.Refresh();
             }
 
             if (encounterlog.running)
@@ -565,7 +563,6 @@ namespace OverParse
                     encounterlog.combatants.RemoveAt(index);
                     encounterlog.combatants.Add(reorder);
                 }
-
 
                 Combatant.maxShare = 0;
 
@@ -616,7 +613,6 @@ namespace OverParse
             encounterlog.WriteLog();
 
             Properties.Settings.Default.Save();
-
         }
 
         private void LogToClipboard_Click(object sender, RoutedEventArgs e)
@@ -647,7 +643,8 @@ namespace OverParse
             UpdateForm(null, null); // I'M FUCKING STUPID
             Properties.Settings.Default.AutoEndEncounters = temp;
             string filename = encounterlog.WriteLog();
-            if (filename != null) {
+            if (filename != null)
+            {
                 if ((SessionLogs.Items[0] as MenuItem).Name == "SessionLogPlaceholder")
                     SessionLogs.Items.Clear();
                 int items = SessionLogs.Items.Count;
@@ -824,6 +821,7 @@ namespace OverParse
         public string ID;
         public int Damage;
         public int Timestamp;
+
         public Attack(string initID, int initDamage, int initTimestamp)
         {
             ID = initID;

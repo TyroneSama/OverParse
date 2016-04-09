@@ -96,6 +96,7 @@ namespace OverParse
                     if (split[0].Split('[')[0] == "directory")
                     {
                         directory = new DirectoryInfo(split[1]);
+                        Console.WriteLine($"Log directory override: {split[1]}");
                     }
                 }
             }
