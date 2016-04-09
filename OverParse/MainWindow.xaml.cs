@@ -162,8 +162,8 @@ namespace OverParse
                 if (split.Length > 1)
                 {
                     skillDict.Add(split[1], split[0]);
-                    Console.WriteLine(s);
-                    Console.WriteLine(split[1] + " " + split[0]);
+                    //Console.WriteLine(s);
+                    //Console.WriteLine(split[1] + " " + split[0]);
                 }
             }
             Console.WriteLine("Keys in skill dict: " + skillDict.Count());
