@@ -10,7 +10,7 @@ namespace OverParse
 {
     public class Log
     {
-        private const int pluginVersion = 2;
+        private const int pluginVersion = 3;
 
         public bool notEmpty;
         public bool valid;
