@@ -47,7 +47,7 @@
     <Setting Name="CompactMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Opacity" Type="System.Double" Scope="User">
+    <Setting Name="WindowOpacity" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="ShowRawDPS" Type="System.Boolean" Scope="User">
@@ -68,9 +68,6 @@
     <Setting Name="ResetInvoked" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CompleteOpacity" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="InstalledPluginVersion" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-1</Value>
     </Setting>
@@ -79,6 +76,12 @@
     </Setting>
     <Setting Name="AnonymizeNames" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="NeedsPluginUpdate" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ListOpacity" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.75</Value>
     </Setting>
   </Settings>
 </SettingsFile>

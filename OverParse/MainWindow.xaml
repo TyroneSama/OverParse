@@ -99,13 +99,18 @@
                             <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Window">
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Compact mode" x:Name="CompactMode" Click="CompactMode_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" Header="Window opacity">
-                                    <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_0" Visibility="Collapsed" IsCheckable="True" IsChecked="False" Header="Transparent" Click="Opacity_0_Click" />
-                                    <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_25" IsCheckable="True" IsChecked="False" Header="25%" Click="Opacity_25_Click" />
-                                    <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_50" IsCheckable="True" IsChecked="False" Header="50%" Click="Opacity_50_Click" />
-                                    <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_75" IsCheckable="True" IsChecked="True" Header="75%" Click="Opacity_75_Click" />
-                                    <MenuItem Style="{StaticResource submenu}" x:Name="Opacity_100" IsCheckable="True" IsChecked="False" Header="Opaque" Click="Opacity_100_Click" />
-                                    <Separator />
-                                    <MenuItem Style="{StaticResource submenu}" x:Name="CompleteOpacity" IsCheckable="True" IsChecked="False" Header="Screenshot-friendly mode" Click="CompleteOpacity_Click" />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="WinOpacity_0" Visibility="Collapsed" IsCheckable="True" IsChecked="False" Header="Transparent" Click="WindowOpacity_0_Click" />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="WinOpacity_25" IsCheckable="True" IsChecked="False" Header="25%" Click="WindowOpacity_25_Click" />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="Winopacity_50" IsCheckable="True" IsChecked="False" Header="50%" Click="WindowOpacity_50_Click" />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="WinOpacity_75" IsCheckable="True" IsChecked="True" Header="75%" Click="WindowOpacity_75_Click" />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="WinOpacity_100" IsCheckable="True" IsChecked="False" Header="Opaque" Click="WindowOpacity_100_Click" />                                 
+                                </MenuItem>
+                                <MenuItem Style="{StaticResource submenu}" Header="List opacity">
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="ListOpacity_0" Visibility="Collapsed" IsCheckable="True" IsChecked="False" Header="Transparent" Click="ListOpacity_0_Click" />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="ListOpacity_25" IsCheckable="True" IsChecked="False" Header="25%" Click="ListOpacity_25_Click" />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="Listopacity_50" IsCheckable="True" IsChecked="False" Header="50%" Click="ListOpacity_50_Click" />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="ListOpacity_75" IsCheckable="True" IsChecked="True" Header="75%" Click="ListOpacity_75_Click" />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="ListOpacity_100" IsCheckable="True" IsChecked="False" Header="Opaque" Click="ListOpacity_100_Click" />
                                 </MenuItem>
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Always on top" InputGestureText="Ctrl+Shift+A"  x:Name="AlwaysOnTop" Click="AlwaysOnTop_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Auto-hide window" x:Name="AutoHideWindow" Click="AutoHideWindow_Click"/>
@@ -139,7 +144,7 @@
                         </Menu>
                     </DockPanel>
 
-                    <ListView x:Name="CombatantData" AlternationCount="2" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="-2,0,0,0" BorderThickness="0" Padding="0" FontSize="10.667">
+                    <ListView x:Name="CombatantData" AlternationCount="2" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="-2,0,0,0" BorderThickness="0" Padding="0" FontSize="10.667" FontFamily="Segoe UI Semibold">
                         <ListView.Background>
                             <SolidColorBrush Opacity="0.0" Color="#FF101010"/>
                         </ListView.Background>

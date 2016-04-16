@@ -206,12 +206,12 @@ namespace OverParse.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public double Opacity {
+        public double WindowOpacity {
             get {
-                return ((double)(this["Opacity"]));
+                return ((double)(this["WindowOpacity"]));
             }
             set {
-                this["Opacity"] = value;
+                this["WindowOpacity"] = value;
             }
         }
         
@@ -289,18 +289,6 @@ namespace OverParse.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CompleteOpacity {
-            get {
-                return ((bool)(this["CompleteOpacity"]));
-            }
-            set {
-                this["CompleteOpacity"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("-1")]
         public int InstalledPluginVersion {
             get {
@@ -332,6 +320,30 @@ namespace OverParse.Properties {
             }
             set {
                 this["AnonymizeNames"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool NeedsPluginUpdate {
+            get {
+                return ((bool)(this["NeedsPluginUpdate"]));
+            }
+            set {
+                this["NeedsPluginUpdate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.75")]
+        public double ListOpacity {
+            get {
+                return ((double)(this["ListOpacity"]));
+            }
+            set {
+                this["ListOpacity"] = value;
             }
         }
     }

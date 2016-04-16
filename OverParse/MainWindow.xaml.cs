@@ -39,17 +39,26 @@ namespace OverParse
 
             this.Dispatcher.UnhandledException += Panic;
 
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://107.170.16.100/Plugins/PSO2DamageDump.dll");
-            //request.Method = "HEAD";
-            //HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
-            //Console.WriteLine(resp.LastModified);
-
             try { Directory.CreateDirectory("Logs"); }
             catch
             {
                 MessageBox.Show("OverParse doesn't have write access to its folder, and won't be able to save logs or update skill mappings. This usually happens when you run it from Program Files.\n\nThis is a Windows restriction, and unfortunately I can't do anything about it.\n\nPlease run OverParse as administrator, or move it somewhere else. Sorry for the inconvenience!", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Error);
                 Application.Current.Shutdown();
             }
+
+            /* ABANDON ALL HOPE YE WHO ENTER HERE
+            string pluginURL = "http://107.170.16.100/Plugins/PSO2DamageDump.dll";
+            HttpWebRequest dateRequest = (HttpWebRequest)WebRequest.Create(pluginURL);
+            dateRequest.Method = "HEAD";
+            HttpWebResponse resp = (HttpWebResponse)dateRequest.GetResponse();
+            DateTime remoteDate = resp.LastModified.ToUniversalTime();
+            DateTime localDate = File.GetLastWriteTimeUtc(@"Resources/PSO2DamageDump.dll");
+            if (localDate < remoteDate)
+            {
+                MessageBox.Show("local file's old");
+                WebClient webClient = new WebClient();
+                webClient.DownloadFile(pluginURL, @"Resources/PSO2DamageDump.dll");
+            } */
 
             Directory.CreateDirectory("Debug");
 
@@ -102,8 +111,7 @@ namespace OverParse
             ShowRawDPS.IsChecked = Properties.Settings.Default.ShowRawDPS; ShowRawDPS_Click(null, null);
             CompactMode.IsChecked = Properties.Settings.Default.CompactMode; CompactMode_Click(null, null);
             AnonymizeNames.IsChecked = Properties.Settings.Default.AnonymizeNames; AnonymizeNames_Click(null, null);
-            CompleteOpacity.IsChecked = Properties.Settings.Default.CompleteOpacity; CompleteOpacity_Click(null, null);
-            HandleOpacity();
+            HandleWindowOpacity(); HandleListOpacity();
 
             Console.WriteLine($"Launch method: {Properties.Settings.Default.LaunchMethod}");
 
@@ -245,7 +253,7 @@ namespace OverParse
             }
             else
             {
-                HandleOpacity();
+                HandleWindowOpacity();
             }
         }
 
@@ -388,78 +396,128 @@ namespace OverParse
             this.OnActivated(e);
         }
 
-        private void Opacity_0_Click(object sender, RoutedEventArgs e)
+        private void WindowOpacity_0_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.Opacity = 0;
-            HandleOpacity();
+            Properties.Settings.Default.WindowOpacity = 0;
+            HandleWindowOpacity();
         }
 
-        private void Opacity_25_Click(object sender, RoutedEventArgs e)
+        private void WindowOpacity_25_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.Opacity = .25;
-            HandleOpacity();
+            Properties.Settings.Default.WindowOpacity = .25;
+            HandleWindowOpacity();
         }
 
-        private void Opacity_50_Click(object sender, RoutedEventArgs e)
+        private void WindowOpacity_50_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.Opacity = .50;
-            HandleOpacity();
+            Properties.Settings.Default.WindowOpacity = .50;
+            HandleWindowOpacity();
         }
 
-        private void Opacity_75_Click(object sender, RoutedEventArgs e)
+        private void WindowOpacity_75_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.Opacity = .75;
-            HandleOpacity();
+            Properties.Settings.Default.WindowOpacity = .75;
+            HandleWindowOpacity();
         }
 
-        private void Opacity_100_Click(object sender, RoutedEventArgs e)
+        private void WindowOpacity_100_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.Opacity = 1;
-            HandleOpacity();
+            Properties.Settings.Default.WindowOpacity = 1;
+            HandleWindowOpacity();
         }
 
-        public void HandleOpacity()
+        public void HandleWindowOpacity()
         {
-            TheWindow.Opacity = Properties.Settings.Default.Opacity;
+            TheWindow.Opacity = Properties.Settings.Default.WindowOpacity;
             // ACHTUNG ACHTUNG ACHTUNG ACHTUNG ACHTUNG ACHTUNG ACHTUNG ACHTUNG
-            Opacity_0.IsChecked = false;
-            Opacity_25.IsChecked = false;
-            Opacity_50.IsChecked = false;
-            Opacity_75.IsChecked = false;
-            Opacity_100.IsChecked = false;
+            WinOpacity_0.IsChecked = false;
+            WinOpacity_25.IsChecked = false;
+            Winopacity_50.IsChecked = false;
+            WinOpacity_75.IsChecked = false;
+            WinOpacity_100.IsChecked = false;
 
-            if (Properties.Settings.Default.Opacity == 0)
+            if (Properties.Settings.Default.WindowOpacity == 0)
             {
-                Opacity_0.IsChecked = true;
+                WinOpacity_0.IsChecked = true;
             }
-            else if (Properties.Settings.Default.Opacity == .25)
+            else if (Properties.Settings.Default.WindowOpacity == .25)
             {
-                Opacity_25.IsChecked = true;
+                WinOpacity_25.IsChecked = true;
             }
-            else if (Properties.Settings.Default.Opacity == .50)
+            else if (Properties.Settings.Default.WindowOpacity == .50)
             {
-                Opacity_50.IsChecked = true;
+                Winopacity_50.IsChecked = true;
             }
-            else if (Properties.Settings.Default.Opacity == .75)
+            else if (Properties.Settings.Default.WindowOpacity == .75)
             {
-                Opacity_75.IsChecked = true;
+                WinOpacity_75.IsChecked = true;
             }
-            else if (Properties.Settings.Default.Opacity == 1)
+            else if (Properties.Settings.Default.WindowOpacity == 1)
             {
-                Opacity_100.IsChecked = true;
+                WinOpacity_100.IsChecked = true;
             }
         }
 
-        private void CompleteOpacity_Click(object sender, RoutedEventArgs e)
+        // HAHAHAHAHAHAHAHAHAHAHAHAHA
+
+        private void ListOpacity_0_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.CompleteOpacity = CompleteOpacity.IsChecked;
-            if (CompleteOpacity.IsChecked)
+            Properties.Settings.Default.ListOpacity = 0;
+            HandleListOpacity();
+        }
+
+        private void ListOpacity_25_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ListOpacity = .25;
+            HandleListOpacity();
+        }
+
+        private void ListOpacity_50_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ListOpacity = .50;
+            HandleListOpacity();
+        }
+
+        private void ListOpacity_75_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ListOpacity = .75;
+            HandleListOpacity();
+        }
+
+        private void ListOpacity_100_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ListOpacity = 1;
+            HandleListOpacity();
+        }
+
+        public void HandleListOpacity()
+        {
+            WinBorderBackground.Opacity = Properties.Settings.Default.ListOpacity;
+            ListOpacity_0.IsChecked = false;
+            ListOpacity_25.IsChecked = false;
+            Listopacity_50.IsChecked = false;
+            ListOpacity_75.IsChecked = false;
+            ListOpacity_100.IsChecked = false;
+
+            if (Properties.Settings.Default.ListOpacity == 0)
             {
-                WinBorderBackground.Opacity = 1;
+                ListOpacity_0.IsChecked = true;
             }
-            else
+            else if (Properties.Settings.Default.ListOpacity == .25)
             {
-                WinBorderBackground.Opacity = .75;
+                ListOpacity_25.IsChecked = true;
+            }
+            else if (Properties.Settings.Default.ListOpacity == .50)
+            {
+                Listopacity_50.IsChecked = true;
+            }
+            else if (Properties.Settings.Default.ListOpacity == .75)
+            {
+                ListOpacity_75.IsChecked = true;
+            }
+            else if (Properties.Settings.Default.ListOpacity == 1)
+            {
+                ListOpacity_100.IsChecked = true;
             }
         }
 
@@ -503,7 +561,7 @@ namespace OverParse
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            HandleOpacity();
+            HandleWindowOpacity();
             Window window = (Window)sender;
             window.Topmost = AlwaysOnTop.IsChecked;
             if (Properties.Settings.Default.ClickthroughEnabled)
