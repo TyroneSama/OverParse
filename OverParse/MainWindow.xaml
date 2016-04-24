@@ -98,6 +98,7 @@
                             </MenuItem>
                             <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Window">
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Compact mode" x:Name="CompactMode" Click="CompactMode_Click"/>
+                                <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Highlight your damage" x:Name="HighlightYourDamage" Click="HighlightYourDamage_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" Header="Window opacity">
                                     <MenuItem Style="{StaticResource submenu}" x:Name="WinOpacity_0" Visibility="Collapsed" IsCheckable="True" IsChecked="False" Header="Transparent" Click="WindowOpacity_0_Click" />
                                     <MenuItem Style="{StaticResource submenu}" x:Name="WinOpacity_25" IsCheckable="True" IsChecked="False" Header="25%" Click="WindowOpacity_25_Click" />

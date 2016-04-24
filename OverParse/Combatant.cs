@@ -54,7 +54,7 @@ namespace OverParse
                 }
                 else
                 {
-                    if (isYou())
+                    if (isYou() && Hacks.HighlightYourDamage)
                         return new SolidColorBrush(green);
                     return new SolidColorBrush(new Color());
                 }
@@ -72,7 +72,7 @@ namespace OverParse
                 }
                 else
                 {
-                    if (isYou())
+                    if (isYou() && Hacks.HighlightYourDamage)
                         return new SolidColorBrush(green);
                     return new SolidColorBrush(Color.FromArgb(64, 16, 16, 16));
                 }
@@ -84,7 +84,7 @@ namespace OverParse
             if (!Hacks.ShowDamageGraph)
                 c = new Color();
 
-            if (isYou())
+            if (isYou() && Hacks.HighlightYourDamage)
                 c = green;
 
             LinearGradientBrush lgb = new LinearGradientBrush();

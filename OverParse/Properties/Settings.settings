@@ -83,5 +83,8 @@
     <Setting Name="ListOpacity" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.75</Value>
     </Setting>
+    <Setting Name="HighlightYourDamage" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

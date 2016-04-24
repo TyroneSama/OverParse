@@ -346,5 +346,17 @@ namespace OverParse.Properties {
                 this["ListOpacity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool HighlightYourDamage {
+            get {
+                return ((bool)(this["HighlightYourDamage"]));
+            }
+            set {
+                this["HighlightYourDamage"] = value;
+            }
+        }
     }
 }

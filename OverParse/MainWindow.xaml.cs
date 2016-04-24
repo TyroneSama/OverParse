@@ -111,6 +111,7 @@ namespace OverParse
             ShowRawDPS.IsChecked = Properties.Settings.Default.ShowRawDPS; ShowRawDPS_Click(null, null);
             CompactMode.IsChecked = Properties.Settings.Default.CompactMode; CompactMode_Click(null, null);
             AnonymizeNames.IsChecked = Properties.Settings.Default.AnonymizeNames; AnonymizeNames_Click(null, null);
+            HighlightYourDamage.IsChecked = Properties.Settings.Default.HighlightYourDamage; HighlightYourDamage_Click(null, null);
             HandleWindowOpacity(); HandleListOpacity();
 
             Console.WriteLine($"Launch method: {Properties.Settings.Default.LaunchMethod}");
@@ -521,6 +522,14 @@ namespace OverParse
             }
         }
 
+        private void HighlightYourDamage_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.HighlightYourDamage = HighlightYourDamage.IsChecked;
+            Hacks.HighlightYourDamage = Properties.Settings.Default.HighlightYourDamage;
+            if (encounterlog != null)
+                UpdateForm(null, null);
+        }
+
         private void AnonymizeNames_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.AnonymizeNames = AnonymizeNames.IsChecked;
@@ -622,8 +631,8 @@ namespace OverParse
                     encounterlog.combatants.Add(reorder);
                 }
 
-                Combatant.maxShare = 0;
 
+                Combatant.maxShare = 0;
                 foreach (Combatant c in encounterlog.combatants)
                     if (c.isAlly || !FilterPlayers.IsChecked)
                     {
