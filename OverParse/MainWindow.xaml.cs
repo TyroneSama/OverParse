@@ -382,6 +382,7 @@ namespace OverParse
         {
             Properties.Settings.Default.ShowDamageGraph = ShowDamageGraph.IsChecked;
             Hacks.ShowDamageGraph = ShowDamageGraph.IsChecked;
+            UpdateForm(null, null);
         }
 
         private void ShowRawDPS_Click(object sender, RoutedEventArgs e)
@@ -389,6 +390,7 @@ namespace OverParse
             Properties.Settings.Default.ShowRawDPS = ShowRawDPS.IsChecked;
             Hacks.ShowRawDPS = ShowRawDPS.IsChecked;
             DPSColumn.Header = ShowRawDPS.IsChecked ? "DPS" : "%";
+            UpdateForm(null, null);
         }
 
         private void AlwaysOnTop_Click(object sender, RoutedEventArgs e)
@@ -526,14 +528,14 @@ namespace OverParse
         {
             Properties.Settings.Default.HighlightYourDamage = HighlightYourDamage.IsChecked;
             Hacks.HighlightYourDamage = Properties.Settings.Default.HighlightYourDamage;
-            if (encounterlog != null)
-                UpdateForm(null, null);
+            UpdateForm(null, null);
         }
 
         private void AnonymizeNames_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.AnonymizeNames = AnonymizeNames.IsChecked;
             Hacks.AnonymizeNames = Properties.Settings.Default.AnonymizeNames;
+            UpdateForm(null, null);
         }
 
         private void CompactMode_Click(object sender, RoutedEventArgs e)
@@ -582,6 +584,9 @@ namespace OverParse
 
         public void UpdateForm(object sender, EventArgs e)
         {
+            if (encounterlog == null)
+                return;
+
             encounterlog.UpdateLog(this, null);
 
             EncounterStatus.Content = encounterlog.logStatus();
