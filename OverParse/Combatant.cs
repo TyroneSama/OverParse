@@ -15,6 +15,7 @@ namespace OverParse
         public string Name { get; set; }
         public int MaxHitNum;
         public string MaxHitID;
+        public bool isZanverse;
         public bool isAux;
         public float DPS;
         public float PercentDPS;
@@ -48,7 +49,7 @@ namespace OverParse
         {
             get
             {
-                if (Hacks.ShowDamageGraph && PercentDPS != -1)
+                if (Hacks.ShowDamageGraph && (isAlly && !isZanverse))
                 {
                     return generateBarBrush(Color.FromArgb(200, 65, 112, 166), new Color());
                 }
@@ -66,7 +67,7 @@ namespace OverParse
         {
             get
             {
-                if (Hacks.ShowDamageGraph && PercentDPS != -1)
+                if (Hacks.ShowDamageGraph && (isAlly && !isZanverse))
                 {
                     return generateBarBrush(Color.FromArgb(140, 65, 112, 166), Color.FromArgb(64, 16, 16, 16));
                 }
@@ -91,8 +92,8 @@ namespace OverParse
             lgb.StartPoint = new System.Windows.Point(0, 0);
             lgb.EndPoint = new System.Windows.Point(1, 0);
             lgb.GradientStops.Add(new GradientStop(c, 0));
-            lgb.GradientStops.Add(new GradientStop(c, PercentDPS / maxShare));
-            lgb.GradientStops.Add(new GradientStop(c2, PercentDPS / maxShare));
+            lgb.GradientStops.Add(new GradientStop(c, Damage / maxShare));
+            lgb.GradientStops.Add(new GradientStop(c2, Damage / maxShare));
             lgb.GradientStops.Add(new GradientStop(c2, 1));
             lgb.SpreadMethod = GradientSpreadMethod.Repeat;
             return lgb;
@@ -196,6 +197,7 @@ namespace OverParse
             MaxHitNum = 0;
             MaxHitID = "none";
             DPS = 0;
+            isZanverse = false;
             PercentDPS = -1;
             isAux = false;
             Attacks = new List<Attack>();

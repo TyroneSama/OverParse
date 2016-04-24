@@ -624,7 +624,7 @@ namespace OverParse
                 Combatant reorder = null;
                 foreach (Combatant c in encounterlog.combatants)
                 {
-                    if (c.Name == "Zanverse")
+                    if (c.isZanverse)
                     {
                         index = encounterlog.combatants.IndexOf(c);
                         reorder = c;
@@ -639,12 +639,14 @@ namespace OverParse
 
                 Combatant.maxShare = 0;
                 foreach (Combatant c in encounterlog.combatants)
+                {
+                    if ((c.isAlly && !c.isZanverse) && c.Damage > Combatant.maxShare)
+                        Combatant.maxShare = c.Damage;
                     if (c.isAlly || !FilterPlayers.IsChecked)
                     {
                         CombatantData.Items.Add(c);
-                        if (c.PercentDPS > Combatant.maxShare)
-                            Combatant.maxShare = c.PercentDPS;
                     }
+                }
 
                 if (Properties.Settings.Default.AutoEndEncounters)
                 {

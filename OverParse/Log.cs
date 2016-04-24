@@ -442,7 +442,7 @@ namespace OverParse
                             continue;
                         }
 
-                        bool isAuxDamage = false;
+                        // bool isAuxDamage = false;
 
                         if (!instances.Contains(instanceID))
                             instances.Add(instanceID);
@@ -481,7 +481,7 @@ namespace OverParse
                             index = -1;
                             foreach (Combatant x in combatants)
                             {
-                                if (x.ID == "94857493" && x.Name == "Zanverse")
+                                if (x.isZanverse)
                                 {
                                     index = combatants.IndexOf(x);
                                 }
@@ -499,8 +499,13 @@ namespace OverParse
 
                         Combatant source = combatants[index];
 
+                        if (attackID == "2106601422")
+                            source.isZanverse = true;
+
+                        /*
                         if (!source.isAux)
                             source.isAux = isAuxDamage;
+                        */
 
                         source.Damage += hitDamage;
                         newTimestamp = int.Parse(lineTimestamp);
@@ -560,7 +565,7 @@ namespace OverParse
                             filtered++;
                         }
 
-                        if (x.Name == "Zanverse")
+                        if (x.isZanverse)
                             zanverseCompensation = x.DPS;
                     }
 
@@ -568,7 +573,7 @@ namespace OverParse
 
                     foreach (Combatant x in combatants)
                     {
-                        if (x.isAlly && x.Name != "Zanverse")
+                        if (x.isAlly && !x.isZanverse)
                         {
                             x.PercentDPS = (x.DPS / workingPartyDPS * 100);
                         }
