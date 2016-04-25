@@ -499,7 +499,7 @@ namespace OverParse
 
                         Combatant source = combatants[index];
 
-                        if (attackID == "2106601422")
+                        if (attackID == "2106601422" && Properties.Settings.Default.SeparateZanverse)
                             source.isZanverse = true;
 
                         /*
