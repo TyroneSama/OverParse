@@ -23,29 +23,11 @@ namespace OverParse
         private StreamReader logReader;
         public List<Combatant> combatants = new List<Combatant>();
         private Random random = new Random();
+        public DirectoryInfo logDirectory;
 
         public Log(string attemptDirectory)
         {
-            /* Console.WriteLine(FormatNumber(1));
-            Console.WriteLine(FormatNumber(10));
-            Console.WriteLine(FormatNumber(100));
-            Console.WriteLine(FormatNumber(525));
-            Console.WriteLine(FormatNumber(999));
-            Console.WriteLine(FormatNumber(1000));
-            Console.WriteLine(FormatNumber(5250));
-            Console.WriteLine(FormatNumber(10000));
-            Console.WriteLine(FormatNumber(52500));
-            Console.WriteLine(FormatNumber(100000));
-            Console.WriteLine(FormatNumber(525000));
-            Console.WriteLine(FormatNumber(999999));
-            Console.WriteLine(FormatNumber(1000000));
-            Console.WriteLine(FormatNumber(5250000));
-            Console.WriteLine(FormatNumber(10000000));
-            Console.WriteLine(FormatNumber(52500000));
-            Console.WriteLine(FormatNumber(100000000));
-            Console.WriteLine(FormatNumber(525000000));
-            Console.WriteLine(FormatNumber(999999999));
-            Console.WriteLine(FormatNumber(1000000000)); */
+            
 
             valid = false;
             notEmpty = false;
@@ -80,7 +62,7 @@ namespace OverParse
             valid = true;
 
             Console.WriteLine("Making sure pso2_bin\\damagelogs exists");
-            DirectoryInfo directory = new DirectoryInfo($"{attemptDirectory}\\damagelogs");
+            logDirectory = new DirectoryInfo($"{attemptDirectory}\\damagelogs");
 
             Console.WriteLine("Checking for damagelog directory override");
             if (File.Exists($"{attemptDirectory}\\plugins\\PSO2DamageDump.cfg"))
@@ -95,7 +77,7 @@ namespace OverParse
                         continue;
                     if (split[0].Split('[')[0] == "directory")
                     {
-                        directory = new DirectoryInfo(split[1]);
+                        logDirectory = new DirectoryInfo(split[1]);
                         Console.WriteLine($"Log directory override: {split[1]}");
                     }
                 }
@@ -115,9 +97,9 @@ namespace OverParse
             if (Properties.Settings.Default.LaunchMethod == "Tweaker")
             {
                 bool warn = true;
-                if (directory.Exists)
+                if (logDirectory.Exists)
                 {
-                    if (directory.GetFiles().Count() > 0)
+                    if (logDirectory.GetFiles().Count() > 0)
                     {
                         warn = false;
                     }
@@ -175,14 +157,14 @@ namespace OverParse
 
             Properties.Settings.Default.FirstRun = false;
 
-            if (!directory.Exists)
+            if (!logDirectory.Exists)
                 return;
-            if (directory.GetFiles().Count() == 0)
+            if (logDirectory.GetFiles().Count() == 0)
                 return;
 
             notEmpty = true;
 
-            FileInfo log = directory.GetFiles().Where(f => Regex.IsMatch(f.Name, @"\d+\.csv")).OrderByDescending(f => f.Name).First();
+            FileInfo log = logDirectory.GetFiles().Where(f => Regex.IsMatch(f.Name, @"\d+\.csv")).OrderByDescending(f => f.Name).First();
             Console.WriteLine($"Reading from {log.DirectoryName}\\{log.Name}");
             filename = log.Name;
             FileStream fileStream = File.Open(log.DirectoryName + "\\" + log.Name, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);

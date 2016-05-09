@@ -260,7 +260,7 @@ namespace OverParse
 
         private void CheckForNewLog(object sender, EventArgs e)
         {
-            DirectoryInfo directory = new DirectoryInfo($"{Properties.Settings.Default.Path}\\damagelogs");
+            DirectoryInfo directory = encounterlog.logDirectory;
             if (!directory.Exists)
             {
                 return;
