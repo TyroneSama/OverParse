@@ -605,36 +605,27 @@ namespace OverParse
 
             if (encounterlog.running)
             {
-                SeparateZanverse.IsEnabled = false;
-
                 CombatantData.Items.Clear();
+                encounterlog.combatants.RemoveAll(c => c.isZanverse);
 
-                int index = -1; // there's probably a way better way of doing this, maybe someday i'll learn LINQ
-                Combatant reorder = null;
-                foreach (Combatant c in encounterlog.combatants)
+                if (Properties.Settings.Default.SeparateZanverse)
                 {
-                    if (c.isZanverse)
+                    int totalZanverse = encounterlog.combatants.Where(c => c.isAlly == true).Sum(x => x.ZanverseDamage);
+                    if (totalZanverse > 0)
                     {
-                        index = encounterlog.combatants.IndexOf(c);
-                        reorder = c;
+                        Combatant zanverseHolder = new Combatant("99999999", "Zanverse");
+                        zanverseHolder.Damage = totalZanverse;
+                        encounterlog.combatants.Add(zanverseHolder);
                     }
                 }
-                if (index != -1)
-                {
-                    encounterlog.combatants.RemoveAt(index);
-                    encounterlog.combatants.Add(reorder);
-                }
-
 
                 Combatant.maxShare = 0;
                 foreach (Combatant c in encounterlog.combatants)
                 {
-                    if ((c.isAlly && !c.isZanverse) && c.Damage > Combatant.maxShare)
-                        Combatant.maxShare = c.Damage;
-                    if (c.isAlly || !FilterPlayers.IsChecked)
-                    {
+                    if ((c.isAlly) && c.ReadDamage > Combatant.maxShare)
+                        Combatant.maxShare = c.ReadDamage;
+                    if (c.isAlly || c.isZanverse || !FilterPlayers.IsChecked)
                         CombatantData.Items.Add(c);
-                    }
                 }
 
                 if (Properties.Settings.Default.AutoEndEncounters)
@@ -692,7 +683,6 @@ namespace OverParse
             UpdateForm(null, null);
             Properties.Settings.Default.AutoEndEncounters = temp;
             Console.WriteLine("Reinitializing log");
-            SeparateZanverse.IsEnabled = true;
             lastStatus = "";
             encounterlog = new Log(Properties.Settings.Default.Path);
         }
@@ -724,7 +714,6 @@ namespace OverParse
                 encounterlog.WriteClipboard();
             }
             Console.WriteLine("Reinitializing log");
-            SeparateZanverse.IsEnabled = true;
             encounterlog = new Log(Properties.Settings.Default.Path);
         }
 
@@ -749,6 +738,7 @@ namespace OverParse
         private void SeparateZanverse_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.SeparateZanverse = SeparateZanverse.IsChecked;
+            UpdateForm(null, null);
         }
 
         private void SetEncounterTimeout_Click(object sender, RoutedEventArgs e)

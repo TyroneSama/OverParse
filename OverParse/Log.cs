@@ -265,24 +265,29 @@ namespace OverParse
 
                 foreach (Combatant c in combatants)
                 {
-                    if (c.isAlly)
-                        log += $"{c.Name} | {c.Damage.ToString("N0")} dmg | {c.DPSReadout} contrib | {c.DPS} DPS | Max: {c.MaxHit}" + Environment.NewLine;
+                    if (c.isAlly || c.isZanverse)
+                        log += $"{c.Name} | {c.ReadDamage.ToString("N0")} dmg | {c.DPSReadout} contrib | {c.DPS} DPS | Max: {c.MaxHit}" + Environment.NewLine;
                 }
 
                 log += Environment.NewLine + Environment.NewLine;
 
                 foreach (Combatant c in combatants)
                 {
-                    if (c.isAlly)
+                    if (c.isAlly || c.isZanverse)
                     {
-                        string header = $"###### {c.Name} - {c.Damage.ToString("N0")} dmg ({c.DPSReadout}) ######";
+                        string header = $"###### {c.Name} - {c.ReadDamage.ToString("N0")} dmg ({c.DPSReadout}) ######";
                         // string line = "".PadLeft(header.Length, '-');
                         log += header + Environment.NewLine + Environment.NewLine;
 
                         List<string> attackNames = new List<string>();
 
+                        if (c.isZanverse && Properties.Settings.Default.SeparateZanverse)
+                            continue;
+
                         foreach (Attack a in c.Attacks)
                         {
+                            if (a.ID == "2106601422" && Properties.Settings.Default.SeparateZanverse)
+                                continue;
                             if (MainWindow.skillDict.ContainsKey(a.ID))
                                 a.ID = MainWindow.skillDict[a.ID]; // these are getting disposed anyway, no 1 cur
                             if (!attackNames.Contains(a.ID))
@@ -440,21 +445,6 @@ namespace OverParse
                             }
                         }
 
-                        if (attackID == "2106601422" && Properties.Settings.Default.SeparateZanverse)
-                        {
-                            index = -1;
-                            foreach (Combatant x in combatants)
-                            {
-                                if (x.isZanverse)
-                                {
-                                    index = combatants.IndexOf(x);
-                                }
-                            }
-
-                            sourceID = "94857493";
-                            sourceName = "Zanverse";
-                        }
-
                         if (index == -1)
                         {
                             combatants.Add(new Combatant(sourceID, sourceName));
@@ -463,13 +453,8 @@ namespace OverParse
 
                         Combatant source = combatants[index];
 
-                        if (attackID == "2106601422" && Properties.Settings.Default.SeparateZanverse)
-                            source.isZanverse = true;
-
-                        /*
-                        if (!source.isAux)
-                            source.isAux = isAuxDamage;
-                        */
+                        if (attackID == "2106601422")
+                            source.ZanverseDamage += hitDamage;
 
                         source.Damage += hitDamage;
                         newTimestamp = int.Parse(lineTimestamp);
@@ -490,7 +475,7 @@ namespace OverParse
                     }
                 }
 
-                combatants.Sort((x, y) => y.Damage.CompareTo(x.Damage));
+                combatants.Sort((x, y) => y.Damage.CompareTo(x.ReadDamage));
 
                 if (startTimestamp != 0)
                 {
@@ -520,7 +505,7 @@ namespace OverParse
                     {
                         if (x.isAlly)
                         {
-                            float dps = x.Damage / (float)(newTimestamp - startTimestamp);
+                            float dps = x.ReadDamage / (float)(newTimestamp - startTimestamp);
                             x.DPS = dps;
                             partyDPS += dps;
                         }
@@ -528,16 +513,13 @@ namespace OverParse
                         {
                             filtered++;
                         }
-
-                        if (x.isZanverse)
-                            zanverseCompensation = x.DPS;
                     }
 
                     float workingPartyDPS = partyDPS - zanverseCompensation;
 
                     foreach (Combatant x in combatants)
                     {
-                        if (x.isAlly && !x.isZanverse)
+                        if (x.isAlly)
                         {
                             x.PercentDPS = (x.DPS / workingPartyDPS * 100);
                         }
