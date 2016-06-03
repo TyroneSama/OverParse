@@ -103,7 +103,6 @@ namespace OverParse
             Console.WriteLine(ClickthroughMode.IsChecked = Properties.Settings.Default.ClickthroughEnabled);
             Console.WriteLine(LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard);
             Console.WriteLine(AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop);
-            Console.WriteLine(SeparateAuxDamage.IsChecked = Properties.Settings.Default.SeparateAuxDamage);
             Console.WriteLine(AutoHideWindow.IsChecked = Properties.Settings.Default.AutoHideWindow);
             Console.WriteLine("Finished applying settings");
 
@@ -368,11 +367,6 @@ namespace OverParse
             Properties.Settings.Default.AutoHideWindow = AutoHideWindow.IsChecked;
         }
 
-        private void SeparateAuxDamage_Click(object sender, RoutedEventArgs e)
-        {
-            Properties.Settings.Default.SeparateAuxDamage = SeparateAuxDamage.IsChecked;
-        }
-
         private void ClickthroughToggle(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.ClickthroughEnabled = ClickthroughMode.IsChecked;
@@ -381,14 +375,12 @@ namespace OverParse
         private void ShowDamageGraph_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.ShowDamageGraph = ShowDamageGraph.IsChecked;
-            Hacks.ShowDamageGraph = ShowDamageGraph.IsChecked;
             UpdateForm(null, null);
         }
 
         private void ShowRawDPS_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.ShowRawDPS = ShowRawDPS.IsChecked;
-            Hacks.ShowRawDPS = ShowRawDPS.IsChecked;
             DPSColumn.Header = ShowRawDPS.IsChecked ? "DPS" : "%";
             UpdateForm(null, null);
         }
@@ -527,14 +519,12 @@ namespace OverParse
         private void HighlightYourDamage_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.HighlightYourDamage = HighlightYourDamage.IsChecked;
-            Hacks.HighlightYourDamage = Properties.Settings.Default.HighlightYourDamage;
             UpdateForm(null, null);
         }
 
         private void AnonymizeNames_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.AnonymizeNames = AnonymizeNames.IsChecked;
-            Hacks.AnonymizeNames = Properties.Settings.Default.AnonymizeNames;
             UpdateForm(null, null);
         }
 
@@ -616,7 +606,6 @@ namespace OverParse
             if (encounterlog.running)
             {
                 SeparateZanverse.IsEnabled = false;
-                SeparateAuxDamage.IsEnabled = false;
 
                 CombatantData.Items.Clear();
 
@@ -704,7 +693,6 @@ namespace OverParse
             Properties.Settings.Default.AutoEndEncounters = temp;
             Console.WriteLine("Reinitializing log");
             SeparateZanverse.IsEnabled = true;
-            SeparateAuxDamage.IsEnabled = true;
             lastStatus = "";
             encounterlog = new Log(Properties.Settings.Default.Path);
         }
@@ -737,7 +725,6 @@ namespace OverParse
             }
             Console.WriteLine("Reinitializing log");
             SeparateZanverse.IsEnabled = true;
-            SeparateAuxDamage.IsEnabled = true;
             encounterlog = new Log(Properties.Settings.Default.Path);
         }
 

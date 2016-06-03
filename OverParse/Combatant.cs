@@ -38,7 +38,7 @@ namespace OverParse
         {
             get
             {
-                if (Hacks.AnonymizeNames && isAlly)
+                if (Properties.Settings.Default.AnonymizeNames && isAlly)
                     return AnonymousName();
                 return Name;
             }
@@ -49,13 +49,13 @@ namespace OverParse
         {
             get
             {
-                if (Hacks.ShowDamageGraph && (isAlly && !isZanverse))
+                if (Properties.Settings.Default.ShowDamageGraph && (isAlly && !isZanverse))
                 {
                     return generateBarBrush(Color.FromArgb(200, 65, 112, 166), new Color());
                 }
                 else
                 {
-                    if (isYou() && Hacks.HighlightYourDamage)
+                    if (isYou() && Properties.Settings.Default.HighlightYourDamage)
                         return new SolidColorBrush(green);
                     return new SolidColorBrush(new Color());
                 }
@@ -67,13 +67,13 @@ namespace OverParse
         {
             get
             {
-                if (Hacks.ShowDamageGraph && (isAlly && !isZanverse))
+                if (Properties.Settings.Default.ShowDamageGraph && (isAlly && !isZanverse))
                 {
                     return generateBarBrush(Color.FromArgb(140, 65, 112, 166), Color.FromArgb(64, 16, 16, 16));
                 }
                 else
                 {
-                    if (isYou() && Hacks.HighlightYourDamage)
+                    if (isYou() && Properties.Settings.Default.HighlightYourDamage)
                         return new SolidColorBrush(green);
                     return new SolidColorBrush(Color.FromArgb(64, 16, 16, 16));
                 }
@@ -82,10 +82,10 @@ namespace OverParse
 
         LinearGradientBrush generateBarBrush(Color c, Color c2)
         {
-            if (!Hacks.ShowDamageGraph)
+            if (!Properties.Settings.Default.ShowDamageGraph)
                 c = new Color();
 
-            if (isYou() && Hacks.HighlightYourDamage)
+            if (isYou() && Properties.Settings.Default.HighlightYourDamage)
                 c = green;
 
             LinearGradientBrush lgb = new LinearGradientBrush();
@@ -146,7 +146,7 @@ namespace OverParse
         {
             get
             {
-                if (Hacks.ShowRawDPS)
+                if (Properties.Settings.Default.ShowRawDPS)
                 {
                     return FormatNumber(DPS);
                 }
