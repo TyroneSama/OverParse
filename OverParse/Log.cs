@@ -424,8 +424,6 @@ namespace OverParse
                             continue;
                         }
 
-                        // bool isAuxDamage = false;
-
                         if (!instances.Contains(instanceID))
                             instances.Add(instanceID);
 
@@ -433,29 +431,13 @@ namespace OverParse
                             continue;
                         if (sourceID == "0" || attackID == "0")
                             continue;
-                        /*
-                        if (sourceName.Contains("|"))
-                        {
-                            string[] separate = sourceName.Split('|');
-                            if (Properties.Settings.Default.SeparateAuxDamage)
-                                sourceName = separate[0] + " (Aux)";
-                            else
-                                sourceName = separate[0];
-                            isAuxDamage = true;
-                        }
-                        */
+
                         foreach (Combatant x in combatants)
                         {
                             if (x.ID == sourceID)
                             {
                                 index = combatants.IndexOf(x);
                             }
-                            /*
-                            if (x.Name == sourceName)
-                            {
-                                if (!(!isAuxDamage && !x.isAux))
-                                    index = combatants.IndexOf(x);
-                            } */
                         }
 
                         if (attackID == "2106601422" && Properties.Settings.Default.SeparateZanverse)
