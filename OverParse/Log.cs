@@ -306,7 +306,7 @@ namespace OverParse
 
                         foreach (var i in attackData)
                         {
-                            double percent = i.Item2.Sum() * 100d / c.Damage;
+                            double percent = i.Item2.Sum() * 100d / c.ReadDamage;
                             string spacer = (percent >= 9) ? "" : " ";
 
                             string paddedPercent = percent.ToString("00.00").Substring(0, 5);
