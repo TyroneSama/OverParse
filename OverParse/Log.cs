@@ -27,8 +27,6 @@ namespace OverParse
 
         public Log(string attemptDirectory)
         {
-            
-
             valid = false;
             notEmpty = false;
             running = false;

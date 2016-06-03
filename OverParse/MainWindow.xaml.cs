@@ -20,6 +20,7 @@ namespace OverParse
     public partial class MainWindow : Window
     {
         private Log encounterlog;
+        private List<Combatant> lastCombatants = new List<Combatant>();
         public static Dictionary<string, string> skillDict = new Dictionary<string, string>();
         private List<string> sessionLogFilenames = new List<string>();
         private string lastStatus = "";
@@ -603,31 +604,33 @@ namespace OverParse
                 lastStatus = encounterlog.logStatus();
             }
 
+            List<Combatant> workingList = encounterlog.running ? encounterlog.combatants : lastCombatants;
+
+            CombatantData.Items.Clear();
+            workingList.RemoveAll(c => c.isZanverse);
+
+            if (Properties.Settings.Default.SeparateZanverse)
+            {
+                int totalZanverse = workingList.Where(c => c.isAlly == true).Sum(x => x.ZanverseDamage);
+                if (totalZanverse > 0)
+                {
+                    Combatant zanverseHolder = new Combatant("99999999", "Zanverse");
+                    zanverseHolder.Damage = totalZanverse;
+                    workingList.Add(zanverseHolder);
+                }
+            }
+
+            Combatant.maxShare = 0;
+            foreach (Combatant c in workingList)
+            {
+                if ((c.isAlly) && c.ReadDamage > Combatant.maxShare)
+                    Combatant.maxShare = c.ReadDamage;
+                if (c.isAlly || c.isZanverse || !FilterPlayers.IsChecked)
+                    CombatantData.Items.Add(c);
+            }
+
             if (encounterlog.running)
             {
-                CombatantData.Items.Clear();
-                encounterlog.combatants.RemoveAll(c => c.isZanverse);
-
-                if (Properties.Settings.Default.SeparateZanverse)
-                {
-                    int totalZanverse = encounterlog.combatants.Where(c => c.isAlly == true).Sum(x => x.ZanverseDamage);
-                    if (totalZanverse > 0)
-                    {
-                        Combatant zanverseHolder = new Combatant("99999999", "Zanverse");
-                        zanverseHolder.Damage = totalZanverse;
-                        encounterlog.combatants.Add(zanverseHolder);
-                    }
-                }
-
-                Combatant.maxShare = 0;
-                foreach (Combatant c in encounterlog.combatants)
-                {
-                    if ((c.isAlly) && c.ReadDamage > Combatant.maxShare)
-                        Combatant.maxShare = c.ReadDamage;
-                    if (c.isAlly || c.isZanverse || !FilterPlayers.IsChecked)
-                        CombatantData.Items.Add(c);
-                }
-
                 if (Properties.Settings.Default.AutoEndEncounters)
                 {
                     int unixTimestamp = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
@@ -638,6 +641,7 @@ namespace OverParse
                     }
                 }
             }
+
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -713,6 +717,8 @@ namespace OverParse
             {
                 encounterlog.WriteClipboard();
             }
+            Console.WriteLine("Saving last combatant list");
+            lastCombatants = encounterlog.combatants;
             Console.WriteLine("Reinitializing log");
             encounterlog = new Log(Properties.Settings.Default.Path);
         }
