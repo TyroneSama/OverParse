@@ -490,7 +490,7 @@ namespace OverParse
                     }
                 }
 
-                combatants.Sort((x, y) => y.Damage.CompareTo(x.ReadDamage));
+                combatants.Sort((x, y) => y.ReadDamage.CompareTo(x.ReadDamage));
 
                 if (startTimestamp != 0)
                 {
