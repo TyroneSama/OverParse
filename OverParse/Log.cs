@@ -279,27 +279,43 @@ namespace OverParse
                         log += header + Environment.NewLine + Environment.NewLine;
 
                         List<string> attackNames = new List<string>();
-
-                        if (c.isZanverse && Properties.Settings.Default.SeparateZanverse)
-                            continue;
-
-                        foreach (Attack a in c.Attacks)
-                        {
-                            if (a.ID == "2106601422" && Properties.Settings.Default.SeparateZanverse)
-                                continue;
-                            if (MainWindow.skillDict.ContainsKey(a.ID))
-                                a.ID = MainWindow.skillDict[a.ID]; // these are getting disposed anyway, no 1 cur
-                            if (!attackNames.Contains(a.ID))
-                                attackNames.Add(a.ID);
-                        }
-
                         List<Tuple<string, List<int>>> attackData = new List<Tuple<string, List<int>>>();
 
-                        foreach (string s in attackNames)
+                        if (c.isZanverse && Properties.Settings.Default.SeparateZanverse)
                         {
-                            Console.WriteLine(s);
-                            List<int> matchingAttacks = c.Attacks.Where(a => a.ID == s).Select(a => a.Damage).ToList();
-                            attackData.Add(new Tuple<string, List<int>>(s, matchingAttacks));
+                            Console.WriteLine("ZANVERSE BREAKDOWN");
+                            foreach (Combatant c2 in combatants)
+                            {
+                                if (c2.ZanverseDamage > 0)
+                                    attackNames.Add(c2.ID);
+                            }
+
+                            foreach (string s in attackNames)
+                            {
+                                Console.WriteLine(s);
+                                Combatant targetCombatant = combatants.First(x => x.ID == s);
+                                List <int> matchingAttacks = targetCombatant.Attacks.Where(a => a.ID == "2106601422").Select(a => a.Damage).ToList();
+                                attackData.Add(new Tuple<string, List<int>>(targetCombatant.Name, matchingAttacks));
+                            }
+
+                        } else
+                        {
+                            foreach (Attack a in c.Attacks)
+                            {
+                                if (a.ID == "2106601422" && Properties.Settings.Default.SeparateZanverse)
+                                    continue;
+                                if (MainWindow.skillDict.ContainsKey(a.ID))
+                                    a.ID = MainWindow.skillDict[a.ID]; // these are getting disposed anyway, no 1 cur
+                                if (!attackNames.Contains(a.ID))
+                                    attackNames.Add(a.ID);
+                            }
+
+                            foreach (string s in attackNames)
+                            {
+                                Console.WriteLine(s);
+                                List<int> matchingAttacks = c.Attacks.Where(a => a.ID == s).Select(a => a.Damage).ToList();
+                                attackData.Add(new Tuple<string, List<int>>(s, matchingAttacks));
+                            }
                         }
 
                         attackData = attackData.OrderByDescending(x => x.Item2.Sum()).ToList();
