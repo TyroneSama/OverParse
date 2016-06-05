@@ -257,7 +257,7 @@ namespace OverParse
                 int elapsed = newTimestamp - startTimestamp;
                 TimeSpan timespan = TimeSpan.FromSeconds(elapsed);
                 string timer = timespan.ToString(@"mm\:ss");
-                string log = DateTime.Now.ToString("U") + " | " + timer + Environment.NewLine;
+                string log = DateTime.Now.ToString("F") + " | " + timer + Environment.NewLine;
 
                 log += Environment.NewLine;
 
