@@ -89,7 +89,7 @@
                                 </MenuItem>
                             </MenuItem>
                             <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Parsing">
-                                <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Show only players" x:Name="FilterPlayers"/>
+                                <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Show only players" x:Name="FilterPlayers" Click="FilterPlayers_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" x:Name="ShowRawDPS" IsCheckable="True" IsChecked="False" Header="Show raw DPS" Click="ShowRawDPS_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" x:Name="SeparateZanverse" IsCheckable="True" IsChecked="False" Header="Show Zanverse damage separately" Click="SeparateZanverse_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Show damage graph" x:Name="ShowDamageGraph" Click="ShowDamageGraph_Click"/>

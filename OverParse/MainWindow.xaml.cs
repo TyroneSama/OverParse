@@ -751,6 +751,11 @@ namespace OverParse
             UpdateForm(null, null);
         }
 
+        private void FilterPlayers_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateForm(null, null);
+        }
+
         private void SetEncounterTimeout_Click(object sender, RoutedEventArgs e)
         {
             AlwaysOnTop.IsChecked = false;
