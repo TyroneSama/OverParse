@@ -584,6 +584,66 @@ namespace OverParse
 
             // every part of this section is fucking stupid
 
+            List<Combatant> workingList = encounterlog.running ? encounterlog.combatants : lastCombatants;
+
+            // force resort if log isn't active
+            if (!encounterlog.running)
+                    workingList.Sort((x, y) => y.ReadDamage.CompareTo(x.ReadDamage));
+
+            // clear out the list
+            CombatantData.Items.Clear();
+            workingList.RemoveAll(c => c.isZanverse);
+
+            // for zanverse dummy and status bar because WHAT IS GOOD STRUCTURE
+            int elapsed = 0;
+            Combatant stealActiveTimeDummy = workingList.Where(c => (c.isAlly)).FirstOrDefault();
+            if (stealActiveTimeDummy != null)
+                elapsed = stealActiveTimeDummy.ActiveTime;
+
+
+            // make dummy zanverse combatant if necessary
+            if (Properties.Settings.Default.SeparateZanverse)
+            {
+                int totalZanverse = workingList.Where(c => c.isAlly == true).Sum(x => x.ZanverseDamage);
+                if (totalZanverse > 0)
+                {
+                    Combatant zanverseHolder = new Combatant("99999999", "Zanverse");
+                    zanverseHolder.Damage = totalZanverse;
+                    zanverseHolder.ActiveTime = elapsed;
+                    workingList.Add(zanverseHolder);
+                }
+            }
+
+            // get group damage totals
+            int totalDamage = workingList.Where(c => (c.isAlly || c.isZanverse)).Sum(x => x.Damage);
+            int totalReadDamage = workingList.Where(c => (c.isAlly)).Sum(x => x.ReadDamage);
+
+            // dps calcs!
+            foreach (Combatant c in workingList)
+            {
+                if (c.isAlly || c.isZanverse)
+                {
+                    c.PercentDPS = c.Damage / (float)totalDamage * 100;
+                    c.PercentReadDPS = c.ReadDamage / (float)totalReadDamage * 100;
+                } else
+                {
+                    c.PercentDPS = -1;
+                    c.PercentReadDPS = -1;
+                }
+            }
+
+            // damage graph stuff
+            Combatant.maxShare = 0;
+            foreach (Combatant c in workingList)
+            {
+                if ((c.isAlly) && c.ReadDamage > Combatant.maxShare)
+                    Combatant.maxShare = c.ReadDamage;
+
+                if (c.isAlly || c.isZanverse || !FilterPlayers.IsChecked)
+                    CombatantData.Items.Add(c);
+            }
+
+            // status pane updates
             EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 100, 100));
             EncounterStatus.Content = encounterlog.logStatus();
 
@@ -600,39 +660,25 @@ namespace OverParse
             if (encounterlog.running)
             {
                 EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 100, 255, 100));
-                EncounterStatus.Content = encounterlog.logStatus();
-                lastStatus = encounterlog.logStatus();
+
+                TimeSpan timespan = TimeSpan.FromSeconds(elapsed);
+                string timer = timespan.ToString(@"mm\:ss");
+                EncounterStatus.Content = $"{timer}";
+
+                float totalDPS = totalDamage / (float)elapsed;
+
+                if (totalDPS > 0)
+                    EncounterStatus.Content += $" - {totalDPS.ToString("N2")} DPS";
+
+                if (Properties.Settings.Default.CompactMode)
+                    foreach (Combatant c in workingList)
+                        if (c.isYou)
+                            EncounterStatus.Content += $" - MAX: {c.MaxHitNum.ToString("N0")}";
+
+                lastStatus = EncounterStatus.Content.ToString();
             }
 
-            List<Combatant> workingList = encounterlog.running ? encounterlog.combatants : lastCombatants;
-
-            //force resort if log isn't active
-            if (!encounterlog.running)
-                    workingList.Sort((x, y) => y.ReadDamage.CompareTo(x.ReadDamage));
-
-            CombatantData.Items.Clear();
-            workingList.RemoveAll(c => c.isZanverse);
-
-            if (Properties.Settings.Default.SeparateZanverse)
-            {
-                int totalZanverse = workingList.Where(c => c.isAlly == true).Sum(x => x.ZanverseDamage);
-                if (totalZanverse > 0)
-                {
-                    Combatant zanverseHolder = new Combatant("99999999", "Zanverse");
-                    zanverseHolder.Damage = totalZanverse;
-                    workingList.Add(zanverseHolder);
-                }
-            }
-
-            Combatant.maxShare = 0;
-            foreach (Combatant c in workingList)
-            {
-                if ((c.isAlly) && c.ReadDamage > Combatant.maxShare)
-                    Combatant.maxShare = c.ReadDamage;
-                if (c.isAlly || c.isZanverse || !FilterPlayers.IsChecked)
-                    CombatantData.Items.Add(c);
-            }
-
+            // autoend
             if (encounterlog.running)
             {
                 if (Properties.Settings.Default.AutoEndEncounters)

@@ -17,10 +17,28 @@ namespace OverParse
         public string MaxHitID;
         public int ZanverseDamage;
         public bool isAux;
-        public float DPS;
         public float PercentDPS;
+        public float PercentReadDPS;
+        public int ActiveTime;
         public List<Attack> Attacks;
         Color green = Color.FromArgb(160, 32, 130, 32);
+
+        public float DPS
+        {
+            get
+            {
+                return Damage / (float)ActiveTime;
+            }
+        }
+
+        public float ReadDPS
+        {
+            get
+            {
+                Console.WriteLine($"{this.Name} | read damage {ReadDamage} | ActiveTime {ActiveTime}");
+                return ReadDamage / (float)ActiveTime;
+            }
+        }
 
         public bool isZanverse
         {
@@ -32,9 +50,12 @@ namespace OverParse
             }
         }
 
-        bool isYou()
+        public bool isYou
         {
-            return (ID == Hacks.currentPlayerID);
+            get
+            {
+                return (ID == Hacks.currentPlayerID);
+            }
         }
 
         public int ReadDamage
@@ -48,7 +69,7 @@ namespace OverParse
         }
 
         public string AnonymousName() {
-            if (isYou())
+            if (isYou)
                 return Name;
             else
                 return "--";
@@ -75,7 +96,7 @@ namespace OverParse
                 }
                 else
                 {
-                    if (isYou() && Properties.Settings.Default.HighlightYourDamage)
+                    if (isYou && Properties.Settings.Default.HighlightYourDamage)
                         return new SolidColorBrush(green);
                     return new SolidColorBrush(new Color());
                 }
@@ -93,7 +114,7 @@ namespace OverParse
                 }
                 else
                 {
-                    if (isYou() && Properties.Settings.Default.HighlightYourDamage)
+                    if (isYou && Properties.Settings.Default.HighlightYourDamage)
                         return new SolidColorBrush(green);
                     return new SolidColorBrush(Color.FromArgb(64, 16, 16, 16));
                 }
@@ -105,7 +126,7 @@ namespace OverParse
             if (!Properties.Settings.Default.ShowDamageGraph)
                 c = new Color();
 
-            if (isYou() && Properties.Settings.Default.HighlightYourDamage)
+            if (isYou && Properties.Settings.Default.HighlightYourDamage)
                 c = green;
 
             LinearGradientBrush lgb = new LinearGradientBrush();
@@ -154,7 +175,7 @@ namespace OverParse
             {
                 if (Properties.Settings.Default.ShowRawDPS)
                 {
-                    return FormatNumber(DPS);
+                    return FormatNumber(ReadDPS);
                 }
                 else
                 {
@@ -164,7 +185,7 @@ namespace OverParse
                     }
                     else
                     {
-                        return string.Format("{0:0.0}", PercentDPS) + "%";
+                        return string.Format("{0:0.0}", PercentReadDPS) + "%";
                     }
                 }
 
@@ -202,7 +223,6 @@ namespace OverParse
             Healing = 0;
             MaxHitNum = 0;
             MaxHitID = "none";
-            DPS = 0;
             PercentDPS = -1;
             isAux = false;
             Attacks = new List<Attack>();
