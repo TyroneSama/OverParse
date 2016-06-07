@@ -540,6 +540,7 @@ namespace OverParse
             {
                 MaxHitHelperColumn.Width = new GridLength(3, GridUnitType.Star);
             }
+            UpdateForm(null, null);
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
