@@ -62,6 +62,8 @@ namespace OverParse
         {
             get
             {
+                if (this.isZanverse)
+                    return Damage;
                 if (Properties.Settings.Default.SeparateZanverse)
                     return Damage - ZanverseDamage;
                 return Damage;
@@ -179,7 +181,7 @@ namespace OverParse
                 }
                 else
                 {
-                    if (PercentDPS < -.5 || isZanverse)
+                    if (PercentDPS < -.5)
                     {
                         return "--";
                     }

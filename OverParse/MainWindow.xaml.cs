@@ -615,15 +615,13 @@ namespace OverParse
             }
 
             // get group damage totals
-            int totalDamage = workingList.Where(c => (c.isAlly || c.isZanverse)).Sum(x => x.Damage);
-            int totalReadDamage = workingList.Where(c => (c.isAlly)).Sum(x => x.ReadDamage);
+            int totalReadDamage = workingList.Where(c => (c.isAlly || c.isZanverse)).Sum(x => x.ReadDamage);
 
             // dps calcs!
             foreach (Combatant c in workingList)
             {
                 if (c.isAlly || c.isZanverse)
                 {
-                    c.PercentDPS = c.Damage / (float)totalDamage * 100;
                     c.PercentReadDPS = c.ReadDamage / (float)totalReadDamage * 100;
                 } else
                 {
@@ -665,7 +663,7 @@ namespace OverParse
                 string timer = timespan.ToString(@"mm\:ss");
                 EncounterStatus.Content = $"{timer}";
 
-                float totalDPS = totalDamage / (float)elapsed;
+                float totalDPS = totalReadDamage / (float)elapsed;
 
                 if (totalDPS > 0)
                     EncounterStatus.Content += $" - {totalDPS.ToString("N2")} DPS";
