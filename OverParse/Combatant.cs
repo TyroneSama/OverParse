@@ -181,7 +181,7 @@ namespace OverParse
                 }
                 else
                 {
-                    if (PercentDPS < -.5)
+                    if (PercentReadDPS < -.5)
                     {
                         return "--";
                     }
