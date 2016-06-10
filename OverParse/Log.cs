@@ -283,7 +283,6 @@ namespace OverParse
 
                         if (c.isZanverse && Properties.Settings.Default.SeparateZanverse)
                         {
-                            Console.WriteLine("ZANVERSE BREAKDOWN");
                             foreach (Combatant c2 in combatants)
                             {
                                 if (c2.ZanverseDamage > 0)
@@ -292,7 +291,6 @@ namespace OverParse
 
                             foreach (string s in attackNames)
                             {
-                                Console.WriteLine(s);
                                 Combatant targetCombatant = combatants.First(x => x.ID == s);
                                 List <int> matchingAttacks = targetCombatant.Attacks.Where(a => a.ID == "2106601422").Select(a => a.Damage).ToList();
                                 attackData.Add(new Tuple<string, List<int>>(targetCombatant.Name, matchingAttacks));
@@ -312,7 +310,6 @@ namespace OverParse
 
                             foreach (string s in attackNames)
                             {
-                                Console.WriteLine(s);
                                 List<int> matchingAttacks = c.Attacks.Where(a => a.ID == s).Select(a => a.Damage).ToList();
                                 attackData.Add(new Tuple<string, List<int>>(s, matchingAttacks));
                             }
