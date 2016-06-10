@@ -587,9 +587,8 @@ namespace OverParse
 
             List<Combatant> workingList = encounterlog.running ? encounterlog.combatants : lastCombatants;
 
-            // force resort if log isn't active
-            if (!encounterlog.running)
-                    workingList.Sort((x, y) => y.ReadDamage.CompareTo(x.ReadDamage));
+            // force resort all the time, thanks ass-backwards update logic
+            workingList.Sort((x, y) => y.ReadDamage.CompareTo(x.ReadDamage));
 
             // clear out the list
             CombatantData.Items.Clear();
