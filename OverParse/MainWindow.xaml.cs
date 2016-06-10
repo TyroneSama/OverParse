@@ -729,7 +729,6 @@ namespace OverParse
         private void EndEncounterNoLog_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Ending encounter (no log)");
-            encounterlog.combatants.Clear();
             bool temp = Properties.Settings.Default.AutoEndEncounters;
             Properties.Settings.Default.AutoEndEncounters = false;
             UpdateForm(null, null);
