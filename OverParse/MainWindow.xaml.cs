@@ -207,7 +207,6 @@ namespace OverParse
                 Stream dataStream = response.GetResponseStream();
                 StreamReader reader = new StreamReader(dataStream);
                 string responseFromServer = reader.ReadToEnd();
-                Console.WriteLine(responseFromServer);
                 reader.Close();
                 response.Close();
                 JObject responseJSON = JObject.Parse(responseFromServer);
