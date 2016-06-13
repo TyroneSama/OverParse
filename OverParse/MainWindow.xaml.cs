@@ -596,7 +596,7 @@ namespace OverParse
 
             // for zanverse dummy and status bar because WHAT IS GOOD STRUCTURE
             int elapsed = 0;
-            Combatant stealActiveTimeDummy = workingList.Where(c => (c.isAlly)).FirstOrDefault();
+            Combatant stealActiveTimeDummy = workingList.FirstOrDefault();
             if (stealActiveTimeDummy != null)
                 elapsed = stealActiveTimeDummy.ActiveTime;
 
