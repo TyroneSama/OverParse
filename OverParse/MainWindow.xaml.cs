@@ -186,7 +186,7 @@ namespace OverParse
             damageTimer.Interval = new TimeSpan(0, 0, 1);
             damageTimer.Start();
 
-            Console.WriteLine("Initializing damageTimer");
+            Console.WriteLine("Initializing inactiveTimer");
             System.Windows.Threading.DispatcherTimer inactiveTimer = new System.Windows.Threading.DispatcherTimer();
             inactiveTimer.Tick += new EventHandler(HideIfInactive);
             inactiveTimer.Interval = TimeSpan.FromMilliseconds(200);
