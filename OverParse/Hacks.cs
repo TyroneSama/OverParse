@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OverParse
 {
-    class Hacks // I'M SORRY MOM
+    static class Hacks // I'M SORRY MOM
     {
         public static string currentPlayerID = "";
         public static bool DontAsk = false;
