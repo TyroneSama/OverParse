@@ -794,6 +794,7 @@ namespace OverParse
             Console.WriteLine("Reinitializing log");
             lastStatus = "";
             encounterlog = new Log(Properties.Settings.Default.Path);
+            UpdateForm(null, null);
         }
 
         private void EndEncounter_Click(object sender, RoutedEventArgs e)
