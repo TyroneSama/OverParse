@@ -56,7 +56,7 @@ namespace OverParse
         {
             get
             {
-                Console.WriteLine($"{this.Name} | read damage {ReadDamage} | ActiveTime {ActiveTime}");
+                Console.WriteLine($"{this.Name} | read damage {ReadDamage} | ActiveTime {ActiveTime}");  ///TODO: GetText
                 return ReadDamage / (float)ActiveTime;
             }
         }
@@ -196,7 +196,7 @@ namespace OverParse
         {
             get
             {
-                if (int.Parse(ID) >= 10000000 && !isZanverse)
+                if (int.Parse(ID) >= 10000000 && !isZanverse)  ///TODO: GetText
                     return true;
                 return false;
             }
@@ -224,8 +224,8 @@ namespace OverParse
                     attack = MainWindow.skillDict[MaxHitID];
                 }
 
-                Console.WriteLine($"{this.Name} - {MaxHitID} for {MaxHitAttack.Damage} ----- {attack}");
-                return MaxHitAttack.Damage.ToString("N0") + $" ({attack})";
+                Console.WriteLine($"{this.Name} - {MaxHitID} for {MaxHitAttack.Damage} ----- {attack}");  ///TODO: GetText
+                return MaxHitAttack.Damage.ToString("N0") + $" ({attack})";  ///TODO: GetText
             }
         }
 
@@ -245,7 +245,7 @@ namespace OverParse
                     }
                     else
                     {
-                        return string.Format("{0:0.0}", PercentReadDPS) + "%";
+                        return string.Format("{0:0.0}", PercentReadDPS) + "%";  ///TODO: GetText
                     }
                 }
 
@@ -257,21 +257,21 @@ namespace OverParse
             int num = (int)Math.Round(value);
 
             if (value >= 100000000)
-                return (value / 1000000).ToString("#,0") + "M";
+                return (value / 1000000).ToString("#,0") + "M";  ///TODO: GetText
             if (value >= 1000000)
-                return (value / 1000000D).ToString("0.0") + "M";
+                return (value / 1000000D).ToString("0.0") + "M";  ///TODO: GetText
             if (value >= 100000)
-                return (value / 1000).ToString("#,0") + "K";
+                return (value / 1000).ToString("#,0") + "K";  ///TODO: GetText
             if (value >= 1000)
-                return (value / 1000D).ToString("0.0") + "K";
-            return value.ToString("#,0");
+                return (value / 1000D).ToString("0.0") + "K";  ///TODO: GetText
+            return value.ToString("#,0");  ///TODO: GetText
         }
 
         public string DamageReadout
         {
             get
             {
-                return ReadDamage.ToString("N0");
+                return ReadDamage.ToString("N0");  ///TODO: GetText
             }
         }
 
