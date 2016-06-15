@@ -813,6 +813,7 @@ namespace OverParse
                 foreach (Attack a in c.Attacks)
                     temp2.Attacks.Add(new Attack(a.ID, a.Damage, a.Timestamp));
                 temp2.ActiveTime = c.ActiveTime;
+                temp2.PercentReadDPS = c.PercentReadDPS;
                 workingListCopy.Add(temp2);
             }
             Console.WriteLine("Saving last combatant list"); ///TODO: GetText
