@@ -25,6 +25,7 @@ namespace OverParse
         private List<string> sessionLogFilenames = new List<string>();
         private string lastStatus = "";
         private IntPtr hwndcontainer;
+        List<Combatant> workingList;
 
         protected override void OnSourceInitialized(EventArgs e)
         {
@@ -38,7 +39,7 @@ namespace OverParse
         {
             InitializeComponent();
 
-            this.Dispatcher.UnhandledException += Panic;
+            //this.Dispatcher.UnhandledException += Panic;
 
             try { Directory.CreateDirectory("Logs"); }
             catch
@@ -101,6 +102,7 @@ namespace OverParse
             Console.WriteLine(AutoEndEncounters.IsChecked = Properties.Settings.Default.AutoEndEncounters);
             Console.WriteLine(SetEncounterTimeout.IsEnabled = AutoEndEncounters.IsChecked);
             Console.WriteLine(SeparateZanverse.IsChecked = Properties.Settings.Default.SeparateZanverse);
+            Console.WriteLine(SeparateAIS.IsChecked = Properties.Settings.Default.SeparateAIS);
             Console.WriteLine(ClickthroughMode.IsChecked = Properties.Settings.Default.ClickthroughEnabled);
             Console.WriteLine(LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard);
             Console.WriteLine(AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop);
@@ -112,7 +114,7 @@ namespace OverParse
             CompactMode.IsChecked = Properties.Settings.Default.CompactMode; CompactMode_Click(null, null);
             AnonymizeNames.IsChecked = Properties.Settings.Default.AnonymizeNames; AnonymizeNames_Click(null, null);
             HighlightYourDamage.IsChecked = Properties.Settings.Default.HighlightYourDamage; HighlightYourDamage_Click(null, null);
-            HandleWindowOpacity(); HandleListOpacity();
+            HandleWindowOpacity(); HandleListOpacity(); SeparateAIS_Click(null, null);
 
             Console.WriteLine($"Launch method: {Properties.Settings.Default.LaunchMethod}");
 
@@ -584,21 +586,54 @@ namespace OverParse
 
             // every part of this section is fucking stupid
 
-            List<Combatant> workingList = encounterlog.running ? encounterlog.combatants : lastCombatants;
-
-            // force resort all the time, thanks ass-backwards update logic
-            workingList.Sort((x, y) => y.ReadDamage.CompareTo(x.ReadDamage));
+            // get a copy of the right combatants
+            List<Combatant> targetList = (encounterlog.running ? encounterlog.combatants : lastCombatants);
+            workingList = new List<Combatant>();
+            foreach (Combatant c in targetList)
+            {
+                Combatant temp = new Combatant(c.ID, c.Name, c.isTemporary);
+                foreach (Attack a in c.Attacks) 
+                    temp.Attacks.Add(new Attack(a.ID, a.Damage, a.Timestamp));
+                temp.ActiveTime = c.ActiveTime;
+                workingList.Add(temp);
+            }
 
             // clear out the list
             CombatantData.Items.Clear();
-            workingList.RemoveAll(c => c.isZanverse);
+            //workingList.RemoveAll(c => c.isTemporary != "no");
 
             // for zanverse dummy and status bar because WHAT IS GOOD STRUCTURE
             int elapsed = 0;
             Combatant stealActiveTimeDummy = workingList.FirstOrDefault();
             if (stealActiveTimeDummy != null)
                 elapsed = stealActiveTimeDummy.ActiveTime;
+            Console.WriteLine(elapsed);
 
+            // create and sort dummy AIS combatants
+            if (Properties.Settings.Default.SeparateAIS)
+            {
+                List<Combatant> pendingCombatants = new List<Combatant>();
+
+                foreach (Combatant c in workingList)
+                {
+                    if (!c.isAlly)
+                        continue;
+                    if (c.AISDamage > 0)
+                    {
+                        Combatant AISHolder = new Combatant(c.ID, "AIS|" + c.Name, "AIS");
+                        List<Attack> targetAttacks = c.Attacks.Where(a => Combatant.AISAttackIDs.Contains(a.ID)).ToList();
+                        c.Attacks = c.Attacks.Except(targetAttacks).ToList();
+                        AISHolder.Attacks.AddRange(targetAttacks);
+                        AISHolder.ActiveTime = elapsed;
+                        pendingCombatants.Add(AISHolder);
+                    }
+                }
+
+                workingList.AddRange(pendingCombatants);
+            }
+
+            // force resort here to neatly shuffle AIS parses back into place
+            workingList.Sort((x, y) => y.ReadDamage.CompareTo(x.ReadDamage));
 
             // make dummy zanverse combatant if necessary
             if (Properties.Settings.Default.SeparateZanverse)
@@ -606,8 +641,16 @@ namespace OverParse
                 int totalZanverse = workingList.Where(c => c.isAlly == true).Sum(x => x.ZanverseDamage);
                 if (totalZanverse > 0)
                 {
-                    Combatant zanverseHolder = new Combatant("99999999", "Zanverse");
-                    zanverseHolder.Damage = totalZanverse;
+                    Combatant zanverseHolder = new Combatant("99999999", "Zanverse", "Zanverse");
+                    foreach (Combatant c in workingList)
+                    {
+                        if (c.isAlly)
+                        {
+                            List<Attack> targetAttacks = c.Attacks.Where(a => a.ID == "2106601422").ToList();
+                            zanverseHolder.Attacks.AddRange(targetAttacks);
+                            c.Attacks = c.Attacks.Except(targetAttacks).ToList();
+                        }
+                    }
                     zanverseHolder.ActiveTime = elapsed;
                     workingList.Add(zanverseHolder);
                 }
@@ -622,7 +665,8 @@ namespace OverParse
                 if (c.isAlly || c.isZanverse)
                 {
                     c.PercentReadDPS = c.ReadDamage / (float)totalReadDamage * 100;
-                } else
+                }
+                else
                 {
                     c.PercentDPS = -1;
                     c.PercentReadDPS = -1;
@@ -636,7 +680,22 @@ namespace OverParse
                 if ((c.isAlly) && c.ReadDamage > Combatant.maxShare)
                     Combatant.maxShare = c.ReadDamage;
 
-                if (c.isAlly || c.isZanverse || !FilterPlayers.IsChecked)
+                bool filtered = true;
+                if (Properties.Settings.Default.SeparateAIS)
+                {
+                    if (c.isAlly && c.isTemporary == "no" && !HidePlayers.IsChecked)
+                        filtered = false;
+                    if (c.isAlly && c.isTemporary == "AIS" && !HideAIS.IsChecked)
+                        filtered = false;
+                    if (c.isZanverse)
+                        filtered = false;
+                } else
+                {
+                    if ((c.isAlly || c.isZanverse || !FilterPlayers.IsChecked) && (c.Damage > 0))
+                        filtered = false;
+                }
+
+                if (!filtered && c.Damage > 0)
                     CombatantData.Items.Add(c);
             }
 
@@ -735,6 +794,7 @@ namespace OverParse
             Console.WriteLine("Reinitializing log");
             lastStatus = "";
             encounterlog = new Log(Properties.Settings.Default.Path);
+            UpdateForm(null, null);
         }
 
         private void EndEncounter_Click(object sender, RoutedEventArgs e)
@@ -744,6 +804,20 @@ namespace OverParse
             Properties.Settings.Default.AutoEndEncounters = false;
             UpdateForm(null, null); // I'M FUCKING STUPID
             Properties.Settings.Default.AutoEndEncounters = temp;
+            encounterlog.backupCombatants = encounterlog.combatants;
+
+            List<Combatant> workingListCopy = new List<Combatant>();
+            foreach (Combatant c in workingList)
+            {
+                Combatant temp2 = new Combatant(c.ID, c.Name, c.isTemporary);
+                foreach (Attack a in c.Attacks)
+                    temp2.Attacks.Add(new Attack(a.ID, a.Damage, a.Timestamp));
+                temp2.ActiveTime = c.ActiveTime;
+                workingListCopy.Add(temp2);
+            }
+            Console.WriteLine("Saving last combatant list");
+            lastCombatants = encounterlog.combatants;
+            encounterlog.combatants = workingListCopy;
             string filename = encounterlog.WriteLog();
             if (filename != null)
             {
@@ -763,10 +837,9 @@ namespace OverParse
             {
                 encounterlog.WriteClipboard();
             }
-            Console.WriteLine("Saving last combatant list");
-            lastCombatants = encounterlog.combatants;
             Console.WriteLine("Reinitializing log");
             encounterlog = new Log(Properties.Settings.Default.Path);
+            UpdateForm(null, null);
         }
 
         private void OpenRecentLog_Click(object sender, RoutedEventArgs e)
@@ -793,8 +866,30 @@ namespace OverParse
             UpdateForm(null, null);
         }
 
+        private void SeparateAIS_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.SeparateAIS = SeparateAIS.IsChecked;
+            HideAIS.IsEnabled = SeparateAIS.IsChecked;
+            HidePlayers.IsEnabled = SeparateAIS.IsChecked;
+            UpdateForm(null, null);
+        }
+
         private void FilterPlayers_Click(object sender, RoutedEventArgs e)
         {
+            UpdateForm(null, null);
+        }
+
+        private void HidePlayers_Click(object sender, RoutedEventArgs e)
+        {
+            if (HidePlayers.IsChecked)
+                HideAIS.IsChecked = false;
+            UpdateForm(null, null);
+        }
+
+        private void HideAIS_Click(object sender, RoutedEventArgs e)
+        {
+            if (HideAIS.IsChecked)
+                HidePlayers.IsChecked = false;
             UpdateForm(null, null);
         }
 

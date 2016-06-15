@@ -89,9 +89,16 @@
                                 </MenuItem>
                             </MenuItem>
                             <MenuItem Style="{StaticResource topmenu}" Background="Transparent" Header="Parsing">
-                                <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Show only players" x:Name="FilterPlayers" Click="FilterPlayers_Click"/>
-                                <MenuItem Style="{StaticResource submenu}" x:Name="ShowRawDPS" IsCheckable="True" IsChecked="False" Header="Show raw DPS" Click="ShowRawDPS_Click"/>
+                                <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="True" Header="Hide enemies/NPCs" x:Name="FilterPlayers" Click="FilterPlayers_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" x:Name="SeparateZanverse" IsCheckable="True" IsChecked="False" Header="Show Zanverse damage separately" Click="SeparateZanverse_Click"/>
+                                <MenuItem Style="{StaticResource submenu}" Header="AIS options">
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="SeparateAIS" IsCheckable="True" IsChecked="False" Header="Show AIS damage separately" Click="SeparateAIS_Click"/>
+                                    <Separator />
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="HidePlayers" IsCheckable="True" IsChecked="False" Header="Hide players" Click="HidePlayers_Click"/>
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="HideAIS" IsCheckable="True" IsChecked="False" Header="Hide AIS" Click="HideAIS_Click"/>
+                                </MenuItem>
+                                <Separator />
+                                <MenuItem Style="{StaticResource submenu}" x:Name="ShowRawDPS" IsCheckable="True" IsChecked="False" Header="Show raw DPS" Click="ShowRawDPS_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Show damage graph" x:Name="ShowDamageGraph" Click="ShowDamageGraph_Click"/>
                                 <MenuItem Style="{StaticResource submenu}" IsCheckable="True" IsChecked="False" Header="Anonymize names" x:Name="AnonymizeNames" Click="AnonymizeNames_Click"/>
                             </MenuItem>
@@ -103,7 +110,7 @@
                                     <MenuItem Style="{StaticResource submenu}" x:Name="WinOpacity_25" IsCheckable="True" IsChecked="False" Header="25%" Click="WindowOpacity_25_Click" />
                                     <MenuItem Style="{StaticResource submenu}" x:Name="Winopacity_50" IsCheckable="True" IsChecked="False" Header="50%" Click="WindowOpacity_50_Click" />
                                     <MenuItem Style="{StaticResource submenu}" x:Name="WinOpacity_75" IsCheckable="True" IsChecked="True" Header="75%" Click="WindowOpacity_75_Click" />
-                                    <MenuItem Style="{StaticResource submenu}" x:Name="WinOpacity_100" IsCheckable="True" IsChecked="False" Header="Opaque" Click="WindowOpacity_100_Click" />                                 
+                                    <MenuItem Style="{StaticResource submenu}" x:Name="WinOpacity_100" IsCheckable="True" IsChecked="False" Header="Opaque" Click="WindowOpacity_100_Click" />
                                 </MenuItem>
                                 <MenuItem Style="{StaticResource submenu}" Header="List opacity">
                                     <MenuItem Style="{StaticResource submenu}" x:Name="ListOpacity_0" Visibility="Collapsed" IsCheckable="True" IsChecked="False" Header="Transparent" Click="ListOpacity_0_Click" />
@@ -215,9 +222,9 @@
                         <Grid Grid.Column="3" x:Name="MaxHitHelper"/>
                     </Grid>
                     <Rectangle Panel.ZIndex="999" x:Name="EncounterIndicator" Fill="#FFF4F4F5" Grid.Row="2" Height="2" Stroke="Transparent" VerticalAlignment="Top"/>
-                    
+
                     <Label x:Name="EncounterStatus" Grid.Row="2" Foreground="#FFEEEEEE" Background="#FF010a1a" Margin="0" Padding="3"/>
-                        <Rectangle Stroke="Transparent" Panel.ZIndex="-1">
+                    <Rectangle Stroke="Transparent" Panel.ZIndex="-1">
                         <Rectangle.Fill>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" >
                                 <GradientStop Color="#FF214668" Offset="0" />

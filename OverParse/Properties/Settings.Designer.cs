@@ -358,5 +358,17 @@ namespace OverParse.Properties {
                 this["HighlightYourDamage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SeparateAIS {
+            get {
+                return ((bool)(this["SeparateAIS"]));
+            }
+            set {
+                this["SeparateAIS"] = value;
+            }
+        }
     }
 }

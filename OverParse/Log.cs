@@ -10,7 +10,7 @@ namespace OverParse
 {
     public class Log
     {
-        private const int pluginVersion = 3;
+        private const int pluginVersion = 4;
 
         public bool notEmpty;
         public bool valid;
@@ -24,6 +24,7 @@ namespace OverParse
         public List<Combatant> combatants = new List<Combatant>();
         private Random random = new Random();
         public DirectoryInfo logDirectory;
+        public List<Combatant> backupCombatants = new List<Combatant>();
 
         public Log(string attemptDirectory)
         {
@@ -286,7 +287,7 @@ namespace OverParse
 
                         if (c.isZanverse && Properties.Settings.Default.SeparateZanverse)
                         {
-                            foreach (Combatant c2 in combatants)
+                            foreach (Combatant c2 in backupCombatants)
                             {
                                 if (c2.ZanverseDamage > 0)
                                     attackNames.Add(c2.ID);
@@ -294,12 +295,13 @@ namespace OverParse
 
                             foreach (string s in attackNames)
                             {
-                                Combatant targetCombatant = combatants.First(x => x.ID == s);
-                                List <int> matchingAttacks = targetCombatant.Attacks.Where(a => a.ID == "2106601422").Select(a => a.Damage).ToList();
+                                Combatant targetCombatant = backupCombatants.First(x => x.ID == s);
+                                List<int> matchingAttacks = targetCombatant.Attacks.Where(a => a.ID == "2106601422").Select(a => a.Damage).ToList();
                                 attackData.Add(new Tuple<string, List<int>>(targetCombatant.Name, matchingAttacks));
                             }
 
-                        } else
+                        }
+                        else
                         {
                             foreach (Attack a in c.Attacks)
                             {
@@ -381,9 +383,6 @@ namespace OverParse
             for (int i = 0; i <= 12; i++)
             {
                 Combatant temp = new Combatant("1000000" + i.ToString(), "TestPlayer_" + random.Next(0, 99).ToString());
-                temp.Damage = random.Next(0, 1000000);
-                temp.MaxHitNum = random.Next(0, 1000000);
-                temp.MaxHitID = "2368738938";
                 combatants.Add(temp);
             }
 
@@ -394,9 +393,6 @@ namespace OverParse
             {
                 Combatant temp = new Combatant(i.ToString(), "TestEnemy_" + i.ToString());
                 temp.PercentDPS = -1;
-                temp.Damage = random.Next(0, 10000000);
-                temp.MaxHitNum = random.Next(0, 1000000);
-                temp.MaxHitID = "1612949165";
                 combatants.Add(temp);
             }
 
@@ -452,7 +448,7 @@ namespace OverParse
 
                         foreach (Combatant x in combatants)
                         {
-                            if (x.ID == sourceID)
+                            if (x.ID == sourceID && x.isTemporary == "no")
                             {
                                 index = combatants.IndexOf(x);
                             }
@@ -466,10 +462,6 @@ namespace OverParse
 
                         Combatant source = combatants[index];
 
-                        if (attackID == "2106601422")
-                            source.ZanverseDamage += hitDamage;
-
-                        source.Damage += hitDamage;
                         newTimestamp = int.Parse(lineTimestamp);
                         if (startTimestamp == 0)
                         {
@@ -479,12 +471,6 @@ namespace OverParse
 
                         source.Attacks.Add(new Attack(attackID, hitDamage, newTimestamp - startTimestamp));
                         running = true;
-
-                        if (source.MaxHitNum < hitDamage)
-                        {
-                            source.MaxHitNum = hitDamage;
-                            source.MaxHitID = attackID;
-                        }
                     }
                 }
 

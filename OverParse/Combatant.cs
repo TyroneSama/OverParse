@@ -9,19 +9,40 @@ namespace OverParse
     public class Combatant
     {
         private const float maxBGopacity = 0.6f;
-        public int Damage;
-        public int Healing;
         public string ID;
         public string Name { get; set; }
-        public int MaxHitNum;
-        public string MaxHitID;
-        public int ZanverseDamage;
-        public bool isAux;
         public float PercentDPS;
         public float PercentReadDPS;
         public int ActiveTime;
+        public string isTemporary;
         public List<Attack> Attacks;
-        Color green = Color.FromArgb(160, 32, 130, 32);
+        Color green;
+        public static string[] AISAttackIDs = new string[] { "119505187", "79965782", "79965783", "79965784", "80047171", "434705298", "79964675", "1460054769", "4081218683", "3298256598", "2826401717" };
+        //public static string[] AISAttackIDs = new string[] { "1756866220", "2398664728" };
+
+        public int Damage
+        {
+            get
+            {
+                return this.Attacks.Sum(x => x.Damage);
+            }
+        }
+
+        public int ZanverseDamage
+        {
+            get
+            {
+                return this.Attacks.Where(a => a.ID == "2106601422").Sum(x => x.Damage);
+            }
+        }
+
+        public int AISDamage
+        {
+            get
+            {
+                return this.Attacks.Where(a => AISAttackIDs.Contains(a.ID)).Sum(x => x.Damage);
+            }
+        }
 
         public float DPS
         {
@@ -40,13 +61,19 @@ namespace OverParse
             }
         }
 
+        public bool isAIS
+        {
+            get
+            {
+                return (isTemporary == "AIS");
+            }
+        }
+
         public bool isZanverse
         {
             get
             {
-                if (ID == "99999999")
-                    return true;
-                return false;
+                return (isTemporary == "Zanverse");
             }
         }
 
@@ -58,19 +85,40 @@ namespace OverParse
             }
         }
 
+        public int MaxHitNum
+        {
+            get
+            {
+                return MaxHitAttack.Damage;
+            }
+        }
+
+        public string MaxHitID
+        {
+            get
+            {
+                return MaxHitAttack.ID;
+            }
+        }
+
         public int ReadDamage
         {
             get
             {
-                if (this.isZanverse)
+                if (this.isZanverse || this.isAIS)
                     return Damage;
+
+                int temp = Damage;
                 if (Properties.Settings.Default.SeparateZanverse)
-                    return Damage - ZanverseDamage;
-                return Damage;
+                    temp -= ZanverseDamage;
+                if (Properties.Settings.Default.SeparateAIS)
+                    temp -= AISDamage;
+                return temp;
             }
         }
 
-        public string AnonymousName() {
+        public string AnonymousName()
+        {
             if (isYou)
                 return Name;
             else
@@ -154,11 +202,20 @@ namespace OverParse
             }
         }
 
+        public Attack MaxHitAttack
+        {
+            get
+            {
+                Attacks.Sort((x, y) => y.Damage.CompareTo(x.Damage));
+                return Attacks.FirstOrDefault();
+            }
+        }
+
         public string MaxHit
         {
             get
             {
-                if (isZanverse)
+                if (MaxHitAttack == null)
                     return "--";
 
                 string attack = "Unknown";
@@ -167,7 +224,8 @@ namespace OverParse
                     attack = MainWindow.skillDict[MaxHitID];
                 }
 
-                return MaxHitNum.ToString("N0") + $" ({attack})";
+                Console.WriteLine($"{this.Name} - {MaxHitID} for {MaxHitAttack.Damage} ----- {attack}");
+                return MaxHitAttack.Damage.ToString("N0") + $" ({attack})";
             }
         }
 
@@ -221,13 +279,25 @@ namespace OverParse
         {
             ID = id;
             Name = name;
-            Damage = 0;
-            Healing = 0;
-            MaxHitNum = 0;
-            MaxHitID = "none";
             PercentDPS = -1;
-            isAux = false;
             Attacks = new List<Attack>();
+            isTemporary = "no";
+            PercentReadDPS = 0;
+            ActiveTime = 0;
+            green = Color.FromArgb(160, 32, 130, 32);
         }
+
+        public Combatant(string id, string name, string temp)
+        {
+            ID = id;
+            Name = name;
+            PercentDPS = -1;
+            Attacks = new List<Attack>();
+            isTemporary = temp;
+            PercentReadDPS = 0;
+            ActiveTime = 0;
+            green = Color.FromArgb(160, 32, 130, 32);
+        }
+
     }
 }
