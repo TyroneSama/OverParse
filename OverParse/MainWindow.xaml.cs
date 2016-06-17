@@ -78,14 +78,14 @@ namespace OverParse
 
             if (Properties.Settings.Default.UpgradeRequired && !Properties.Settings.Default.ResetInvoked)
             {
-                Console.WriteLine("Upgrading settings");  ///TODO: GetText
+                Console.WriteLine(MWR.GetString("CON_Upgrade", CultureInfo.CurrentUICulture));
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.UpgradeRequired = false;
             }
 
             Properties.Settings.Default.ResetInvoked = false;
 
-            Console.WriteLine("Applying UI settings");  ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_ApplyUI", CultureInfo.CurrentUICulture));
             Console.WriteLine(this.Top = Properties.Settings.Default.Top);
             Console.WriteLine(this.Left = Properties.Settings.Default.Left);
             Console.WriteLine(this.Height = Properties.Settings.Default.Height);
@@ -98,7 +98,7 @@ namespace OverParse
 
             if (outOfBounds)
             {
-                Console.WriteLine("Window's off-screen, resetting");  ///TODO: GetText
+                Console.WriteLine(MWR.GetString("CON_outOfBounds", CultureInfo.CurrentUICulture));
                 this.Top = 50;
                 this.Left = 50;
             }
@@ -111,7 +111,7 @@ namespace OverParse
             Console.WriteLine(LogToClipboard.IsChecked = Properties.Settings.Default.LogToClipboard);
             Console.WriteLine(AlwaysOnTop.IsChecked = Properties.Settings.Default.AlwaysOnTop);
             Console.WriteLine(AutoHideWindow.IsChecked = Properties.Settings.Default.AutoHideWindow);
-            Console.WriteLine("Finished applying settings");  ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_Setting_END", CultureInfo.CurrentUICulture));
 
             ShowDamageGraph.IsChecked = Properties.Settings.Default.ShowDamageGraph; ShowDamageGraph_Click(null, null);
             ShowRawDPS.IsChecked = Properties.Settings.Default.ShowRawDPS; ShowRawDPS_Click(null, null);
@@ -120,14 +120,14 @@ namespace OverParse
             HighlightYourDamage.IsChecked = Properties.Settings.Default.HighlightYourDamage; HighlightYourDamage_Click(null, null);
             HandleWindowOpacity(); HandleListOpacity(); SeparateAIS_Click(null, null);
 
-            Console.WriteLine($"Launch method: {Properties.Settings.Default.LaunchMethod}");  ///TODO: GetText
+            Console.WriteLine(String.Format(MWR.GetString("CON_Launch", CultureInfo.CurrentUICulture), Properties.Settings.Default.LaunchMethod));
 
             if (Properties.Settings.Default.Maximized)
             {
                 WindowState = WindowState.Maximized;
             }
 
-            Console.WriteLine("Initializing hotkeys");  ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_Init_HotKeys", CultureInfo.CurrentUICulture));
             try
             {
                 HotkeyManager.Current.AddOrReplace("End Encounter", Key.E, ModifierKeys.Control | ModifierKeys.Shift, EndEncounter_Key);
@@ -137,11 +137,11 @@ namespace OverParse
             }
             catch
             {
-                Console.WriteLine("Hotkeys failed to initialize");  ///TODO: GetText
+                Console.WriteLine(MWR.GetString("CON_Init_HotKeys_FAIL", CultureInfo.CurrentUICulture));
                 MessageBox.Show("OverParse failed to initialize hotkeys. This is usually because something else is already using them.\n\nThe program will still work, but hotkeys will not function. Sorry for the inconvenience!", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);  ///TODO: GetText
             }
 
-            Console.WriteLine("Updating skills.csv");  ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_SKILL_Update", CultureInfo.CurrentUICulture));
             string[] tmp;
             try
             {
@@ -155,7 +155,7 @@ namespace OverParse
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"skills.csv update failed: {ex.ToString()}");  ///TODO: GetText
+                Console.WriteLine(String.Format(MWR.GetString("CON_SKILL_Update_FAIL", CultureInfo.CurrentUICulture), ex.ToString()));
                 if (File.Exists("skills.csv"))
                 {
                     MessageBox.Show("OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.\n\nA local copy will be used instead. If you'd like to try and update again, just relaunch OverParse.", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);  ///TODO: GetText
@@ -168,7 +168,7 @@ namespace OverParse
                 }
             }
 
-            Console.WriteLine("Parsing skills.csv");  ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_SKILL_PROCESS", CultureInfo.CurrentUICulture));
 
             foreach (string s in tmp)
             {
@@ -180,31 +180,31 @@ namespace OverParse
                     //Console.WriteLine(split[1] + " " + split[0]);
                 }
             }
-            Console.WriteLine("Keys in skill dict: " + skillDict.Count());  ///TODO: GetText
+            Console.WriteLine(String.Format(MWR.GetString("CON_SKILL_COUNT", CultureInfo.CurrentUICulture), skillDict.Count()));
 
-            Console.WriteLine("Initializing default log");  ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_LOG_INIT", CultureInfo.CurrentUICulture));
             encounterlog = new Log(Properties.Settings.Default.Path);
             UpdateForm(null, null);
 
-            Console.WriteLine("Initializing damageTimer");  ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_damageTimer_INIT", CultureInfo.CurrentUICulture));
             System.Windows.Threading.DispatcherTimer damageTimer = new System.Windows.Threading.DispatcherTimer();
             damageTimer.Tick += new EventHandler(UpdateForm);
             damageTimer.Interval = new TimeSpan(0, 0, 1);
             damageTimer.Start();
 
-            Console.WriteLine("Initializing inactiveTimer");  ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_inactiveTimer_INIT", CultureInfo.CurrentUICulture));
             System.Windows.Threading.DispatcherTimer inactiveTimer = new System.Windows.Threading.DispatcherTimer();
             inactiveTimer.Tick += new EventHandler(HideIfInactive);
             inactiveTimer.Interval = TimeSpan.FromMilliseconds(200);
             inactiveTimer.Start();
 
-            Console.WriteLine("Initializing logCheckTimer");  ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_logCheckTimer_INIT", CultureInfo.CurrentUICulture));
             System.Windows.Threading.DispatcherTimer logCheckTimer = new System.Windows.Threading.DispatcherTimer();
             logCheckTimer.Tick += new EventHandler(CheckForNewLog);
             logCheckTimer.Interval = new TimeSpan(0, 0, 10);
             logCheckTimer.Start();
 
-            Console.WriteLine("Checking for release updates");  ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_Update_INIT", CultureInfo.CurrentUICulture));
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.github.com/repos/tyronesama/overparse/releases/latest");
@@ -229,7 +229,7 @@ namespace OverParse
                     responseVersion = responseVersion.Substring(0, responseVersion.Length - 2);
                 }
 
-                Console.WriteLine($"JSON version: {responseVersion} / Assembly version: {thisVersion}");  ///TODO: GetText
+                Console.WriteLine(String.Format(MWR.GetString("CON_Update_DIFF", CultureInfo.CurrentUICulture), responseVersion, thisVersion));
                 if (responseVersion != thisVersion)
                 {
                     MessageBoxResult result = MessageBox.Show($"There's a new version of OverParse available!\n\nYou're running version {thisVersion}. The latest version is version {responseVersion}.\n\nWould you like to download it now from GitHub?", "OverParse Update", MessageBoxButton.YesNo, MessageBoxImage.Information);  ///TODO: GetText
@@ -240,9 +240,9 @@ namespace OverParse
                     }
                 }
             }
-            catch (Exception ex) { Console.WriteLine($"Failed to update check: {ex.ToString()}"); }
+            catch (Exception ex) { Console.WriteLine(String.Format(MWR.GetString("CON_Update_FAIL", CultureInfo.CurrentUICulture), ex.ToString())); }
 
-            Console.WriteLine("End of MainWindow constructor");
+            Console.WriteLine(MWR.GetString("CON_MainWindow_END", CultureInfo.CurrentUICulture));
         }
 
         private void HideIfInactive(object sender, EventArgs e)

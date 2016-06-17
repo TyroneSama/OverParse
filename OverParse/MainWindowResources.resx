@@ -120,8 +120,14 @@
   <data name="CON_AlwaysOnTop_Key" xml:space="preserve">
     <value>Always-on-top hotkey pressed</value>
   </data>
+  <data name="CON_ApplyUI" xml:space="preserve">
+    <value>Applying UI settings</value>
+  </data>
   <data name="CON_CheckForNewLog" xml:space="preserve">
     <value>Found a new log file ({0}), switching...</value>
+  </data>
+  <data name="CON_damageTimer_INIT" xml:space="preserve">
+    <value>Initializing damageTimer</value>
   </data>
   <data name="CON_DebugMenu_Key" xml:space="preserve">
     <value>Debug hotkey pressed</value>
@@ -141,11 +147,35 @@
   <data name="CON_EndEncounter_Key" xml:space="preserve">
     <value>Encounter hotkey pressed</value>
   </data>
+  <data name="CON_inactiveTimer_INIT" xml:space="preserve">
+    <value>Initializing inactiveTimer</value>
+  </data>
+  <data name="CON_Init_HotKeys" xml:space="preserve">
+    <value>Initializing hotkeys</value>
+  </data>
+  <data name="CON_Init_HotKeys_FAIL" xml:space="preserve">
+    <value>Hotkeys failed to initialize</value>
+  </data>
+  <data name="CON_Launch" xml:space="preserve">
+    <value>Launch method: {0}</value>
+  </data>
+  <data name="CON_logCheckTimer_INIT" xml:space="preserve">
+    <value>Initializing logCheckTimer</value>
+  </data>
+  <data name="CON_LOG_INIT" xml:space="preserve">
+    <value>Initializing default log</value>
+  </data>
   <data name="CON_LOG_REINIT" xml:space="preserve">
     <value>Reinitializing log</value>
   </data>
+  <data name="CON_MainWindow_END" xml:space="preserve">
+    <value>End of MainWindow constructor</value>
+  </data>
   <data name="CON_OpenRecentLog_Click" xml:space="preserve">
     <value>attempting to open {0}</value>
+  </data>
+  <data name="CON_outOfBounds" xml:space="preserve">
+    <value>Window's off-screen, resetting</value>
   </data>
   <data name="CON_Panic" xml:space="preserve">
     <value>=== UNHANDLED EXCEPTION ===</value>
@@ -153,8 +183,35 @@
   <data name="CON_ResetOverParse" xml:space="preserve">
     <value>Resetting</value>
   </data>
+  <data name="CON_Setting_END" xml:space="preserve">
+    <value>Finished applying settings</value>
+  </data>
+  <data name="CON_SKILL_COUNT" xml:space="preserve">
+    <value>Keys in skill dict: {0}</value>
+  </data>
+  <data name="CON_SKILL_PROCESS" xml:space="preserve">
+    <value>Parsing skills.csv</value>
+  </data>
+  <data name="CON_SKILL_Update" xml:space="preserve">
+    <value>Updating skills.csv</value>
+  </data>
+  <data name="CON_SKILL_Update_FAIL" xml:space="preserve">
+    <value>skills.csv update failed: {0}</value>
+  </data>
   <data name="CON_UpdateForm" xml:space="preserve">
     <value>Automatically ending an encounter</value>
+  </data>
+  <data name="CON_Update_DIFF" xml:space="preserve">
+    <value>JSON version: {0} / Assembly version: {1}</value>
+  </data>
+  <data name="CON_Update_FAIL" xml:space="preserve">
+    <value>Failed to update check: {0}</value>
+  </data>
+  <data name="CON_Update_INIT" xml:space="preserve">
+    <value>Checking for release updates</value>
+  </data>
+  <data name="CON_Upgrade" xml:space="preserve">
+    <value>Upgrading settings</value>
   </data>
   <data name="CON_VersionStamp" xml:space="preserve">
     <value>OVERPARSE V.{0}</value>

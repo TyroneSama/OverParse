@@ -70,11 +70,29 @@ namespace OverParse {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Applying UI settings.
+        /// </summary>
+        internal static string CON_ApplyUI {
+            get {
+                return ResourceManager.GetString("CON_ApplyUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Found a new log file ({0}), switching....
         /// </summary>
         internal static string CON_CheckForNewLog {
             get {
                 return ResourceManager.GetString("CON_CheckForNewLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initializing damageTimer.
+        /// </summary>
+        internal static string CON_damageTimer_INIT {
+            get {
+                return ResourceManager.GetString("CON_damageTimer_INIT", resourceCulture);
             }
         }
         
@@ -133,6 +151,51 @@ namespace OverParse {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Initializing inactiveTimer.
+        /// </summary>
+        internal static string CON_inactiveTimer_INIT {
+            get {
+                return ResourceManager.GetString("CON_inactiveTimer_INIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initializing hotkeys.
+        /// </summary>
+        internal static string CON_Init_HotKeys {
+            get {
+                return ResourceManager.GetString("CON_Init_HotKeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hotkeys failed to initialize.
+        /// </summary>
+        internal static string CON_Init_HotKeys_FAIL {
+            get {
+                return ResourceManager.GetString("CON_Init_HotKeys_FAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch method: {0}.
+        /// </summary>
+        internal static string CON_Launch {
+            get {
+                return ResourceManager.GetString("CON_Launch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initializing default log.
+        /// </summary>
+        internal static string CON_LOG_INIT {
+            get {
+                return ResourceManager.GetString("CON_LOG_INIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reinitializing log.
         /// </summary>
         internal static string CON_LOG_REINIT {
@@ -142,11 +205,38 @@ namespace OverParse {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Initializing logCheckTimer.
+        /// </summary>
+        internal static string CON_logCheckTimer_INIT {
+            get {
+                return ResourceManager.GetString("CON_logCheckTimer_INIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End of MainWindow constructor.
+        /// </summary>
+        internal static string CON_MainWindow_END {
+            get {
+                return ResourceManager.GetString("CON_MainWindow_END", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to attempting to open {0}.
         /// </summary>
         internal static string CON_OpenRecentLog_Click {
             get {
                 return ResourceManager.GetString("CON_OpenRecentLog_Click", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window&apos;s off-screen, resetting.
+        /// </summary>
+        internal static string CON_outOfBounds {
+            get {
+                return ResourceManager.GetString("CON_outOfBounds", resourceCulture);
             }
         }
         
@@ -169,11 +259,92 @@ namespace OverParse {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finished applying settings.
+        /// </summary>
+        internal static string CON_Setting_END {
+            get {
+                return ResourceManager.GetString("CON_Setting_END", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keys in skill dict: {0}.
+        /// </summary>
+        internal static string CON_SKILL_COUNT {
+            get {
+                return ResourceManager.GetString("CON_SKILL_COUNT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parsing skills.csv.
+        /// </summary>
+        internal static string CON_SKILL_PROCESS {
+            get {
+                return ResourceManager.GetString("CON_SKILL_PROCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating skills.csv.
+        /// </summary>
+        internal static string CON_SKILL_Update {
+            get {
+                return ResourceManager.GetString("CON_SKILL_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to skills.csv update failed: {0}.
+        /// </summary>
+        internal static string CON_SKILL_Update_FAIL {
+            get {
+                return ResourceManager.GetString("CON_SKILL_Update_FAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JSON version: {0} / Assembly version: {1}.
+        /// </summary>
+        internal static string CON_Update_DIFF {
+            get {
+                return ResourceManager.GetString("CON_Update_DIFF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to update check: {0}.
+        /// </summary>
+        internal static string CON_Update_FAIL {
+            get {
+                return ResourceManager.GetString("CON_Update_FAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking for release updates.
+        /// </summary>
+        internal static string CON_Update_INIT {
+            get {
+                return ResourceManager.GetString("CON_Update_INIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automatically ending an encounter.
         /// </summary>
         internal static string CON_UpdateForm {
             get {
                 return ResourceManager.GetString("CON_UpdateForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upgrading settings.
+        /// </summary>
+        internal static string CON_Upgrade {
+            get {
+                return ResourceManager.GetString("CON_Upgrade", resourceCulture);
             }
         }
         
