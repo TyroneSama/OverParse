@@ -157,6 +157,26 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Hacks.cs" />
+    <Compile Include="LogResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LogResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="CombatantResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CombatantResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="CombatantResources.en-US.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CombatantResources.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="LogResources.en-US.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LogResources.en-US.resx</DependentUpon>
+    </Compile>
     <Compile Include="WindowsServices.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -190,6 +210,22 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LogResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CombatantResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CombatantResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CombatantResources.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CombatantResources.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogResources.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LogResources.en-US.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -53,3 +53,6 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.14.1.0")]
 [assembly: AssemblyFileVersion("1.14.1.0")]
+
+// Default Language
+[assembly: NeutralResourcesLanguageAttribute("en")]
