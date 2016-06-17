@@ -17,8 +17,8 @@ namespace OverParse
         public string isTemporary;
         public List<Attack> Attacks;
         Color green;
-        //public static string[] AISAttackIDs = new string[] { "119505187", "79965782", "79965783", "79965784", "80047171", "434705298", "79964675", "1460054769", "4081218683", "3298256598", "2826401717" };
-        public static string[] AISAttackIDs = new string[] { "1756866220", "2398664728" };
+        public static string[] AISAttackIDs = new string[] { "119505187", "79965782", "79965783", "79965784", "80047171", "434705298", "79964675", "1460054769", "4081218683", "3298256598", "2826401717" };
+        //public static string[] AISAttackIDs = new string[] { "1756866220", "2398664728" };
 
         public int Damage
         {
