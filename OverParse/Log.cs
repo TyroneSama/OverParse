@@ -35,7 +35,7 @@ namespace OverParse
             valid = false;
             notEmpty = false;
             running = false;
-            LogR = new ResourceManager("OverParse.LogResources", Assembly.GetExecutingAssembly());
+            LogR = new ResourceManager("OverParse.Log", Assembly.GetExecutingAssembly());
             var PathPSO2Binary = String.Format(CultureInfo.InvariantCulture, @"{0}\pso2.exe", attemptDirectory);
 
             bool nagMe = false;

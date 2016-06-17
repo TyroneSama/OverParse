@@ -157,10 +157,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Hacks.cs" />
-    <Compile Include="LogResources.Designer.cs">
+    <Compile Include="Log.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LogResources.resx</DependentUpon>
+      <DependentUpon>Log.resx</DependentUpon>
     </Compile>
     <Compile Include="Combatant.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -172,10 +172,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Combatant.en-US.resx</DependentUpon>
     </Compile>
-    <Compile Include="LogResources.en-US.Designer.cs">
+    <Compile Include="Log.en-US.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LogResources.en-US.resx</DependentUpon>
+      <DependentUpon>Log.en-US.resx</DependentUpon>
     </Compile>
     <Compile Include="MainWindowResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -216,9 +216,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogResources.resx">
+    <EmbeddedResource Include="Log.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>LogResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Log.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Combatant.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -228,9 +228,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Combatant.en-US.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogResources.en-US.resx">
+    <EmbeddedResource Include="Log.en-US.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>LogResources.en-US.Designer.cs</LastGenOutput>
+      <LastGenOutput>Log.en-US.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindowResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
