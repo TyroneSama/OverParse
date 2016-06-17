@@ -48,7 +48,7 @@ namespace OverParse
             try { Directory.CreateDirectory("Logs"); }
             catch
             {
-                MessageBox.Show("OverParse doesn't have write access to its folder, and won't be able to save logs or update skill mappings. This usually happens when you run it from Program Files.\n\nThis is a Windows restriction, and unfortunately I can't do anything about it.\n\nPlease run OverParse as administrator, or move it somewhere else. Sorry for the inconvenience!", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Error);  ///TODO: GetText
+                MessageBox.Show(MWR.GetString("UI_LOG_FAIL", CultureInfo.CurrentUICulture), MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Error);
                 Application.Current.Shutdown();
             }
 
@@ -138,7 +138,7 @@ namespace OverParse
             catch
             {
                 Console.WriteLine(MWR.GetString("CON_Init_HotKeys_FAIL", CultureInfo.CurrentUICulture));
-                MessageBox.Show("OverParse failed to initialize hotkeys. This is usually because something else is already using them.\n\nThe program will still work, but hotkeys will not function. Sorry for the inconvenience!", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);  ///TODO: GetText
+                MessageBox.Show(MWR.GetString("UI_Init_HotKeys_FAIL", CultureInfo.CurrentUICulture), MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
             Console.WriteLine(MWR.GetString("CON_SKILL_Update", CultureInfo.CurrentUICulture));
@@ -158,12 +158,14 @@ namespace OverParse
                 Console.WriteLine(String.Format(CultureInfo.CurrentUICulture, MWR.GetString("CON_SKILL_Update_FAIL", CultureInfo.CurrentUICulture), ex.ToString()));
                 if (File.Exists("skills.csv"))
                 {
-                    MessageBox.Show("OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.\n\nA local copy will be used instead. If you'd like to try and update again, just relaunch OverParse.", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);  ///TODO: GetText
+                    MessageBox.Show(MWR.GetString("UI_SKILL_Update_FAIL_LOCAL", CultureInfo.CurrentUICulture), MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
                     tmp = File.ReadAllLines("skills.csv");
                 }
                 else
                 {
-                    MessageBox.Show("OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.\n\nSince you have no skill mappings downloaded, all attacks will be marked as \"Unknown\". If you'd like to try and update again, please relaunch OverParse.", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);  ///TODO: GetText
+                    var CR = new ResourceManager("OverParse.CombatantResources", Assembly.GetExecutingAssembly());
+                    var BoxText = String.Format(CultureInfo.InvariantCulture, MWR.GetString("UI_SKILL_Update_FAIL", CultureInfo.CurrentUICulture), CR.GetString("UI_Unknown", CultureInfo.CurrentUICulture));
+                    MessageBox.Show(BoxText, MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
                     tmp = new string[0];
                 }
             }
@@ -232,7 +234,7 @@ namespace OverParse
                 Console.WriteLine(String.Format(CultureInfo.CurrentUICulture, MWR.GetString("CON_Update_DIFF", CultureInfo.CurrentUICulture), responseVersion, thisVersion));
                 if (responseVersion != thisVersion)
                 {
-                    MessageBoxResult result = MessageBox.Show($"There's a new version of OverParse available!\n\nYou're running version {thisVersion}. The latest version is version {responseVersion}.\n\nWould you like to download it now from GitHub?", "OverParse Update", MessageBoxButton.YesNo, MessageBoxImage.Information);  ///TODO: GetText
+                    MessageBoxResult result = MessageBox.Show(MWR.GetString("UI_UpdateReady", CultureInfo.CurrentUICulture), MWR.GetString("UI_UpdateTitle", CultureInfo.CurrentUICulture), MessageBoxButton.YesNo, MessageBoxImage.Information);
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start("https://github.com/TyroneSama/OverParse/releases/latest");
@@ -286,10 +288,10 @@ namespace OverParse
 
         private void Panic(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            string errorMessage = string.Format(CultureInfo.CurrentUICulture, "Oops. This is embarassing.\n\nOverParse encountered an unexpected error. If this happens again, please complain to TyroneSama at your earliest convenience. Include your log from OverParse\\logs and the following message:\n\n{0}\n\nSorry for the inconvenience!", e.Exception.Message);
+            string errorMessage = string.Format(CultureInfo.CurrentUICulture, MWR.GetString("UI_Panic", CultureInfo.CurrentUICulture), e.Exception.Message);
             Console.WriteLine(MWR.GetString("CON_Panic", CultureInfo.CurrentUICulture));
             Console.WriteLine(e.Exception.ToString());
-            MessageBox.Show(errorMessage, "OverParse Error - 素晴らしく運がないね君は!", MessageBoxButton.OK, MessageBoxImage.Error); ///TODO: GetText
+            MessageBox.Show(errorMessage, MWR.GetString("UI_Panic_Title", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Error);
             Environment.Exit(-1);
         }
 
@@ -312,7 +314,7 @@ namespace OverParse
 
         private void ResetOverParse(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Are you SURE you want to reset OverParse?\n\nThis will clear all of your application settings and allow you to reselect your pso2_bin folder, but won't delete your stored logs.", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.YesNo, MessageBoxImage.Information); ///TODO: GetText
+            MessageBoxResult result = MessageBox.Show(MWR.GetString("UI_ResetOverParse", CultureInfo.CurrentUICulture), MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.YesNo, MessageBoxImage.Information);
             if (result != MessageBoxResult.Yes)
                 return;
 
@@ -327,7 +329,7 @@ namespace OverParse
 
         private void EndEncounter_Key(object sender, HotkeyEventArgs e)
         {
-            Console.WriteLine(MWR.GetString("CON_EndEncounter_Key", CultureInfo.CurrentUICulture)); ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_EndEncounter_Key", CultureInfo.CurrentUICulture));
             EndEncounter_Click(null, null);
             e.Handled = true;
         }
@@ -367,7 +369,7 @@ namespace OverParse
         {
             if (AutoHideWindow.IsChecked && Properties.Settings.Default.AutoHideWindowWarning)
             {
-                MessageBox.Show("This will make the OverParse window invisible whenever PSO2 or OverParse are not in the foreground.\n\nTo show the window, Alt+Tab into OverParse, or click the icon on your taskbar.", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information); ///TODO: GetText
+                MessageBox.Show(MWR.GetString("UI_AutoHideWindow_Click", CultureInfo.CurrentUICulture), MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
                 Properties.Settings.Default.AutoHideWindowWarning = false;
             }
             Properties.Settings.Default.AutoHideWindow = AutoHideWindow.IsChecked;
@@ -710,9 +712,11 @@ namespace OverParse
             if (encounterlog.valid && encounterlog.notEmpty)
             {
                 EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 0));
-                EncounterStatus.Content = $"Waiting - {lastStatus}"; ///TODO: GetText
+                
                 if (lastStatus == "")
                     EncounterStatus.Content = "Waiting for combat data...";
+                else
+                    EncounterStatus.Content = String.Format(CultureInfo.InvariantCulture, MWR.GetString("UI_UpdateForm_WAIT", CultureInfo.CurrentUICulture), lastStatus); 
 
                 CombatantData.Items.Refresh();
             }
@@ -722,18 +726,22 @@ namespace OverParse
                 EncounterIndicator.Fill = new SolidColorBrush(Color.FromArgb(255, 100, 255, 100));
 
                 TimeSpan timespan = TimeSpan.FromSeconds(elapsed);
-                string timer = timespan.ToString(@"mm\:ss", CultureInfo.InvariantCulture); ///TODO: GetText
-                EncounterStatus.Content = $"{timer}"; ///TODO: GetText
+                EncounterStatus.Content = timespan.ToString(@"mm\:ss", CultureInfo.InvariantCulture);
 
                 float totalDPS = totalReadDamage / (float)elapsed;
 
                 if (totalDPS > 0)
-                    EncounterStatus.Content += $" - {totalDPS.ToString("N2")} DPS"; ///TODO: GetText
+                {
+                    EncounterStatus.Content += String.Format(CultureInfo.InvariantCulture, MWR.GetString("UI_UpdateForm_DPS", CultureInfo.CurrentUICulture), totalDPS.ToString("N2", CultureInfo.InvariantCulture));
+                }
 
                 if (Properties.Settings.Default.CompactMode)
+                {
+                    string FMT = MWR.GetString("UI_UpdateForm_MAX", CultureInfo.CurrentUICulture);
                     foreach (Combatant c in workingList)
                         if (c.isYou)
-                            EncounterStatus.Content += $" - MAX: {c.MaxHitNum.ToString("N0", CultureInfo.InvariantCulture)}"; ///TODO: GetText
+                            EncounterStatus.Content += String.Format(CultureInfo.InvariantCulture, FMT, c.MaxHitNum.ToString("N0", CultureInfo.InvariantCulture));
+                }
 
                 lastStatus = EncounterStatus.Content.ToString();
             }
@@ -834,7 +842,7 @@ namespace OverParse
 
                 sessionLogFilenames.Add(filename);
 
-                var menuItem = new MenuItem() { Name = "SessionLog_" + items.ToString(CultureInfo.InvariantCulture), Header = prettyName }; ///TODO: GetText
+                var menuItem = new MenuItem() { Name = MWR.GetString("UI_EndEncounter_Click_MENUITEM", CultureInfo.CurrentUICulture) + items.ToString(CultureInfo.InvariantCulture), Header = prettyName };
                 menuItem.Click += OpenRecentLog_Click;
                 SessionLogs.Items.Add(menuItem);
             }
@@ -903,7 +911,7 @@ namespace OverParse
             AlwaysOnTop.IsChecked = false;
 
             int x;
-            string input = Microsoft.VisualBasic.Interaction.InputBox("How many seconds should the system wait before stopping an encounter?", "Encounter Timeout", Properties.Settings.Default.EncounterTimeout.ToString(CultureInfo.InvariantCulture)); ///TODO: GetText
+            string input = Microsoft.VisualBasic.Interaction.InputBox(MWR.GetString("UI_SetEncounterTimeout_Click", CultureInfo.CurrentUICulture), MWR.GetString("UI_SetEncounterTimeout_Click_Title", CultureInfo.CurrentUICulture), Properties.Settings.Default.EncounterTimeout.ToString(CultureInfo.InvariantCulture));
             if (Int32.TryParse(input, out x))
             {
                 if (x > 0)
@@ -934,7 +942,8 @@ namespace OverParse
         private void About_Click(object sender, RoutedEventArgs e)
         {
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            MessageBox.Show($"OverParse v{version}\nA lightweight self-auditing tool.\n\nShoutouts to WaifuDfnseForce.\nAdditional shoutouts to Variant, AIDA, and everyone else who makes the Tweaker plugin possible.\n\nPlease use damage information responsibly.", "OverParse"); ///TODO: GetText
+            var MsgText = String.Format(CultureInfo.InvariantCulture, MWR.GetString("UI_About_Click", CultureInfo.CurrentUICulture), version);
+            MessageBox.Show(MsgText, MWR.GetString("UI_Title", CultureInfo.CurrentUICulture));
         }
 
         private void Website_Click(object sender, RoutedEventArgs e)

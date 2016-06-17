@@ -219,7 +219,89 @@
   <data name="CON_Window_Closing" xml:space="preserve">
     <value>Closing...</value>
   </data>
+  <data name="UI_About_Click" xml:space="preserve">
+    <value>OverParse v{0}
+A lightweight self-auditing tool.
+
+Shoutouts to WaifuDfnseForce.
+Additional shoutouts to Variant, AIDA, and everyone else who makes the Tweaker plugin possible.
+
+Please use damage information responsibly.</value>
+  </data>
+  <data name="UI_AutoHideWindow_Click" xml:space="preserve">
+    <value>This will make the OverParse window invisible whenever PSO2 or OverParse are not in the foreground.
+
+To show the window, Alt+Tab into OverParse, or click the icon on your taskbar.</value>
+  </data>
+  <data name="UI_EndEncounter_Click_MENUITEM" xml:space="preserve">
+    <value>SessionLog_</value>
+  </data>
+  <data name="UI_Init_HotKeys_FAIL" xml:space="preserve">
+    <value>OverParse failed to initialize hotkeys. This is usually because something else is already using them.
+
+The program will still work, but hotkeys will not function. Sorry for the inconvenience!</value>
+  </data>
+  <data name="UI_LOG_FAIL" xml:space="preserve">
+    <value>OverParse doesn't have write access to its folder, and won't be able to save logs or update skill mappings. This usually happens when you run it from Program Files.
+
+This is a Windows restriction, and unfortunately I can't do anything about it.\n\nPlease run OverParse as administrator, or move it somewhere else. Sorry for the inconvenience!</value>
+  </data>
+  <data name="UI_Panic" xml:space="preserve">
+    <value>Oops. This is embarassing.
+
+OverParse encountered an unexpected error. If this happens again, please complain to TyroneSama at your earliest convenience. Include your log from OverParse\logs and the following message:
+
+{0}
+
+Sorry for the inconvenience!</value>
+  </data>
+  <data name="UI_Panic_Title" xml:space="preserve">
+    <value>OverParse Error - 素晴らしく運がないね君は!</value>
+  </data>
+  <data name="UI_ResetOverParse" xml:space="preserve">
+    <value>Are you SURE you want to reset OverParse?
+
+This will clear all of your application settings and allow you to reselect your pso2_bin folder, but won't delete your stored logs.</value>
+  </data>
+  <data name="UI_SetEncounterTimeout_Click" xml:space="preserve">
+    <value>How many seconds should the system wait before stopping an encounter?</value>
+  </data>
+  <data name="UI_SetEncounterTimeout_Click_Title" xml:space="preserve">
+    <value>Encounter Timeout</value>
+  </data>
   <data name="UI_SetupTitle" xml:space="preserve">
     <value>OverParse Setup</value>
+  </data>
+  <data name="UI_SKILL_Update_FAIL" xml:space="preserve">
+    <value>OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.
+
+Since you have no skill mappings downloaded, all attacks will be marked as \"{0}\". If you'd like to try and update again, please relaunch OverParse.</value>
+  </data>
+  <data name="UI_SKILL_Update_FAIL_LOCAL" xml:space="preserve">
+    <value>OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.
+
+A local copy will be used instead. If you'd like to try and update again, just relaunch OverParse.</value>
+  </data>
+  <data name="UI_Title" xml:space="preserve">
+    <value>OverParse</value>
+  </data>
+  <data name="UI_UpdateForm_DPS" xml:space="preserve">
+    <value> - {0} DPS</value>
+  </data>
+  <data name="UI_UpdateForm_MAX" xml:space="preserve">
+    <value> - MAX: {0}</value>
+  </data>
+  <data name="UI_UpdateForm_WAIT" xml:space="preserve">
+    <value>Waiting - {0}</value>
+  </data>
+  <data name="UI_UpdateReady" xml:space="preserve">
+    <value>There's a new version of OverParse available!
+
+You're running version {0}. The latest version is version {1}.
+
+Would you like to download it now from GitHub?</value>
+  </data>
+  <data name="UI_UpdateTitle" xml:space="preserve">
+    <value>OverParse Update</value>
   </data>
 </root>
