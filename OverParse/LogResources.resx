@@ -247,7 +247,7 @@ Do you want to try to manually install the Damage Parser plugin?</value>
 OverParse may behave unpredictably if you use a different version than it expects.</value>
   </data>
   <data name="UI_SelectPSO2_Finder" xml:space="preserve">
-    <value>Select your pso2_bin folder...</value>
+    <value>Select your pso2_bin folder. This will be inside the folder you installed PSO2 to.</value>
   </data>
   <data name="UI_SetupTitle" xml:space="preserve">
     <value>OverParse Setup</value>

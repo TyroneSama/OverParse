@@ -38,28 +38,42 @@ namespace OverParse
             LogR = new ResourceManager("OverParse.LogResources", Assembly.GetExecutingAssembly());
             var PathPSO2Binary = String.Format(CultureInfo.InvariantCulture, @"{0}\pso2.exe", attemptDirectory);
 
+            bool nagMe = false;
+
             while (!File.Exists(PathPSO2Binary))
             {
                 Console.WriteLine(LogR.GetString("CON_InvaildPSO2_binPath", CultureInfo.CurrentUICulture));
-                MessageBox.Show(LogR.GetString("UI_InvaildPSO2_binPath", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
 
-                VistaFolderBrowserDialog oDialog = new VistaFolderBrowserDialog();
-                oDialog.Description = LogR.GetString("UI_SelectPSO2_Finder", CultureInfo.CurrentUICulture);
-                oDialog.UseDescriptionForTitle = true;
-
-                if ((bool)oDialog.ShowDialog(Application.Current.MainWindow))
+                if (nagMe)
                 {
-                    attemptDirectory = oDialog.SelectedPath;
+                    MessageBox.Show("That doesn't appear to be a valid pso2_bin directory.\n\nIf you installed the game using default settings, it will probably be in C:\\PHANTASYSTARONLINE2\\pso2_bin\\. Otherwise, find the location you installed to.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Warning);
+                } else
+                {
+                    MessageBox.Show("Please select your pso2_bin directory. OverParse uses this to read your damage logs.\n\nIf you picked a folder while setting up the Tweaker, choose that. Otherwise, it will be in your PSO2 installation folder.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
+                    nagMe = true;
+                }
+                
+                //WINAPI FILE DIALOGS DON'T SHOW UP FOR PEOPLE SOMETIMES AND I HAVE NO IDEA WHY, *** S I C K  M E M E ***
+                //VistaFolderBrowserDialog oDialog = new VistaFolderBrowserDialog();
+                //oDialog.Description =  LogR.GetString("UI_SelectPSO2_Finder", CultureInfo.CurrentUICulture);
+                //oDialog.UseDescriptionForTitle = true;
+
+                System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+                dialog.Description =  LogR.GetString("UI_SelectPSO2_Finder", CultureInfo.CurrentUICulture);
+                System.Windows.Forms.DialogResult picked = dialog.ShowDialog();
+                if (picked == System.Windows.Forms.DialogResult.OK)
+                {
+                    attemptDirectory = dialog.SelectedPath;
                     Console.WriteLine(String.Format(CultureInfo.InvariantCulture, LogR.GetString("CON_TestPSO2_binPath", CultureInfo.CurrentUICulture), attemptDirectory));
                     Properties.Settings.Default.Path = attemptDirectory;
-                }
-                else
+                } else
                 {
                     Console.WriteLine(LogR.GetString("CON_CanceledDirPicker", CultureInfo.CurrentUICulture));
                     MessageBox.Show(LogR.GetString("UI_CanceledDirPicker", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
                     Application.Current.Shutdown(); // ABORT ABORT ABORT
                     break;
                 }
+                PathPSO2Binary = String.Format(CultureInfo.InvariantCulture, @"{0}\pso2.exe", attemptDirectory)
             }
 
             if (!File.Exists(PathPSO2Binary)) { return; }
