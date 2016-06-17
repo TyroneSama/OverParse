@@ -177,6 +177,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LogResources.en-US.resx</DependentUpon>
     </Compile>
+    <Compile Include="MainWindowResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainWindowResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="WindowsServices.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -226,6 +231,10 @@
     <EmbeddedResource Include="LogResources.en-US.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LogResources.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainWindowResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindowResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

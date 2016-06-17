@@ -4,10 +4,12 @@ using NHotkey.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Resources;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,6 +28,7 @@ namespace OverParse
         private string lastStatus = "";
         private IntPtr hwndcontainer;
         List<Combatant> workingList;
+        ResourceManager MWR;
 
         protected override void OnSourceInitialized(EventArgs e)
         {
@@ -38,13 +41,14 @@ namespace OverParse
         public MainWindow()
         {
             InitializeComponent();
+            MWR = new ResourceManager("OverParse.MainWindowResources", Assembly.GetExecutingAssembly());
 
             //this.Dispatcher.UnhandledException += Panic;
 
             try { Directory.CreateDirectory("Logs"); }
             catch
             {
-                MessageBox.Show("OverParse doesn't have write access to its folder, and won't be able to save logs or update skill mappings. This usually happens when you run it from Program Files.\n\nThis is a Windows restriction, and unfortunately I can't do anything about it.\n\nPlease run OverParse as administrator, or move it somewhere else. Sorry for the inconvenience!", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Error);  ///TODO: GetText
+                MessageBox.Show("OverParse doesn't have write access to its folder, and won't be able to save logs or update skill mappings. This usually happens when you run it from Program Files.\n\nThis is a Windows restriction, and unfortunately I can't do anything about it.\n\nPlease run OverParse as administrator, or move it somewhere else. Sorry for the inconvenience!", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Error);  ///TODO: GetText
                 Application.Current.Shutdown();
             }
 
@@ -134,7 +138,7 @@ namespace OverParse
             catch
             {
                 Console.WriteLine("Hotkeys failed to initialize");  ///TODO: GetText
-                MessageBox.Show("OverParse failed to initialize hotkeys. This is usually because something else is already using them.\n\nThe program will still work, but hotkeys will not function. Sorry for the inconvenience!", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);  ///TODO: GetText
+                MessageBox.Show("OverParse failed to initialize hotkeys. This is usually because something else is already using them.\n\nThe program will still work, but hotkeys will not function. Sorry for the inconvenience!", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);  ///TODO: GetText
             }
 
             Console.WriteLine("Updating skills.csv");  ///TODO: GetText
@@ -154,12 +158,12 @@ namespace OverParse
                 Console.WriteLine($"skills.csv update failed: {ex.ToString()}");  ///TODO: GetText
                 if (File.Exists("skills.csv"))
                 {
-                    MessageBox.Show("OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.\n\nA local copy will be used instead. If you'd like to try and update again, just relaunch OverParse.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);  ///TODO: GetText
+                    MessageBox.Show("OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.\n\nA local copy will be used instead. If you'd like to try and update again, just relaunch OverParse.", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);  ///TODO: GetText
                     tmp = File.ReadAllLines("skills.csv");
                 }
                 else
                 {
-                    MessageBox.Show("OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.\n\nSince you have no skill mappings downloaded, all attacks will be marked as \"Unknown\". If you'd like to try and update again, please relaunch OverParse.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);  ///TODO: GetText
+                    MessageBox.Show("OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.\n\nSince you have no skill mappings downloaded, all attacks will be marked as \"Unknown\". If you'd like to try and update again, please relaunch OverParse.", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);  ///TODO: GetText
                     tmp = new string[0];
                 }
             }
@@ -247,7 +251,7 @@ namespace OverParse
                 return;
 
             string title = WindowsServices.GetActiveWindowTitle();
-            string[] relevant = { "OverParse", "OverParse Setup", "OverParse Error", "Encounter Timeout", "Phantasy Star Online 2" };
+            string[] relevant = { "OverParse", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), "OverParse Error", "Encounter Timeout", "Phantasy Star Online 2" };
 
             if (!relevant.Contains(title))
             {
@@ -308,7 +312,7 @@ namespace OverParse
 
         private void ResetOverParse(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Are you SURE you want to reset OverParse?\n\nThis will clear all of your application settings and allow you to reselect your pso2_bin folder, but won't delete your stored logs.", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Information); ///TODO: GetText
+            MessageBoxResult result = MessageBox.Show("Are you SURE you want to reset OverParse?\n\nThis will clear all of your application settings and allow you to reselect your pso2_bin folder, but won't delete your stored logs.", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.YesNo, MessageBoxImage.Information); ///TODO: GetText
             if (result != MessageBoxResult.Yes)
                 return;
 
@@ -363,7 +367,7 @@ namespace OverParse
         {
             if (AutoHideWindow.IsChecked && Properties.Settings.Default.AutoHideWindowWarning)
             {
-                MessageBox.Show("This will make the OverParse window invisible whenever PSO2 or OverParse are not in the foreground.\n\nTo show the window, Alt+Tab into OverParse, or click the icon on your taskbar.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information); ///TODO: GetText
+                MessageBox.Show("This will make the OverParse window invisible whenever PSO2 or OverParse are not in the foreground.\n\nTo show the window, Alt+Tab into OverParse, or click the icon on your taskbar.", MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information); ///TODO: GetText
                 Properties.Settings.Default.AutoHideWindowWarning = false;
             }
             Properties.Settings.Default.AutoHideWindow = AutoHideWindow.IsChecked;
