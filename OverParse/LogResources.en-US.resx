@@ -128,11 +128,14 @@ The application will now close.</value>
     <value>{0} {1} | </value>
   </data>
   <data name="UI_InvaildPSO2_binPath" xml:space="preserve">
-    <value>Please select your pso2_bin directory.
+    <value>Please select your pso2_bin directory. OverParse uses this to read your damage logs.
 
-This folder will be inside your PSO2 install folder, which is usually at C:\PHANTASYSTARONLINE2\.
+If you picked a folder while setting up the Tweaker, choose that. Otherwise, it will be in your PSO2 installation folder.</value>
+  </data>
+  <data name="UI_InvaildPSO2_binPath_NAG" xml:space="preserve">
+    <value>That doesn't appear to be a valid pso2_bin directory.
 
-If you installed the game multiple times (e.g. through the torrent), please make sure you pick the right one, or OverParse won't be able to read your logs!</value>
+If you installed the game using default settings, it will probably be in C:\PHANTASYSTARONLINE2\pso2_bin\. Otherwise, find the location you installed to.</value>
   </data>
   <data name="UI_Plugin_Prompt_denied" xml:space="preserve">
     <value>OverParse needs the Damage Parser plugin to function.

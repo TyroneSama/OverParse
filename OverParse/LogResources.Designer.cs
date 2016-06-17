@@ -124,7 +124,9 @@ namespace OverParse {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid pso2_bin directory, prompting for new one....
+        ///   Looks up a localized string similar to Please select your pso2_bin directory. OverParse uses this to read your damage logs.
+        ///
+        ///If you picked a folder while setting up the Tweaker, choose that. Otherwise, it will be in your PSO2 installation folder..
         /// </summary>
         internal static string CON_InvaildPSO2_binPath {
             get {
@@ -383,6 +385,17 @@ namespace OverParse {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to That doesn&apos;t appear to be a valid pso2_bin directory.
+        ///
+        ///If you installed the game using default settings, it will probably be in C:\PHANTASYSTARONLINE2\pso2_bin\. Otherwise, find the location you installed to..
+        /// </summary>
+        internal static string UI_InvaildPSO2_binPath_NAG {
+            get {
+                return ResourceManager.GetString("UI_InvaildPSO2_binPath_NAG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OverParse needs the Damage Parser plugin to function.
         ///
         ///The application will now close..
@@ -418,7 +431,7 @@ namespace OverParse {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select your pso2_bin folder....
+        ///   Looks up a localized string similar to Select your pso2_bin folder. This will be inside the folder you installed PSO2 to..
         /// </summary>
         internal static string UI_SelectPSO2_Finder {
             get {

@@ -46,10 +46,10 @@ namespace OverParse
 
                 if (nagMe)
                 {
-                    MessageBox.Show("That doesn't appear to be a valid pso2_bin directory.\n\nIf you installed the game using default settings, it will probably be in C:\\PHANTASYSTARONLINE2\\pso2_bin\\. Otherwise, find the location you installed to.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(LogR.GetString("UI_InvaildPSO2_binPath_NAG", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Warning);
                 } else
                 {
-                    MessageBox.Show("Please select your pso2_bin directory. OverParse uses this to read your damage logs.\n\nIf you picked a folder while setting up the Tweaker, choose that. Otherwise, it will be in your PSO2 installation folder.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(LogR.GetString("UI_InvaildPSO2_binPath", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
                     nagMe = true;
                 }
                 
@@ -73,7 +73,7 @@ namespace OverParse
                     Application.Current.Shutdown(); // ABORT ABORT ABORT
                     break;
                 }
-                PathPSO2Binary = String.Format(CultureInfo.InvariantCulture, @"{0}\pso2.exe", attemptDirectory)
+                PathPSO2Binary = String.Format(CultureInfo.InvariantCulture, @"{0}\pso2.exe", attemptDirectory);
             }
 
             if (!File.Exists(PathPSO2Binary)) { return; }

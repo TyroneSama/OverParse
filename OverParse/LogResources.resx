@@ -139,7 +139,9 @@
     <value>No damagelog warning</value>
   </data>
   <data name="CON_InvaildPSO2_binPath" xml:space="preserve">
-    <value>Invalid pso2_bin directory, prompting for new one...</value>
+    <value>Please select your pso2_bin directory. OverParse uses this to read your damage logs.
+
+If you picked a folder while setting up the Tweaker, choose that. Otherwise, it will be in your PSO2 installation folder.</value>
   </data>
   <data name="CON_LaunchMethod" xml:space="preserve">
     <value>LaunchMethod prompt</value>
@@ -259,5 +261,10 @@ If you've recieved this message even after closing PSO2, you may need to run Ove
   </data>
   <data name="UI_UpdatePlugin_Good" xml:space="preserve">
     <value>Setup complete! A few files have been copied to your pso2_bin folder.\n\nIf PSO2 is running right now, you'll need to close it before the changes can take effect.</value>
+  </data>
+  <data name="UI_InvaildPSO2_binPath_NAG" xml:space="preserve">
+    <value>That doesn't appear to be a valid pso2_bin directory.
+
+If you installed the game using default settings, it will probably be in C:\PHANTASYSTARONLINE2\pso2_bin\. Otherwise, find the location you installed to.</value>
   </data>
 </root>
