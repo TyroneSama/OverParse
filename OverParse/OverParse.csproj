@@ -177,10 +177,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Log.en-US.resx</DependentUpon>
     </Compile>
-    <Compile Include="MainWindowResources.Designer.cs">
+    <Compile Include="MainWindow.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MainWindowResources.resx</DependentUpon>
+      <DependentUpon>MainWindow.resx</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.en-US.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainWindow.en-US.resx</DependentUpon>
     </Compile>
     <Compile Include="WindowsServices.cs" />
     <Page Include="MainWindow.xaml">
@@ -232,9 +237,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Log.en-US.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindowResources.resx">
+    <EmbeddedResource Include="MainWindow.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MainWindowResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>MainWindow.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainWindow.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindow.en-US.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
