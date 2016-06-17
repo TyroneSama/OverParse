@@ -1008,13 +1008,13 @@ namespace OverParse
 
         private void WindowStats_Click(object sender, RoutedEventArgs e)
         {
-            var result = String.Format(CultureInfo.CurrentCulture, "menu bar: {0} width {1} height\n", MenuBar.Width.ToString(CultureInfo.CurrentCulture), MenuBar.Height.ToString(CultureInfo.CurrentCulture)); ///TODO: GetText
-            result += String.Format(CultureInfo.CurrentCulture, "menu bar: {0} padding {1} margin\n", MenuBar.Padding, MenuBar.Margin); ///TODO: GetText
-            result += String.Format(CultureInfo.CurrentCulture, "menu item: {0} width {1} height\n", MenuSystem.Width.ToString(CultureInfo.CurrentCulture), MenuSystem.Height.ToString(CultureInfo.CurrentCulture)); ///TODO: GetText
-            result += String.Format(CultureInfo.CurrentCulture, "menu item: {0} padding {1} margin\n", MenuSystem.Padding, MenuSystem.Margin); ///TODO: GetText
-            result += String.Format(CultureInfo.CurrentCulture, "menu item: {0} fg {1} bg\n", AutoEndEncounters.Foreground, AutoEndEncounters.Background); ///TODO: GetText
-            result += String.Format(CultureInfo.CurrentCulture, "menu item: {0} {1} {2} {3}\n", MenuSystem.FontFamily, MenuSystem.FontSize, MenuSystem.FontWeight, MenuSystem.FontStyle); ///TODO: GetText
-            result += String.Format(CultureInfo.CurrentCulture, "image: {0} w {1} h {2} m\n", image.Width, image.Height, image.Margin); ///TODO: GetText
+            var result = String.Format(CultureInfo.CurrentCulture, MWR.GetString("UI_WindowStats_menubar_wh", CultureInfo.CurrentUICulture), MenuBar.Width.ToString(CultureInfo.CurrentCulture), MenuBar.Height.ToString(CultureInfo.CurrentCulture));
+            result += String.Format(CultureInfo.CurrentCulture, MWR.GetString("UI_WindowStats_menubar_pm", CultureInfo.CurrentUICulture), MenuBar.Padding, MenuBar.Margin);
+            result += String.Format(CultureInfo.CurrentCulture, MWR.GetString("UI_WindowStats_menuitem_wh", CultureInfo.CurrentUICulture), MenuSystem.Width.ToString(CultureInfo.CurrentCulture), MenuSystem.Height.ToString(CultureInfo.CurrentCulture));
+            result += String.Format(CultureInfo.CurrentCulture, MWR.GetString("UI_WindowStats_menuitem_pm", CultureInfo.CurrentUICulture), MenuSystem.Padding, MenuSystem.Margin);
+            result += String.Format(CultureInfo.CurrentCulture, MWR.GetString("UI_WindowStats_menuitem_fb", CultureInfo.CurrentUICulture), AutoEndEncounters.Foreground, AutoEndEncounters.Background);
+            result += String.Format(CultureInfo.CurrentCulture, MWR.GetString("UI_WindowStats_menuitem_fs", CultureInfo.CurrentUICulture), MenuSystem.FontFamily, MenuSystem.FontSize, MenuSystem.FontWeight, MenuSystem.FontStyle);
+            result += String.Format(CultureInfo.CurrentCulture, MWR.GetString("UI_WindowStats_image", CultureInfo.CurrentUICulture), image.Width, image.Height, image.Margin);
             MessageBox.Show(result);
         }
 

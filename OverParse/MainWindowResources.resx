@@ -304,4 +304,25 @@ Would you like to download it now from GitHub?</value>
   <data name="UI_UpdateTitle" xml:space="preserve">
     <value>OverParse Update</value>
   </data>
+  <data name="UI_WindowStats_image" xml:space="preserve">
+    <value>image: {0} w {1} h {2} m\n</value>
+  </data>
+  <data name="UI_WindowStats_menubar_pm" xml:space="preserve">
+    <value>menu bar: {0} padding {1} margin\n</value>
+  </data>
+  <data name="UI_WindowStats_menubar_wh" xml:space="preserve">
+    <value>menu bar: {0} width {1} height\n</value>
+  </data>
+  <data name="UI_WindowStats_menuitem_fb" xml:space="preserve">
+    <value>menu item: {0} fg {1} bg\n</value>
+  </data>
+  <data name="UI_WindowStats_menuitem_fs" xml:space="preserve">
+    <value>menu item: {0} {1} {2} {3}\n</value>
+  </data>
+  <data name="UI_WindowStats_menuitem_pm" xml:space="preserve">
+    <value>menu item: {0} padding {1} margin\n</value>
+  </data>
+  <data name="UI_WindowStats_menuitem_wh" xml:space="preserve">
+    <value>menu item: {0} width {1} height\n</value>
+  </data>
 </root>

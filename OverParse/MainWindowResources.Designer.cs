@@ -564,5 +564,68 @@ namespace OverParse {
                 return ResourceManager.GetString("UI_UpdateTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to image: {0} w {1} h {2} m\n.
+        /// </summary>
+        internal static string UI_WindowStats_image {
+            get {
+                return ResourceManager.GetString("UI_WindowStats_image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to menu bar: {0} padding {1} margin\n.
+        /// </summary>
+        internal static string UI_WindowStats_menubar_pm {
+            get {
+                return ResourceManager.GetString("UI_WindowStats_menubar_pm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to menu bar: {0} width {1} height\n.
+        /// </summary>
+        internal static string UI_WindowStats_menubar_wh {
+            get {
+                return ResourceManager.GetString("UI_WindowStats_menubar_wh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to menu item: {0} fg {1} bg\n.
+        /// </summary>
+        internal static string UI_WindowStats_menuitem_fb {
+            get {
+                return ResourceManager.GetString("UI_WindowStats_menuitem_fb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to menu item: {0} {1} {2} {3}\n.
+        /// </summary>
+        internal static string UI_WindowStats_menuitem_fs {
+            get {
+                return ResourceManager.GetString("UI_WindowStats_menuitem_fs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to menu item: {0} padding {1} margin\n.
+        /// </summary>
+        internal static string UI_WindowStats_menuitem_pm {
+            get {
+                return ResourceManager.GetString("UI_WindowStats_menuitem_pm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to menu item: {0} width {1} height\n.
+        /// </summary>
+        internal static string UI_WindowStats_menuitem_wh {
+            get {
+                return ResourceManager.GetString("UI_WindowStats_menuitem_wh", resourceCulture);
+            }
+        }
     }
 }
