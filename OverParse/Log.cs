@@ -32,22 +32,35 @@ namespace OverParse
             notEmpty = false;
             running = false;
 
+            bool nagMe = false;
+
             while (!File.Exists($"{attemptDirectory}\\pso2.exe"))
             {
                 Console.WriteLine("Invalid pso2_bin directory, prompting for new one...");
-                MessageBox.Show("Please select your pso2_bin directory.\n\nThis folder will be inside your PSO2 install folder, which is usually at C:\\PHANTASYSTARONLINE2\\.\n\nIf you installed the game multiple times (e.g. through the torrent), please make sure you pick the right one, or OverParse won't be able to read your logs!", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                VistaFolderBrowserDialog oDialog = new VistaFolderBrowserDialog();
-                oDialog.Description = "Select your pso2_bin folder...";
-                oDialog.UseDescriptionForTitle = true;
-
-                if ((bool)oDialog.ShowDialog(Application.Current.MainWindow))
+                if (nagMe)
                 {
-                    attemptDirectory = oDialog.SelectedPath;
+                    MessageBox.Show("That doesn't appear to be a valid pso2_bin directory.\n\nIf you installed the game using default settings, it will probably be in C:\\PHANTASYSTARONLINE2\\pso2_bin\\. Otherwise, find the location you installed to.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Warning);
+                } else
+                {
+                    MessageBox.Show("Please select your pso2_bin directory. OverParse uses this to read your damage logs.\n\nIf you picked a folder while setting up the Tweaker, choose that. Otherwise, it will be in your PSO2 installation folder.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
+                    nagMe = true;
+                }
+                
+                //WINAPI FILE DIALOGS DON'T SHOW UP FOR PEOPLE SOMETIMES AND I HAVE NO IDEA WHY, *** S I C K  M E M E ***
+                //VistaFolderBrowserDialog oDialog = new VistaFolderBrowserDialog();
+                //oDialog.Description = "Select your pso2_bin folder...";
+                //oDialog.UseDescriptionForTitle = true;
+
+                System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+                dialog.Description = "Select your pso2_bin folder. This will be inside the folder you installed PSO2 to.";
+                System.Windows.Forms.DialogResult picked = dialog.ShowDialog();
+                if (picked == System.Windows.Forms.DialogResult.OK)
+                {
+                    attemptDirectory = dialog.SelectedPath;
                     Console.WriteLine($"Testing {attemptDirectory} as pso2_bin directory...");
                     Properties.Settings.Default.Path = attemptDirectory;
-                }
-                else
+                } else
                 {
                     Console.WriteLine("Canceled out of directory picker");
                     MessageBox.Show("OverParse needs a valid PSO2 installation to function.\nThe application will now close.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
