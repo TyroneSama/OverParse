@@ -446,7 +446,7 @@ namespace OverParse
                         string targetID = parts[4];
                         string targetName = parts[5];
                         string sourceName = parts[3];
-                        int hitDamage = int.Parse(parts[7], CultureInfo.InvariantCulture); ///TODO: GetText
+                        int hitDamage = int.Parse(parts[7], CultureInfo.InvariantCulture);
                         string attackID = parts[6];
                         string isMultiHit = parts[10];
                         string isMisc = parts[11];
