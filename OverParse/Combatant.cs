@@ -313,7 +313,7 @@ namespace OverParse
             PercentReadDPS = 0;
             ActiveTime = 0;
             green = Color.FromArgb(160, 32, 130, 32);
-            CombatantR = new ResourceManager("OverParse.CombatantResources", Assembly.GetExecutingAssembly());
+            CombatantR = new ResourceManager("OverParse.Combatant", Assembly.GetExecutingAssembly());
         }
 
         public Combatant(string id, string name, string temp)
