@@ -1008,14 +1008,13 @@ namespace OverParse
 
         private void WindowStats_Click(object sender, RoutedEventArgs e)
         {
-            string result = ""; ///TODO: GetText
-            result += $"menu bar: {MenuBar.Width.ToString()} width {MenuBar.Height.ToString()} height\n"; ///TODO: GetText
-            result += $"menu bar: {MenuBar.Padding} padding {MenuBar.Margin} margin\n"; ///TODO: GetText
-            result += $"menu item: {MenuSystem.Width.ToString()} width {MenuSystem.Height.ToString()} height\n"; ///TODO: GetText
-            result += $"menu item: {MenuSystem.Padding} padding {MenuSystem.Margin} margin\n"; ///TODO: GetText
-            result += $"menu item: {AutoEndEncounters.Foreground} fg {AutoEndEncounters.Background} bg\n"; ///TODO: GetText
-            result += $"menu item: {MenuSystem.FontFamily} {MenuSystem.FontSize} {MenuSystem.FontWeight} {MenuSystem.FontStyle}\n"; ///TODO: GetText
-            result += $"image: {image.Width} w {image.Height} h {image.Margin} m\n"; ///TODO: GetText
+            var result = String.Format(CultureInfo.CurrentCulture, "menu bar: {0} width {1} height\n", MenuBar.Width.ToString(CultureInfo.CurrentCulture), MenuBar.Height.ToString(CultureInfo.CurrentCulture)); ///TODO: GetText
+            result += String.Format(CultureInfo.CurrentCulture, "menu bar: {0} padding {1} margin\n", MenuBar.Padding, MenuBar.Margin); ///TODO: GetText
+            result += String.Format(CultureInfo.CurrentCulture, "menu item: {0} width {1} height\n", MenuSystem.Width.ToString(CultureInfo.CurrentCulture), MenuSystem.Height.ToString(CultureInfo.CurrentCulture)); ///TODO: GetText
+            result += String.Format(CultureInfo.CurrentCulture, "menu item: {0} padding {1} margin\n", MenuSystem.Padding, MenuSystem.Margin); ///TODO: GetText
+            result += String.Format(CultureInfo.CurrentCulture, "menu item: {0} fg {1} bg\n", AutoEndEncounters.Foreground, AutoEndEncounters.Background); ///TODO: GetText
+            result += String.Format(CultureInfo.CurrentCulture, "menu item: {0} {1} {2} {3}\n", MenuSystem.FontFamily, MenuSystem.FontSize, MenuSystem.FontWeight, MenuSystem.FontStyle); ///TODO: GetText
+            result += String.Format(CultureInfo.CurrentCulture, "image: {0} w {1} h {2} m\n", image.Width, image.Height, image.Margin); ///TODO: GetText
             MessageBox.Show(result);
         }
 
