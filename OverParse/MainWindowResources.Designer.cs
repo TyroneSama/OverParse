@@ -61,6 +61,141 @@ namespace OverParse {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Always-on-top hotkey pressed.
+        /// </summary>
+        internal static string CON_AlwaysOnTop_Key {
+            get {
+                return ResourceManager.GetString("CON_AlwaysOnTop_Key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found a new log file ({0}), switching....
+        /// </summary>
+        internal static string CON_CheckForNewLog {
+            get {
+                return ResourceManager.GetString("CON_CheckForNewLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debug hotkey pressed.
+        /// </summary>
+        internal static string CON_DebugMenu_Key {
+            get {
+                return ResourceManager.GetString("CON_DebugMenu_Key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ending encounter.
+        /// </summary>
+        internal static string CON_EndEncounter_Click_END {
+            get {
+                return ResourceManager.GetString("CON_EndEncounter_Click_END", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving last combatant list.
+        /// </summary>
+        internal static string CON_EndEncounter_Click_SAVE {
+            get {
+                return ResourceManager.GetString("CON_EndEncounter_Click_SAVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encounter hotkey pressed.
+        /// </summary>
+        internal static string CON_EndEncounter_Key {
+            get {
+                return ResourceManager.GetString("CON_EndEncounter_Key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ending encounter (no log).
+        /// </summary>
+        internal static string CON_EndEncounterNoLog_Click_END {
+            get {
+                return ResourceManager.GetString("CON_EndEncounterNoLog_Click_END", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encounter hotkey (no log) pressed.
+        /// </summary>
+        internal static string CON_EndEncounterNoLog_Key {
+            get {
+                return ResourceManager.GetString("CON_EndEncounterNoLog_Key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reinitializing log.
+        /// </summary>
+        internal static string CON_LOG_REINIT {
+            get {
+                return ResourceManager.GetString("CON_LOG_REINIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to attempting to open {0}.
+        /// </summary>
+        internal static string CON_OpenRecentLog_Click {
+            get {
+                return ResourceManager.GetString("CON_OpenRecentLog_Click", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to === UNHANDLED EXCEPTION ===.
+        /// </summary>
+        internal static string CON_Panic {
+            get {
+                return ResourceManager.GetString("CON_Panic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resetting.
+        /// </summary>
+        internal static string CON_ResetOverParse {
+            get {
+                return ResourceManager.GetString("CON_ResetOverParse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically ending an encounter.
+        /// </summary>
+        internal static string CON_UpdateForm {
+            get {
+                return ResourceManager.GetString("CON_UpdateForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OVERPARSE V.{0}.
+        /// </summary>
+        internal static string CON_VersionStamp {
+            get {
+                return ResourceManager.GetString("CON_VersionStamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closing....
+        /// </summary>
+        internal static string CON_Window_Closing {
+            get {
+                return ResourceManager.GetString("CON_Window_Closing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OverParse Setup.
         /// </summary>
         internal static string UI_SetupTitle {

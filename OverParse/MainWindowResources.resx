@@ -117,6 +117,51 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CON_AlwaysOnTop_Key" xml:space="preserve">
+    <value>Always-on-top hotkey pressed</value>
+  </data>
+  <data name="CON_CheckForNewLog" xml:space="preserve">
+    <value>Found a new log file ({0}), switching...</value>
+  </data>
+  <data name="CON_DebugMenu_Key" xml:space="preserve">
+    <value>Debug hotkey pressed</value>
+  </data>
+  <data name="CON_EndEncounterNoLog_Click_END" xml:space="preserve">
+    <value>Ending encounter (no log)</value>
+  </data>
+  <data name="CON_EndEncounterNoLog_Key" xml:space="preserve">
+    <value>Encounter hotkey (no log) pressed</value>
+  </data>
+  <data name="CON_EndEncounter_Click_END" xml:space="preserve">
+    <value>Ending encounter</value>
+  </data>
+  <data name="CON_EndEncounter_Click_SAVE" xml:space="preserve">
+    <value>Saving last combatant list</value>
+  </data>
+  <data name="CON_EndEncounter_Key" xml:space="preserve">
+    <value>Encounter hotkey pressed</value>
+  </data>
+  <data name="CON_LOG_REINIT" xml:space="preserve">
+    <value>Reinitializing log</value>
+  </data>
+  <data name="CON_OpenRecentLog_Click" xml:space="preserve">
+    <value>attempting to open {0}</value>
+  </data>
+  <data name="CON_Panic" xml:space="preserve">
+    <value>=== UNHANDLED EXCEPTION ===</value>
+  </data>
+  <data name="CON_ResetOverParse" xml:space="preserve">
+    <value>Resetting</value>
+  </data>
+  <data name="CON_UpdateForm" xml:space="preserve">
+    <value>Automatically ending an encounter</value>
+  </data>
+  <data name="CON_VersionStamp" xml:space="preserve">
+    <value>OVERPARSE V.{0}</value>
+  </data>
+  <data name="CON_Window_Closing" xml:space="preserve">
+    <value>Closing...</value>
+  </data>
   <data name="UI_SetupTitle" xml:space="preserve">
     <value>OverParse Setup</value>
   </data>

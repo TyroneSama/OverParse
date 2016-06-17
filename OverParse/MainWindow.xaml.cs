@@ -68,13 +68,13 @@ namespace OverParse
 
             Directory.CreateDirectory("Debug");
 
-            FileStream filestream = new FileStream("Debug\\log_" + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", FileMode.Create);  ///TODO: GetText
+            FileStream filestream = new FileStream("Debug\\log_" + string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now) + ".txt", FileMode.Create);
             var streamwriter = new StreamWriter(filestream);
             streamwriter.AutoFlush = true;
             Console.SetOut(streamwriter);
             Console.SetError(streamwriter);
 
-            Console.WriteLine("OVERPARSE V." + Assembly.GetExecutingAssembly().GetName().Version);  ///TODO: GetText
+            Console.WriteLine(String.Format(CultureInfo.InvariantCulture, MWR.GetString("CON_VersionStamp", CultureInfo.CurrentUICulture), Assembly.GetExecutingAssembly().GetName().Version));
 
             if (Properties.Settings.Default.UpgradeRequired && !Properties.Settings.Default.ResetInvoked)
             {
@@ -279,7 +279,7 @@ namespace OverParse
 
             if (log.Name != encounterlog.filename)
             {
-                Console.WriteLine($"Found a new log file ({log.Name}), switching...");
+                Console.WriteLine(String.Format(MWR.GetString("CON_CheckForNewLog", CultureInfo.CurrentUICulture), log.Name));
                 encounterlog = new Log(Properties.Settings.Default.Path);
             }
         }
@@ -287,7 +287,7 @@ namespace OverParse
         private void Panic(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             string errorMessage = string.Format("Oops. This is embarassing.\n\nOverParse encountered an unexpected error. If this happens again, please complain to TyroneSama at your earliest convenience. Include your log from OverParse\\logs and the following message:\n\n{0}\n\nSorry for the inconvenience!", e.Exception.Message);
-            Console.WriteLine("=== UNHANDLED EXCEPTION ==="); ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_Panic", CultureInfo.CurrentUICulture));
             Console.WriteLine(e.Exception.ToString());
             MessageBox.Show(errorMessage, "OverParse Error - 素晴らしく運がないね君は!", MessageBoxButton.OK, MessageBoxImage.Error); ///TODO: GetText
             Environment.Exit(-1);
@@ -316,7 +316,7 @@ namespace OverParse
             if (result != MessageBoxResult.Yes)
                 return;
 
-            Console.WriteLine("Resetting"); ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_ResetOverParse", CultureInfo.CurrentUICulture));
             Properties.Settings.Default.Reset();
             Properties.Settings.Default.ResetInvoked = true;
             Properties.Settings.Default.Save();
@@ -327,21 +327,21 @@ namespace OverParse
 
         private void EndEncounter_Key(object sender, HotkeyEventArgs e)
         {
-            Console.WriteLine("Encounter hotkey pressed"); ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_EndEncounter_Key", CultureInfo.CurrentUICulture)); ///TODO: GetText
             EndEncounter_Click(null, null);
             e.Handled = true;
         }
 
         private void EndEncounterNoLog_Key(object sender, HotkeyEventArgs e)
         {
-            Console.WriteLine("Encounter hotkey (no log) pressed");
+            Console.WriteLine(MWR.GetString("CON_EndEncounterNoLog_Key", CultureInfo.CurrentUICulture));
             EndEncounterNoLog_Click(null, null);
             e.Handled = true;
         }
 
         private void AlwaysOnTop_Key(object sender, HotkeyEventArgs e)
         {
-            Console.WriteLine("Always-on-top hotkey pressed"); ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_AlwaysOnTop_Key", CultureInfo.CurrentUICulture));
             AlwaysOnTop.IsChecked = !AlwaysOnTop.IsChecked;
             IntPtr wasActive = WindowsServices.GetForegroundWindow();
 
@@ -358,7 +358,7 @@ namespace OverParse
 
         private void DebugMenu_Key(object sender, HotkeyEventArgs e)
         {
-            Console.WriteLine("Debug hotkey pressed"); ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_DebugMenu_Key"));
             DebugMenu.Visibility = Visibility.Visible;
             e.Handled = true;
         }
@@ -746,7 +746,7 @@ namespace OverParse
                     int unixTimestamp = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
                     if ((unixTimestamp - encounterlog.newTimestamp) >= Properties.Settings.Default.EncounterTimeout)
                     {
-                        Console.WriteLine("Automatically ending an encounter"); ///TODO: GetText
+                        Console.WriteLine(MWR.GetString("CON_UpdateForm", CultureInfo.CurrentUICulture));
                         EndEncounter_Click(null, null);
                     }
                 }
@@ -756,7 +756,7 @@ namespace OverParse
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Console.WriteLine("Closing..."); ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_Window_Closing", CultureInfo.CurrentUICulture));
 
             if (!Properties.Settings.Default.ResetInvoked)
             {
@@ -790,12 +790,12 @@ namespace OverParse
 
         private void EndEncounterNoLog_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Ending encounter (no log)"); ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_EndEncounterNoLog_Click_END", CultureInfo.CurrentUICulture));
             bool temp = Properties.Settings.Default.AutoEndEncounters;
             Properties.Settings.Default.AutoEndEncounters = false;
             UpdateForm(null, null);
             Properties.Settings.Default.AutoEndEncounters = temp;
-            Console.WriteLine("Reinitializing log"); ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_LOG_REINIT", CultureInfo.CurrentUICulture));
             lastStatus = "";
             encounterlog = new Log(Properties.Settings.Default.Path);
             UpdateForm(null, null);
@@ -803,7 +803,7 @@ namespace OverParse
 
         private void EndEncounter_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Ending encounter"); ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_EndEncounter_Click_END", CultureInfo.CurrentUICulture));
             bool temp = Properties.Settings.Default.AutoEndEncounters;
             Properties.Settings.Default.AutoEndEncounters = false;
             UpdateForm(null, null); // I'M FUCKING STUPID
@@ -820,7 +820,7 @@ namespace OverParse
                 temp2.PercentReadDPS = c.PercentReadDPS;
                 workingListCopy.Add(temp2);
             }
-            Console.WriteLine("Saving last combatant list"); ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_EndEncounter_Click_SAVE", CultureInfo.CurrentUICulture));
             lastCombatants = encounterlog.combatants;
             encounterlog.combatants = workingListCopy;
             string filename = encounterlog.WriteLog();
@@ -842,7 +842,7 @@ namespace OverParse
             {
                 encounterlog.WriteClipboard();
             }
-            Console.WriteLine("Reinitializing log"); ///TODO: GetText
+            Console.WriteLine(MWR.GetString("CON_LOG_REINIT", CultureInfo.CurrentUICulture));
             encounterlog = new Log(Properties.Settings.Default.Path);
             UpdateForm(null, null);
         }
@@ -850,7 +850,7 @@ namespace OverParse
         private void OpenRecentLog_Click(object sender, RoutedEventArgs e)
         {
             string filename = sessionLogFilenames[SessionLogs.Items.IndexOf((e.OriginalSource as MenuItem))];
-            Console.WriteLine($"attempting to open {filename}"); ///TODO: GetText
+            Console.WriteLine(String.Format(MWR.GetString("CON_OpenRecentLog_Click", CultureInfo.CurrentUICulture), filename));
             Process.Start(Directory.GetCurrentDirectory() + "\\" + filename);
         }
 
