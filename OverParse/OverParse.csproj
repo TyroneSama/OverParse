@@ -162,15 +162,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LogResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Combatant.Designer.cs">
+    <Compile Include="CombatantResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Combatant.resx</DependentUpon>
+      <DependentUpon>CombatantResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Combatant.en-US.Designer.cs">
+    <Compile Include="CombatantResources.en-US.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Combatant.en-US.resx</DependentUpon>
+      <DependentUpon>CombatantResources.en-US.resx</DependentUpon>
     </Compile>
     <Compile Include="LogResources.en-US.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -220,13 +220,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LogResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Combatant.resx">
+    <EmbeddedResource Include="CombatantResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Combatant.Designer.cs</LastGenOutput>
+      <LastGenOutput>CombatantResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Combatant.en-US.resx">
+    <EmbeddedResource Include="CombatantResources.en-US.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Combatant.en-US.Designer.cs</LastGenOutput>
+      <LastGenOutput>CombatantResources.en-US.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="LogResources.en-US.resx">
       <Generator>ResXFileCodeGenerator</Generator>

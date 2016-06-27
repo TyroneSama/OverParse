@@ -163,7 +163,7 @@ namespace OverParse
                 }
                 else
                 {
-                    var CR = new ResourceManager("OverParse.Combatant", Assembly.GetExecutingAssembly());
+                    var CR = new ResourceManager("OverParse.CombatantResources", Assembly.GetExecutingAssembly());
                     var BoxText = String.Format(CultureInfo.InvariantCulture, MWR.GetString("UI_SKILL_Update_FAIL", CultureInfo.CurrentUICulture), CR.GetString("UI_Unknown", CultureInfo.CurrentUICulture));
                     MessageBox.Show(BoxText, MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
                     tmp = new string[0];
