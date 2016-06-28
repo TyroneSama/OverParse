@@ -1,0 +1,725 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en" target-language="ja-JP" original="OVERPARSE/PROPERTIES/RESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1605.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="OVERPARSE/PROPERTIES/RESOURCES.RESX" datatype="resx" />
+    </body>
+  </file>
+  <file datatype="xml" source-language="en" target-language="ja-JP" original="OVERPARSE/COMBATANTRESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1605.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="OVERPARSE/COMBATANTRESOURCES.RESX" datatype="resx">
+        <trans-unit id="CON_MaxHit" translate="yes" xml:space="preserve">
+          <source>{0} - {1} for {2} ----- {3}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{0} - {1} {2}---{3} の</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Name, MaxHitID, MaxHitAttack.Damage, attack</note>
+        </trans-unit>
+        <trans-unit id="CON_ReadDPS" translate="yes" xml:space="preserve">
+          <source>{0} | read damage {1} | ActiveTime {2}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{0} |損傷 {1} を読む |ActiveTime {2}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Name, ReadDamage, ActiveTime</note>
+        </trans-unit>
+        <trans-unit id="CON_Unknown" translate="yes" xml:space="preserve">
+          <source>Unknown</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">不明</target>
+        </trans-unit>
+        <trans-unit id="UI_Blank" translate="yes" xml:space="preserve">
+          <source>--</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">― ―</target>
+        </trans-unit>
+        <trans-unit id="UI_MaxHi" translate="yes" xml:space="preserve">
+          <source>{0} ({1})</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{0} ({1})</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">MaxHitAttack.Damage, attack</note>
+        </trans-unit>
+        <trans-unit id="UI_PercentReadDPSReadout" translate="yes" xml:space="preserve">
+          <source>{0:0.0}%</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{0:0.0} %</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PercentReadDPS</note>
+        </trans-unit>
+        <trans-unit id="UI_Unknown" translate="yes" xml:space="preserve">
+          <source>Unknown</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">不明</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+  <file datatype="xml" source-language="en" target-language="ja-JP" original="OVERPARSE/MAINWINDOWRESOURCES.EN-US..RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1605.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="OVERPARSE/MAINWINDOWRESOURCES.EN-US..RESX" datatype="resx">
+        <trans-unit id="UI_About_Click" translate="yes" xml:space="preserve">
+          <source>OverParse v{0}
+A lightweight self-auditing tool.
+
+Shoutouts to WaifuDfnseForce.
+Additional shoutouts to Variant, AIDA, and everyone else who makes the Tweaker plugin possible.
+
+Please use damage information responsibly.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse v {0}
+、軽量自己監査ツール。
+WaifuDfnseForce に
+Shoutouts。
+バリアント、アイーダ、プラグイン可能な Tweaker は、みんな追加 shoutouts。
+
+ご利用の情報を責任を持って破損します。</target>
+        </trans-unit>
+        <trans-unit id="UI_AutoHideWindow_Click" translate="yes" xml:space="preserve">
+          <source>This will make the OverParse window invisible whenever PSO2 or OverParse are not in the foreground.
+
+To show the window, Alt+Tab into OverParse, or click the icon on your taskbar.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Pso 2 または OverParse がフォア グラウンドにないときに OverParse ウィンドウが作る目に見えないが。
+ 
+OverParse に、Alt + タブ ウィンドウを表示またはあなたのタスクバーのアイコンをクリックします。</target>
+        </trans-unit>
+        <trans-unit id="UI_EndEncounter_Click_MENUITEM" translate="yes" xml:space="preserve">
+          <source>SessionLog_</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">SessionLog_</target>
+        </trans-unit>
+        <trans-unit id="UI_Init_HotKeys_FAIL" translate="yes" xml:space="preserve">
+          <source>OverParse failed to initialize hotkeys. This is usually because something else is already using them.
+
+The program will still work, but hotkeys will not function. Sorry for the inconvenience!</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse はホットキーを初期化できませんでした。これは通常、他のものは既に使用されているためにです。
+
+プログラムは動作しますが、ホットキーが機能しません。不便のために残念!</target>
+        </trans-unit>
+        <trans-unit id="UI_LOG_FAIL" translate="yes" xml:space="preserve">
+          <source>OverParse doesn't have write access to its folder, and won't be able to save logs or update skill mappings. This usually happens when you run it from Program Files.
+
+This is a Windows restriction, and unfortunately I can't do anything about it.\n\nPlease run OverParse as administrator, or move it somewhere else. Sorry for the inconvenience!</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse は、そのフォルダーへの書き込みアクセス権を持っていないし、ログを保存したり、スキル マッピングを更新することはできません。これは通常、プログラム ファイルから実行するときに発生します。
+
+ウィンドウの制限、残念ながら it.\n\nPlease について何かを行うことができない管理者は、OverParse を実行するか、別の場所に移動します。不便のために残念!</target>
+        </trans-unit>
+        <trans-unit id="UI_Panic_Title" translate="yes" xml:space="preserve">
+          <source>OverParse Error - 素晴らしく運がないね君は!</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">エラー - 素晴らしく運がないね君はを overParse!</target>
+        </trans-unit>
+        <trans-unit id="UI_ResetOverParse" translate="yes" xml:space="preserve">
+          <source>Are you SURE you want to reset OverParse?
+
+This will clear all of your application settings and allow you to reselect your pso2_bin folder, but won't delete your stored logs.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">あなたは OverParse をリセットしてよろしいですか。
+
+これは、すべてのアプリケーション設定をオフに、[pso2_bin] フォルダーを再度選択することができます、あなたの保存されたログは削除されません。</target>
+        </trans-unit>
+        <trans-unit id="UI_SetEncounterTimeout_Click" translate="yes" xml:space="preserve">
+          <source>How many seconds should the system wait before stopping an encounter?</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">出会いを停止する前にシステムが待機する必要がありますどのように多くの秒</target>
+        </trans-unit>
+        <trans-unit id="UI_SetEncounterTimeout_Click_Title" translate="yes" xml:space="preserve">
+          <source>Encounter Timeout</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">タイムアウトが発生します。</target>
+        </trans-unit>
+        <trans-unit id="UI_SetupTitle" translate="yes" xml:space="preserve">
+          <source>OverParse Setup</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse セットアップ</target>
+        </trans-unit>
+        <trans-unit id="UI_SKILL_Update_FAIL_LOCAL" translate="yes" xml:space="preserve">
+          <source>OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.
+
+A local copy will be used instead. If you'd like to try and update again, just relaunch OverParse.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse は、そのスキル マッピングの更新に失敗しました。これは通常しばらく接続 hiccuped を意味します。
+
+ローカル コピーが使用されます。しようし、再度更新する場合は、ちょうど OverParse を再起動してください。</target>
+        </trans-unit>
+        <trans-unit id="UI_Title" translate="yes" xml:space="preserve">
+          <source>OverParse</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse</target>
+        </trans-unit>
+        <trans-unit id="UI_UpdateForm_DPS" translate="yes" xml:space="preserve">
+          <source> - {0} DPS</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">-{0} DPS</target>
+        </trans-unit>
+        <trans-unit id="UI_UpdateForm_MAX" translate="yes" xml:space="preserve">
+          <source> - MAX: {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">-最大: {0}</target>
+        </trans-unit>
+        <trans-unit id="UI_UpdateForm_WAIT" translate="yes" xml:space="preserve">
+          <source>Waiting - {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">待機中 - {0}</target>
+        </trans-unit>
+        <trans-unit id="UI_UpdateReady" translate="yes" xml:space="preserve">
+          <source>There's a new version of OverParse available!
+
+You're running version {0}. The latest version is version {1}.
+
+Would you like to download it now from GitHub?</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse の新しいバージョンが利用可能!
+
+バージョン {0} を実行しています。最新バージョンは、バージョン {1} です。
+ 
+GitHub からダウンロードしてもよろしいですか?</target>
+        </trans-unit>
+        <trans-unit id="UI_UpdateTitle" translate="yes" xml:space="preserve">
+          <source>OverParse Update</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse 更新</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_image" translate="yes" xml:space="preserve">
+          <source>image: {0} w {1} h {2} m\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">画像: {0} {1} w h {2} m\n</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_menubar_pm" translate="yes" xml:space="preserve">
+          <source>menu bar: {0} padding {1} margin\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">メニュー バー: {0} {1} margin\n を埋め込み</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_menubar_wh" translate="yes" xml:space="preserve">
+          <source>menu bar: {0} width {1} height\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">メニュー バー: {0} 幅 {1} height\n</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_menuitem_fb" translate="yes" xml:space="preserve">
+          <source>menu item: {0} fg {1} bg\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">メニュー項目: {0} fg {1} bg\n</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_menuitem_fs" translate="yes" xml:space="preserve">
+          <source>menu item: {0} {1} {2} {3}\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">メニュー項目: {0} {1} {2} {3} \n</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_menuitem_pm" translate="yes" xml:space="preserve">
+          <source>menu item: {0} padding {1} margin\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">メニュー項目: {0} {1} margin\n を埋め込み</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_menuitem_wh" translate="yes" xml:space="preserve">
+          <source>menu item: {0} width {1} height\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">メニュー項目: {0} 幅 {1} height\n</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+  <file datatype="xml" source-language="en" target-language="ja-JP" original="OVERPARSE/LOGRESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1605.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="OVERPARSE/LOGRESOURCES.RESX" datatype="resx">
+        <trans-unit id="CON_CanceledDirPicker" translate="yes" xml:space="preserve">
+          <source>Canceled out of directory picker</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">ディレクトリの選択をキャンセル</target>
+        </trans-unit>
+        <trans-unit id="CON_check_damage_override" translate="yes" xml:space="preserve">
+          <source>Checking for damagelog directory override</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Damagelog ディレクトリの上書きの確認</target>
+        </trans-unit>
+        <trans-unit id="CON_damagelog_exist" translate="yes" xml:space="preserve">
+          <source>Making sure pso2_bin\damagelogs exists</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">存在することを確認 pso2_bin\damagelogs を作る</target>
+        </trans-unit>
+        <trans-unit id="CON_FoundYou" translate="yes" xml:space="preserve">
+          <source>Found existing active player ID: {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">既存のアクティブなプレーヤー ID が見つかりました: {0}</target>
+        </trans-unit>
+        <trans-unit id="CON_found_damagecfg" translate="yes" xml:space="preserve">
+          <source>Found a config file for damage dump plugin, parsing</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">解析、損傷ダンプ プラグインの構成ファイルが見つかりました</target>
+        </trans-unit>
+        <trans-unit id="CON_found_damage_override" translate="yes" xml:space="preserve">
+          <source>Log directory override: {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">ログ ディレクトリの上書き: {0}</target>
+        </trans-unit>
+        <trans-unit id="CON_Hack" translate="yes" xml:space="preserve">
+          <source>No damagelog warning</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Damagelog 警告なし</target>
+        </trans-unit>
+        <trans-unit id="CON_InvaildPSO2_binPath" translate="yes" xml:space="preserve">
+          <source>Please select your pso2_bin directory. OverParse uses this to read your damage logs.
+
+If you picked a folder while setting up the Tweaker, choose that. Otherwise, it will be in your PSO2 installation folder.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Pso2_bin ディレクトリを選択してください。OverParse はダメージ ログを読み取るためにこれを使用します。
+ 
+Tweaker のセットアップ中のフォルダーを選択した場合を選択します。そうでなければ、それは pso 2 インストール フォルダーになります。</target>
+        </trans-unit>
+        <trans-unit id="CON_LaunchMethod" translate="yes" xml:space="preserve">
+          <source>LaunchMethod prompt</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">LaunchMethod プロンプト</target>
+        </trans-unit>
+        <trans-unit id="CON_Log_Ally" translate="yes" xml:space="preserve">
+          <source>{0} unmapped: {1} ({2} dmg from {3})</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">マップ {0}: {1} ({2} dmg から {3})</target>
+        </trans-unit>
+        <trans-unit id="CON_Log_Ally_Time" translate="yes" xml:space="preserve">
+          <source>dd\.hh\:mm\:ss</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">dd\.hh\:mm\:ss</target>
+        </trans-unit>
+        <trans-unit id="CON_Log_Start" translate="yes" xml:space="preserve">
+          <source>Logging encounter information to file</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">ファイルへのログの出会い情報</target>
+        </trans-unit>
+        <trans-unit id="CON_missing_damagecfg" translate="yes" xml:space="preserve">
+          <source>No PSO2DamageDump.cfg</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">ない PSO2DamageDump.cfg</target>
+        </trans-unit>
+        <trans-unit id="CON_Plugin_Prompt_accepted" translate="yes" xml:space="preserve">
+          <source>Accepted plugin install</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">プラグインのインストールを受け入れ</target>
+        </trans-unit>
+        <trans-unit id="CON_Plugin_Prompt_denied" translate="yes" xml:space="preserve">
+          <source>Denied plugin install</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">プラグインのインストールを拒否されました</target>
+        </trans-unit>
+        <trans-unit id="CON_Plugin_Prompt_initial" translate="yes" xml:space="preserve">
+          <source>Prompting for initial plugin install</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">初期プラグイン インストールの入力を求める</target>
+        </trans-unit>
+        <trans-unit id="CON_Plugin_Prompt_update" translate="yes" xml:space="preserve">
+          <source>Prompting for plugin update</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">プラグインの更新を求める</target>
+        </trans-unit>
+        <trans-unit id="CON_Plugin_Status" translate="yes" xml:space="preserve">
+          <source>Installed: {0} / Current: {1}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">インストール: {0}/現在: {1}</target>
+        </trans-unit>
+        <trans-unit id="CON_ReadingLog" translate="yes" xml:space="preserve">
+          <source>Reading from {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{0} からの読み取り</target>
+        </trans-unit>
+        <trans-unit id="CON_split" translate="yes" xml:space="preserve">
+          <source>{0} | {1}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{0} |{1}</target>
+        </trans-unit>
+        <trans-unit id="CON_TestPSO2_binPath" translate="yes" xml:space="preserve">
+          <source>Testing {0} as pso2_bin directory...</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Pso2_bin ディレクトリとしてテスト {0} は.</target>
+        </trans-unit>
+        <trans-unit id="CON_UpdatePlugin_Bad" translate="yes" xml:space="preserve">
+          <source>PLUGIN INSTALL FAILED: {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">プラグインのインストールに失敗しました: {0}</target>
+        </trans-unit>
+        <trans-unit id="CON_UpdatePlugin_Good" translate="yes" xml:space="preserve">
+          <source>Plugin install successful</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">プラグイン インストール成功</target>
+        </trans-unit>
+        <trans-unit id="CON_Update_first" translate="yes" xml:space="preserve">
+          <source>FIRST ATTACK RECORDED: {0} dmg from {1} ({2}) with {3}, to {4} ({5})</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{4} ({5}) へ 3 {0} と {1} ({2}) から最初の攻撃の記録: {0} dmg</target>
+        </trans-unit>
+        <trans-unit id="CON_Update_newplayer" translate="yes" xml:space="preserve">
+          <source>Found new active player ID: {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">新しいアクティブなプレイヤー ID が見つかりました: {0}</target>
+        </trans-unit>
+        <trans-unit id="LOG_Combatant_header" translate="yes" xml:space="preserve">
+          <source>###### {0} - {1} dmg ({2}) ######"</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">### {0} - {1} dmg ({2}) ###」</target>
+        </trans-unit>
+        <trans-unit id="LOG_Combatant_line1" translate="yes" xml:space="preserve">
+          <source>{0}% | {1} ({2} dmg)</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{0} %|{1} ({2} dmg)</target>
+        </trans-unit>
+        <trans-unit id="LOG_Combatant_line2" translate="yes" xml:space="preserve">
+          <source>|   {0} hits - {1} min, {2} avg, {3} max</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">|  {0} 安打 - {1} 分、{2} avg、max {3}</target>
+        </trans-unit>
+        <trans-unit id="LOG_Combatant_Stat" translate="yes" xml:space="preserve">
+          <source>{0} | {1} dmg | {2} contrib | {3} DPS | Max: {4}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{0} |{1} dmg |{2} contrib |{3} DPS |Max: {4}</target>
+        </trans-unit>
+        <trans-unit id="LOG_TimeStamp" translate="yes" xml:space="preserve">
+          <source>mm\:ss</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">mm\:ss</target>
+        </trans-unit>
+        <trans-unit id="UI_AskTweakerUsage" translate="yes" xml:space="preserve">
+          <source>Do you use the PSO2 Tweaker?</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Pso 2 Tweaker を使いますか。</target>
+        </trans-unit>
+        <trans-unit id="UI_CanceledDirPicker" translate="yes" xml:space="preserve">
+          <source>OverParse needs a valid PSO2 installation to function.
+The application will now close.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse には、関数に有効な pso 2 インストールが必要があります。
+アプリケーションを終了します。</target>
+        </trans-unit>
+        <trans-unit id="UI_Clip" translate="yes" xml:space="preserve">
+          <source>{0} {1} | </source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{0} {1} |</target>
+        </trans-unit>
+        <trans-unit id="UI_Hack" translate="yes" xml:space="preserve">
+          <source>Your PSO2 folder doesn't contain any damagelogs. This is not an error, just a reminder!
+
+Please turn on the Damage Parser plugin in PSO2 Tweaker (orb menu &gt; Plugins). OverParse needs this to function. You may also want to update the plugins while you're there.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Pso 2 フォルダーには、任意の damagelogs が含まれていません。これは、エラー、アラームだけではありません!
+
+くださいは pso 2 Tweaker (オーブの&gt;プラグイン] メニュー) で損傷パーサー プラグインを有効に。OverParse では、この機能する必要があります。そこにいる間、プラグインを更新することがありますも。</target>
+        </trans-unit>
+        <trans-unit id="UI_InvaildPSO2_binPath" translate="yes" xml:space="preserve">
+          <source>Please select your pso2_bin directory.
+
+This folder will be inside your PSO2 install folder, which is usually at C:\PHANTASYSTARONLINE2\.
+
+If you installed the game multiple times (e.g. through the torrent), please make sure you pick the right one, or OverParse won't be able to read your logs!</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Pso2_bin ディレクトリを選択してください。
+
+このフォルダーです通常の C:\PHANTASYSTARONLINE2\
+は、pso 2 のインストール フォルダー内に配置します。
+(トレント) をなど複数回ゲームをインストール、してください右の 1 つを選ぶことを確認または OverParse あなたのログを読み取ることができません!</target>
+        </trans-unit>
+        <trans-unit id="UI_Plugin_Prompt_denied" translate="yes" xml:space="preserve">
+          <source>OverParse needs the Damage Parser plugin to function.
+
+The application will now close.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse では、損傷パーサー プラグイン関数する必要があります。
+
+アプリケーションを終了します。</target>
+        </trans-unit>
+        <trans-unit id="UI_Plugin_Prompt_initial" translate="yes" xml:space="preserve">
+          <source>OverParse needs a Tweaker plugin to recieve its damage information.
+
+The plugin can be installed without the Tweaker, but it won't be automatically updated, and I can't provide support for this method.
+
+Do you want to try to manually install the Damage Parser plugin?</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse では、Tweaker プラグインその被害情報を受信する必要があります。Tweaker、なし
+
+プラグインをインストールことができますが、それは自動的に更新されませんとこのメソッド。
+のサポートを提供することはできません。
+損傷パーサー プラグインを手動でインストールしようとするとするか。</target>
+        </trans-unit>
+        <trans-unit id="UI_Plugin_Prompt_update" translate="yes" xml:space="preserve">
+          <source>This release of OverParse includes a new version of the parsing plugin. Would you like to update now?
+
+OverParse may behave unpredictably if you use a different version than it expects.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse のこのリリースには、解析のプラグインの新しいバージョンが含まれています。今すぐ更新しますか?
+
+それが予測よりも、異なるバージョンを使用するには、overParse は予期しない動作可能性があります。</target>
+        </trans-unit>
+        <trans-unit id="UI_SelectPSO2_Finder" translate="yes" xml:space="preserve">
+          <source>Select your pso2_bin folder. This will be inside the folder you installed PSO2 to.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Pso2_bin フォルダーを選択します。これは、pso 2 をインストールしたフォルダーの中となります。</target>
+        </trans-unit>
+        <trans-unit id="UI_SetupTitle" translate="yes" xml:space="preserve">
+          <source>OverParse Setup</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse セットアップ</target>
+        </trans-unit>
+        <trans-unit id="UI_UpdatePlugin_Bad" translate="yes" xml:space="preserve">
+          <source>Something went wrong with manual installation. This usually means that the files are already in use: try again with PSO2 closed.
+
+If you've recieved this message even after closing PSO2, you may need to run OverParse as administrator.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">手動インストールで何かが起きています。これは通常ファイルを既に使用していることを意味: pso 2 閉鎖でもう一度試してください。
+ 
+Pso 2 を終了した後でもこのメッセージを受信した場合、OverParse を管理者として実行する必要があります。</target>
+        </trans-unit>
+        <trans-unit id="UI_UpdatePlugin_Good" translate="yes" xml:space="preserve">
+          <source>Setup complete! A few files have been copied to your pso2_bin folder.\n\nIf PSO2 is running right now, you'll need to close it before the changes can take effect.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">セットアップが完了しました!いくつかのファイルは、pso 2 は今、実行すると、変更が有効になる前に閉じる必要がありますあなたの pso2_bin folder.\n\nIf にコピーされています。</target>
+        </trans-unit>
+        <trans-unit id="UI_InvaildPSO2_binPath_NAG" translate="yes" xml:space="preserve">
+          <source>That doesn't appear to be a valid pso2_bin directory.
+
+If you installed the game using default settings, it will probably be in C:\PHANTASYSTARONLINE2\pso2_bin\. Otherwise, find the location you installed to.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">それは有効な pso2_bin ディレクトリのように表示されません。
+
+の既定の設定を使用してゲームをインストールされている場合、C:\PHANTASYSTARONLINE2\pso2_bin\ のそれでしょう。それ以外の場合、インストールされている場所を見つけます。</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+  <file datatype="xml" source-language="en" target-language="ja-JP" original="OVERPARSE/MAINWINDOWRESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1605.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="OVERPARSE/MAINWINDOWRESOURCES.RESX" datatype="resx">
+        <trans-unit id="CON_AlwaysOnTop_Key" translate="yes" xml:space="preserve">
+          <source>Always-on-top hotkey pressed</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">常に手前にホットキーが押されました。</target>
+        </trans-unit>
+        <trans-unit id="CON_ApplyUI" translate="yes" xml:space="preserve">
+          <source>Applying UI settings</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">UI 設定を適用します。</target>
+        </trans-unit>
+        <trans-unit id="CON_CheckForNewLog" translate="yes" xml:space="preserve">
+          <source>Found a new log file ({0}), switching...</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">新しいログ ファイル ({0}) が見つかりましたスイッチング.</target>
+        </trans-unit>
+        <trans-unit id="CON_damageTimer_INIT" translate="yes" xml:space="preserve">
+          <source>Initializing damageTimer</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">DamageTimer の初期化</target>
+        </trans-unit>
+        <trans-unit id="CON_DebugMenu_Key" translate="yes" xml:space="preserve">
+          <source>Debug hotkey pressed</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">ホットキーが押されたをデバッグします。</target>
+        </trans-unit>
+        <trans-unit id="CON_EndEncounterNoLog_Click_END" translate="yes" xml:space="preserve">
+          <source>Ending encounter (no log)</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">出会い (ログなし) を終了</target>
+        </trans-unit>
+        <trans-unit id="CON_EndEncounterNoLog_Key" translate="yes" xml:space="preserve">
+          <source>Encounter hotkey (no log) pressed</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">出会いホットキー (ログなし) が押されました。</target>
+        </trans-unit>
+        <trans-unit id="CON_EndEncounter_Click_END" translate="yes" xml:space="preserve">
+          <source>Ending encounter</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">出会いを終了</target>
+        </trans-unit>
+        <trans-unit id="CON_EndEncounter_Click_SAVE" translate="yes" xml:space="preserve">
+          <source>Saving last combatant list</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">最後の戦闘員のリストの保存</target>
+        </trans-unit>
+        <trans-unit id="CON_EndEncounter_Key" translate="yes" xml:space="preserve">
+          <source>Encounter hotkey pressed</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">ホットキーが押されたが発生します。</target>
+        </trans-unit>
+        <trans-unit id="CON_inactiveTimer_INIT" translate="yes" xml:space="preserve">
+          <source>Initializing inactiveTimer</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">InactiveTimer の初期化</target>
+        </trans-unit>
+        <trans-unit id="CON_Init_HotKeys" translate="yes" xml:space="preserve">
+          <source>Initializing hotkeys</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">ホットキーの初期化</target>
+        </trans-unit>
+        <trans-unit id="CON_Init_HotKeys_FAIL" translate="yes" xml:space="preserve">
+          <source>Hotkeys failed to initialize</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">ホットキーが初期化に失敗しました</target>
+        </trans-unit>
+        <trans-unit id="CON_Launch" translate="yes" xml:space="preserve">
+          <source>Launch method: {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">打ち上げ方法: {0}</target>
+        </trans-unit>
+        <trans-unit id="CON_logCheckTimer_INIT" translate="yes" xml:space="preserve">
+          <source>Initializing logCheckTimer</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">LogCheckTimer の初期化</target>
+        </trans-unit>
+        <trans-unit id="CON_LOG_INIT" translate="yes" xml:space="preserve">
+          <source>Initializing default log</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">既定のログの初期化</target>
+        </trans-unit>
+        <trans-unit id="CON_LOG_REINIT" translate="yes" xml:space="preserve">
+          <source>Reinitializing log</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">ログの再初期化</target>
+        </trans-unit>
+        <trans-unit id="CON_MainWindow_END" translate="yes" xml:space="preserve">
+          <source>End of MainWindow constructor</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">MainWindow コンス トラクターの末尾</target>
+        </trans-unit>
+        <trans-unit id="CON_OpenRecentLog_Click" translate="yes" xml:space="preserve">
+          <source>attempting to open {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{0} を開くしようとしました。</target>
+        </trans-unit>
+        <trans-unit id="CON_outOfBounds" translate="yes" xml:space="preserve">
+          <source>Window's off-screen, resetting</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">ウィンドウのオフスクリーン、リセット</target>
+        </trans-unit>
+        <trans-unit id="CON_Panic" translate="yes" xml:space="preserve">
+          <source>=== UNHANDLED EXCEPTION ===</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">= = = 未処理の例外 = = =</target>
+        </trans-unit>
+        <trans-unit id="CON_ResetOverParse" translate="yes" xml:space="preserve">
+          <source>Resetting</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">リセット中</target>
+        </trans-unit>
+        <trans-unit id="CON_Setting_END" translate="yes" xml:space="preserve">
+          <source>Finished applying settings</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">設定の適用を完了しました</target>
+        </trans-unit>
+        <trans-unit id="CON_SKILL_COUNT" translate="yes" xml:space="preserve">
+          <source>Keys in skill dict: {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">スキル辞書のキー: {0}</target>
+        </trans-unit>
+        <trans-unit id="CON_SKILL_PROCESS" translate="yes" xml:space="preserve">
+          <source>Parsing skills.csv</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Skills.csv の解析</target>
+        </trans-unit>
+        <trans-unit id="CON_SKILL_Update" translate="yes" xml:space="preserve">
+          <source>Updating skills.csv</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">更新 skills.csv</target>
+        </trans-unit>
+        <trans-unit id="CON_SKILL_Update_FAIL" translate="yes" xml:space="preserve">
+          <source>skills.csv update failed: {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">skills.csv の更新に失敗しました: {0}</target>
+        </trans-unit>
+        <trans-unit id="CON_UpdateForm" translate="yes" xml:space="preserve">
+          <source>Automatically ending an encounter</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">出会いが自動的に終了</target>
+        </trans-unit>
+        <trans-unit id="CON_Update_DIFF" translate="yes" xml:space="preserve">
+          <source>JSON version: {0} / Assembly version: {1}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">JSON のバージョン: {0}/アセンブリ バージョン: {1}</target>
+        </trans-unit>
+        <trans-unit id="CON_Update_FAIL" translate="yes" xml:space="preserve">
+          <source>Failed to update check: {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">更新のチェックに失敗しました: {0}</target>
+        </trans-unit>
+        <trans-unit id="CON_Update_INIT" translate="yes" xml:space="preserve">
+          <source>Checking for release updates</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">リリースの更新プログラムのチェック</target>
+        </trans-unit>
+        <trans-unit id="CON_Upgrade" translate="yes" xml:space="preserve">
+          <source>Upgrading settings</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">設定のアップグレード</target>
+        </trans-unit>
+        <trans-unit id="CON_VersionStamp" translate="yes" xml:space="preserve">
+          <source>OVERPARSE V.{0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">(動) {0} OVERPARSE します。</target>
+        </trans-unit>
+        <trans-unit id="CON_Window_Closing" translate="yes" xml:space="preserve">
+          <source>Closing...</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">結び言葉...</target>
+        </trans-unit>
+        <trans-unit id="UI_About_Click" translate="yes" xml:space="preserve">
+          <source>OverParse v{0}
+A lightweight self-auditing tool.
+
+Shoutouts to WaifuDfnseForce.
+Additional shoutouts to Variant, AIDA, and everyone else who makes the Tweaker plugin possible.
+
+Please use damage information responsibly.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse v {0}
+、軽量自己監査ツール。
+WaifuDfnseForce に
+Shoutouts。
+バリアント、アイーダ、プラグイン可能な Tweaker は、みんな追加 shoutouts。
+
+ご利用の情報を責任を持って破損します。</target>
+        </trans-unit>
+        <trans-unit id="UI_AutoHideWindow_Click" translate="yes" xml:space="preserve">
+          <source>This will make the OverParse window invisible whenever PSO2 or OverParse are not in the foreground.
+
+To show the window, Alt+Tab into OverParse, or click the icon on your taskbar.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Pso 2 または OverParse がフォア グラウンドにないときに OverParse ウィンドウが作る目に見えないが。
+ 
+OverParse に、Alt + タブ ウィンドウを表示またはあなたのタスクバーのアイコンをクリックします。</target>
+        </trans-unit>
+        <trans-unit id="UI_EndEncounter_Click_MENUITEM" translate="yes" xml:space="preserve">
+          <source>SessionLog_</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">SessionLog_</target>
+        </trans-unit>
+        <trans-unit id="UI_Init_HotKeys_FAIL" translate="yes" xml:space="preserve">
+          <source>OverParse failed to initialize hotkeys. This is usually because something else is already using them.
+
+The program will still work, but hotkeys will not function. Sorry for the inconvenience!</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse はホットキーを初期化できませんでした。これは通常、他のものは既に使用されているためにです。
+
+プログラムは動作しますが、ホットキーが機能しません。不便のために残念!</target>
+        </trans-unit>
+        <trans-unit id="UI_LOG_FAIL" translate="yes" xml:space="preserve">
+          <source>OverParse doesn't have write access to its folder, and won't be able to save logs or update skill mappings. This usually happens when you run it from Program Files.
+
+This is a Windows restriction, and unfortunately I can't do anything about it.\n\nPlease run OverParse as administrator, or move it somewhere else. Sorry for the inconvenience!</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse は、そのフォルダーへの書き込みアクセス権を持っていないし、ログを保存したり、スキル マッピングを更新することはできません。これは通常、プログラム ファイルから実行するときに発生します。
+
+ウィンドウの制限、残念ながら it.\n\nPlease について何かを行うことができない管理者は、OverParse を実行するか、別の場所に移動します。不便のために残念!</target>
+        </trans-unit>
+        <trans-unit id="UI_Panic" translate="yes" xml:space="preserve">
+          <source>Oops. This is embarassing.
+
+OverParse encountered an unexpected error. If this happens again, please complain to TyroneSama at your earliest convenience. Include your log from OverParse\logs and the following message:
+
+{0}
+
+Sorry for the inconvenience!</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">おっと。これは恥ずかしいです。
+ 
+OverParse には、予期しないエラーが発生しました。これが再び発生した場合、お早めに TyroneSama に文句をしてください。OverParse\logs と次のメッセージからあなたのログが含まれます:
+
+{0}
+
+申し訳ありませんが何卒!</target>
+        </trans-unit>
+        <trans-unit id="UI_Panic_Title" translate="yes" xml:space="preserve">
+          <source>OverParse Error - 素晴らしく運がないね君は!</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">エラー - 素晴らしく運がないね君はを overParse!</target>
+        </trans-unit>
+        <trans-unit id="UI_ResetOverParse" translate="yes" xml:space="preserve">
+          <source>Are you SURE you want to reset OverParse?
+
+This will clear all of your application settings and allow you to reselect your pso2_bin folder, but won't delete your stored logs.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">あなたは OverParse をリセットしてよろしいですか。
+
+これは、すべてのアプリケーション設定をオフに、[pso2_bin] フォルダーを再度選択することができます、あなたの保存されたログは削除されません。</target>
+        </trans-unit>
+        <trans-unit id="UI_SetEncounterTimeout_Click" translate="yes" xml:space="preserve">
+          <source>How many seconds should the system wait before stopping an encounter?</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">出会いを停止する前にシステムが待機する必要がありますどのように多くの秒</target>
+        </trans-unit>
+        <trans-unit id="UI_SetEncounterTimeout_Click_Title" translate="yes" xml:space="preserve">
+          <source>Encounter Timeout</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">タイムアウトが発生します。</target>
+        </trans-unit>
+        <trans-unit id="UI_SetupTitle" translate="yes" xml:space="preserve">
+          <source>OverParse Setup</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse セットアップ</target>
+        </trans-unit>
+        <trans-unit id="UI_SKILL_Update_FAIL" translate="yes" xml:space="preserve">
+          <source>OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.
+
+Since you have no skill mappings downloaded, all attacks will be marked as \"{0}\". If you'd like to try and update again, please relaunch OverParse.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse は、そのスキル マッピングの更新に失敗しました。これは通常しばらく接続 hiccuped を意味します。
+
+すべての攻撃を \"{0}\ としてマークされますダウンロード スキル マッピングを持たないので」。しようし、再度更新する場合は、OverParse を再起動してください。</target>
+        </trans-unit>
+        <trans-unit id="UI_SKILL_Update_FAIL_LOCAL" translate="yes" xml:space="preserve">
+          <source>OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.
+
+A local copy will be used instead. If you'd like to try and update again, just relaunch OverParse.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse は、そのスキル マッピングの更新に失敗しました。これは通常しばらく接続 hiccuped を意味します。
+
+ローカル コピーが使用されます。しようし、再度更新する場合は、ちょうど OverParse を再起動してください。</target>
+        </trans-unit>
+        <trans-unit id="UI_Title" translate="yes" xml:space="preserve">
+          <source>OverParse</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse</target>
+        </trans-unit>
+        <trans-unit id="UI_UpdateForm_DPS" translate="yes" xml:space="preserve">
+          <source> - {0} DPS</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">-{0} DPS</target>
+        </trans-unit>
+        <trans-unit id="UI_UpdateForm_MAX" translate="yes" xml:space="preserve">
+          <source> - MAX: {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">-最大: {0}</target>
+        </trans-unit>
+        <trans-unit id="UI_UpdateForm_WAIT" translate="yes" xml:space="preserve">
+          <source>Waiting - {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">待機中 - {0}</target>
+        </trans-unit>
+        <trans-unit id="UI_UpdateReady" translate="yes" xml:space="preserve">
+          <source>There's a new version of OverParse available!
+
+You're running version {0}. The latest version is version {1}.
+
+Would you like to download it now from GitHub?</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse の新しいバージョンが利用可能!
+
+バージョン {0} を実行しています。最新バージョンは、バージョン {1} です。
+ 
+GitHub からダウンロードしてもよろしいですか?</target>
+        </trans-unit>
+        <trans-unit id="UI_UpdateTitle" translate="yes" xml:space="preserve">
+          <source>OverParse Update</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">OverParse 更新</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_image" translate="yes" xml:space="preserve">
+          <source>image: {0} w {1} h {2} m\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">画像: {0} {1} w h {2} m\n</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_menubar_pm" translate="yes" xml:space="preserve">
+          <source>menu bar: {0} padding {1} margin\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">メニュー バー: {0} {1} margin\n を埋め込み</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_menubar_wh" translate="yes" xml:space="preserve">
+          <source>menu bar: {0} width {1} height\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">メニュー バー: {0} 幅 {1} height\n</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_menuitem_fb" translate="yes" xml:space="preserve">
+          <source>menu item: {0} fg {1} bg\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">メニュー項目: {0} fg {1} bg\n</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_menuitem_fs" translate="yes" xml:space="preserve">
+          <source>menu item: {0} {1} {2} {3}\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">メニュー項目: {0} {1} {2} {3} \n</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_menuitem_pm" translate="yes" xml:space="preserve">
+          <source>menu item: {0} padding {1} margin\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">メニュー項目: {0} {1} margin\n を埋め込み</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_menuitem_wh" translate="yes" xml:space="preserve">
+          <source>menu item: {0} width {1} height\n</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">メニュー項目: {0} 幅 {1} height\n</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
