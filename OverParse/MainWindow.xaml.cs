@@ -41,7 +41,7 @@ namespace OverParse
         public MainWindow()
         {
             InitializeComponent();
-            MWR = new ResourceManager("OverParse.MainWindowResources", Assembly.GetExecutingAssembly());
+            MWR = new ResourceManager("OverParse.Strings.MainWindow", Assembly.GetExecutingAssembly());
 
             //this.Dispatcher.UnhandledException += Panic;
 
@@ -163,7 +163,7 @@ namespace OverParse
                 }
                 else
                 {
-                    var CR = new ResourceManager("OverParse.CombatantResources", Assembly.GetExecutingAssembly());
+                    var CR = new ResourceManager("OverParse.Strings.Combatant", Assembly.GetExecutingAssembly());
                     var BoxText = String.Format(CultureInfo.InvariantCulture, MWR.GetString("UI_SKILL_Update_FAIL", CultureInfo.CurrentUICulture), CR.GetString("UI_Unknown", CultureInfo.CurrentUICulture));
                     MessageBox.Show(BoxText, MWR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
                     tmp = new string[0];

@@ -15,7 +15,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -148,35 +149,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Hacks.cs" />
-    <Compile Include="LogResources.Designer.cs">
+    <Compile Include="Strings\Log.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LogResources.resx</DependentUpon>
+      <DependentUpon>Log.resx</DependentUpon>
     </Compile>
-    <Compile Include="CombatantResources.Designer.cs">
+    <Compile Include="Strings\Combatant.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CombatantResources.resx</DependentUpon>
+      <DependentUpon>Combatant.resx</DependentUpon>
     </Compile>
-    <Compile Include="CombatantResources.en-US.Designer.cs">
+    <Compile Include="Strings\MainWindow.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CombatantResources.en-US.resx</DependentUpon>
-    </Compile>
-    <Compile Include="LogResources.en-US.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LogResources.en-US.resx</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindowResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MainWindowResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindowResources.en-US..Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MainWindowResources.en-US..resx</DependentUpon>
+      <DependentUpon>MainWindow.resx</DependentUpon>
     </Compile>
     <Compile Include="WindowsServices.cs" />
     <Page Include="MainWindow.xaml">
@@ -208,33 +194,25 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Properties\Resources.en.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogResources.resx">
+    <EmbeddedResource Include="Strings\Combatant.en.resx" />
+    <EmbeddedResource Include="Strings\Log.en.resx" />
+    <EmbeddedResource Include="Strings\Log.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>LogResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Log.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="CombatantResources.resx">
+    <EmbeddedResource Include="Strings\Combatant.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>CombatantResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Combatant.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="CombatantResources.en-US.resx">
+    <EmbeddedResource Include="Strings\MainWindow.en.resx" />
+    <EmbeddedResource Include="Strings\MainWindow.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>CombatantResources.en-US.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LogResources.en-US.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>LogResources.en-US.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainWindowResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MainWindowResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainWindowResources.en-US..resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MainWindowResources.en-US..Designer.cs</LastGenOutput>
+      <LastGenOutput>MainWindow.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -278,6 +256,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <XliffResource Include="MultilingualResources\OverParse.en.xlf" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="CosturaCleanup" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">
     <ParameterGroup>
@@ -313,7 +294,7 @@ foreach (var item in filesToCleanup)
     </Task>
   </UsingTask>
   <Target Name="CleanReferenceCopyLocalPaths" AfterTargets="AfterBuild;NonWinFodyTarget">
-    <CosturaCleanup Config="FodyWeavers.xml" Files="@(ReferenceCopyLocalPaths-&gt;'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
+    <CosturaCleanup Config="FodyWeavers.xml" Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
   </Target>
   <Import Project="..\packages\Fody.1.28.3\build\Fody.targets" Condition="Exists('..\packages\Fody.1.28.3\build\Fody.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets')" />
