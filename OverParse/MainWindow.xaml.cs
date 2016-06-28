@@ -389,8 +389,10 @@ namespace OverParse
 
         private void ShowRawDPS_Click(object sender, RoutedEventArgs e)
         {
+            var PR = new ResourceManager("OverParse.Properties.Resources", Assembly.GetExecutingAssembly());
             Properties.Settings.Default.ShowRawDPS = ShowRawDPS.IsChecked;
-            DPSColumn.Header = ShowRawDPS.IsChecked ? "DPS" : "%";
+            var DPSS = PR.GetString("UI_DPSColumn_Header", CultureInfo.CurrentUICulture);
+            DPSColumn.Header = ShowRawDPS.IsChecked ? DPSS : "%";
             UpdateForm(null, null);
         }
 

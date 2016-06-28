@@ -22,7 +22,7 @@ namespace OverParse.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace OverParse.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OverParse.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,489 @@ namespace OverParse.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string UI_About_Header {
+            get {
+                return ResourceManager.GetString("UI_About_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Always on top.
+        /// </summary>
+        public static string UI_AlwaysOnTop_Header {
+            get {
+                return ResourceManager.GetString("UI_AlwaysOnTop_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anonymize names.
+        /// </summary>
+        public static string UI_AnonymizeNames_Header {
+            get {
+                return ResourceManager.GetString("UI_AnonymizeNames_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arks Layer.
+        /// </summary>
+        public static string UI_ArksLayer_Header {
+            get {
+                return ResourceManager.GetString("UI_ArksLayer_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically end encounters.
+        /// </summary>
+        public static string UI_AutoEndEncounters_Header {
+            get {
+                return ResourceManager.GetString("UI_AutoEndEncounters_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto-hide window.
+        /// </summary>
+        public static string UI_AutoHideWindow_Header {
+            get {
+                return ResourceManager.GetString("UI_AutoHideWindow_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If something breaks, blame Nanacress.
+        /// </summary>
+        public static string UI_Blame_Header {
+            get {
+                return ResourceManager.GetString("UI_Blame_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bumped.
+        /// </summary>
+        public static string UI_Bumped_Header {
+            get {
+                return ResourceManager.GetString("UI_Bumped_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clickthrough while inactive.
+        /// </summary>
+        public static string UI_ClickthroughMode_Header {
+            get {
+                return ResourceManager.GetString("UI_ClickthroughMode_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compact mode.
+        /// </summary>
+        public static string UI_CompactMode_Header {
+            get {
+                return ResourceManager.GetString("UI_CompactMode_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current log filename.
+        /// </summary>
+        public static string UI_CurrentLogFilename_Header {
+            get {
+                return ResourceManager.GetString("UI_CurrentLogFilename_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Damage.
+        /// </summary>
+        public static string UI_DamageColumn_Header {
+            get {
+                return ResourceManager.GetString("UI_DamageColumn_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debug.
+        /// </summary>
+        public static string UI_DebugMenu_Header {
+            get {
+                return ResourceManager.GetString("UI_DebugMenu_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DPS.
+        /// </summary>
+        public static string UI_DPSColumn_Header {
+            get {
+                return ResourceManager.GetString("UI_DPSColumn_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End encounter.
+        /// </summary>
+        public static string UI_EndEncounter_Header {
+            get {
+                return ResourceManager.GetString("UI_EndEncounter_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard encounter.
+        /// </summary>
+        public static string UI_EndEncounterNoLog_Header {
+            get {
+                return ResourceManager.GetString("UI_EndEncounterNoLog_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EQ Schedule.
+        /// </summary>
+        public static string UI_EQSchedule_Header {
+            get {
+                return ResourceManager.GetString("UI_EQSchedule_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide enemies/NPCs.
+        /// </summary>
+        public static string UI_FilterPlayers_Header {
+            get {
+                return ResourceManager.GetString("UI_FilterPlayers_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fulldive.
+        /// </summary>
+        public static string UI_Fulldive_Header {
+            get {
+                return ResourceManager.GetString("UI_Fulldive_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate fake entries.
+        /// </summary>
+        public static string UI_GenerateFakeEntries_Header {
+            get {
+                return ResourceManager.GetString("UI_GenerateFakeEntries_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OverParse on GitHub.
+        /// </summary>
+        public static string UI_GitHub_Header {
+            get {
+                return ResourceManager.GetString("UI_GitHub_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide AIS.
+        /// </summary>
+        public static string UI_HideAIS_Header {
+            get {
+                return ResourceManager.GetString("UI_HideAIS_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide players.
+        /// </summary>
+        public static string UI_HidePlayers_Header {
+            get {
+                return ResourceManager.GetString("UI_HidePlayers_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight your damage.
+        /// </summary>
+        public static string UI_HighlightYourDamage_Header {
+            get {
+                return ResourceManager.GetString("UI_HighlightYourDamage_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drag me!.
+        /// </summary>
+        public static string UI_image_ToolTip {
+            get {
+                return ResourceManager.GetString("UI_image_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically copy to clipboard.
+        /// </summary>
+        public static string UI_LogToClipboard_Header {
+            get {
+                return ResourceManager.GetString("UI_LogToClipboard_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max Hit.
+        /// </summary>
+        public static string UI_MaxHitColumn_Header {
+            get {
+                return ResourceManager.GetString("UI_MaxHitColumn_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quick reference.
+        /// </summary>
+        public static string UI_MenuItem_10_Header {
+            get {
+                return ResourceManager.GetString("UI_MenuItem_10_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parsing.
+        /// </summary>
+        public static string UI_MenuItem_2_Header {
+            get {
+                return ResourceManager.GetString("UI_MenuItem_2_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AIS options.
+        /// </summary>
+        public static string UI_MenuItem_3_Header {
+            get {
+                return ResourceManager.GetString("UI_MenuItem_3_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window.
+        /// </summary>
+        public static string UI_MenuItem_4_Header {
+            get {
+                return ResourceManager.GetString("UI_MenuItem_4_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window opacity.
+        /// </summary>
+        public static string UI_MenuItem_5_Header {
+            get {
+                return ResourceManager.GetString("UI_MenuItem_5_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List opacity.
+        /// </summary>
+        public static string UI_MenuItem_6_Header {
+            get {
+                return ResourceManager.GetString("UI_MenuItem_6_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string UI_MenuItem_7_Header {
+            get {
+                return ResourceManager.GetString("UI_MenuItem_7_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logging.
+        /// </summary>
+        public static string UI_MenuSystem_Header {
+            get {
+                return ResourceManager.GetString("UI_MenuSystem_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string UI_NameColumn_Header {
+            get {
+                return ResourceManager.GetString("UI_NameColumn_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opaque.
+        /// </summary>
+        public static string UI_Opacity_Header {
+            get {
+                return ResourceManager.GetString("UI_Opacity_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open logs folder....
+        /// </summary>
+        public static string UI_OpenLogsFolder_Header {
+            get {
+                return ResourceManager.GetString("UI_OpenLogsFolder_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force plugin update....
+        /// </summary>
+        public static string UI_PluginUpdate_Header {
+            get {
+                return ResourceManager.GetString("UI_PluginUpdate_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OverParse on PSO-World.
+        /// </summary>
+        public static string UI_PSOWorld_Header {
+            get {
+                return ResourceManager.GetString("UI_PSOWorld_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset OverParse....
+        /// </summary>
+        public static string UI_Reset_Header {
+            get {
+                return ResourceManager.GetString("UI_Reset_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reselect pso2__bin....
+        /// </summary>
+        public static string UI_ResetLogFolder_Header {
+            get {
+                return ResourceManager.GetString("UI_ResetLogFolder_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show AIS damage separately.
+        /// </summary>
+        public static string UI_SeparateAIS_Header {
+            get {
+                return ResourceManager.GetString("UI_SeparateAIS_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Zanverse damage separately.
+        /// </summary>
+        public static string UI_SeparateZanverse_Header {
+            get {
+                return ResourceManager.GetString("UI_SeparateZanverse_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No logs recorded in this session..
+        /// </summary>
+        public static string UI_SessionLogPlaceholder_Header {
+            get {
+                return ResourceManager.GetString("UI_SessionLogPlaceholder_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Session logs.
+        /// </summary>
+        public static string UI_SessionLogs_Header {
+            get {
+                return ResourceManager.GetString("UI_SessionLogs_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set encounter timeout....
+        /// </summary>
+        public static string UI_SetEncounterTimeout_Header {
+            get {
+                return ResourceManager.GetString("UI_SetEncounterTimeout_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to twitch.tv/tyronesama.
+        /// </summary>
+        public static string UI_ShamelessPlug_Header {
+            get {
+                return ResourceManager.GetString("UI_ShamelessPlug_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show damage grap.
+        /// </summary>
+        public static string UI_ShowDamageGraph_Header {
+            get {
+                return ResourceManager.GetString("UI_ShowDamageGraph_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show raw DPS.
+        /// </summary>
+        public static string UI_ShowRawDPS_Header {
+            get {
+                return ResourceManager.GetString("UI_ShowRawDPS_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SWiki.
+        /// </summary>
+        public static string UI_SWiki_Header {
+            get {
+                return ResourceManager.GetString("UI_SWiki_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transparent.
+        /// </summary>
+        public static string UI_Transparent_Header {
+            get {
+                return ResourceManager.GetString("UI_Transparent_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window stats.
+        /// </summary>
+        public static string UI_WindowStats_Header {
+            get {
+                return ResourceManager.GetString("UI_WindowStats_Header", resourceCulture);
             }
         }
     }

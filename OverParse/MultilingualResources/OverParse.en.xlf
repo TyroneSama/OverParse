@@ -5,7 +5,220 @@
       <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1605.0" tool-company="Microsoft" />
     </header>
     <body>
-      <group id="OVERPARSE/PROPERTIES/RESOURCES.RESX" datatype="resx" />
+      <group id="OVERPARSE/PROPERTIES/RESOURCES.RESX" datatype="resx">
+        <trans-unit id="UI_AutoEndEncounters_Header" translate="yes" xml:space="preserve">
+          <source>Automatically end encounters</source>
+          <target state="new">Automatically end encounters</target>
+        </trans-unit>
+        <trans-unit id="UI_EndEncounterNoLog_Header" translate="yes" xml:space="preserve">
+          <source>Discard encounter</source>
+          <target state="new">Discard encounter</target>
+        </trans-unit>
+        <trans-unit id="UI_SetEncounterTimeout_Header" translate="yes" xml:space="preserve">
+          <source>Set encounter timeout...</source>
+          <target state="new">Set encounter timeout...</target>
+        </trans-unit>
+        <trans-unit id="UI_EndEncounter_Header" translate="yes" xml:space="preserve">
+          <source>End encounter</source>
+          <target state="new">End encounter</target>
+        </trans-unit>
+        <trans-unit id="UI_MenuSystem_Header" translate="yes" xml:space="preserve">
+          <source>Logging</source>
+          <target state="new">Logging</target>
+        </trans-unit>
+        <trans-unit id="UI_image_ToolTip" translate="yes" xml:space="preserve">
+          <source>Drag me!</source>
+          <target state="new">Drag me!</target>
+        </trans-unit>
+        <trans-unit id="UI_LogToClipboard_Header" translate="yes" xml:space="preserve">
+          <source>Automatically copy to clipboard</source>
+          <target state="new">Automatically copy to clipboard</target>
+        </trans-unit>
+        <trans-unit id="UI_OpenLogsFolder_Header" translate="yes" xml:space="preserve">
+          <source>Open logs folder...</source>
+          <target state="new">Open logs folder...</target>
+        </trans-unit>
+        <trans-unit id="UI_SessionLogs_Header" translate="yes" xml:space="preserve">
+          <source>Session logs</source>
+          <target state="new">Session logs</target>
+        </trans-unit>
+        <trans-unit id="UI_SessionLogPlaceholder_Header" translate="yes" xml:space="preserve">
+          <source>No logs recorded in this session.</source>
+          <target state="new">No logs recorded in this session.</target>
+        </trans-unit>
+        <trans-unit id="UI_MenuItem_2_Header" translate="yes" xml:space="preserve">
+          <source>Parsing</source>
+          <target state="new">Parsing</target>
+        </trans-unit>
+        <trans-unit id="UI_FilterPlayers_Header" translate="yes" xml:space="preserve">
+          <source>Hide enemies/NPCs</source>
+          <target state="new">Hide enemies/NPCs</target>
+        </trans-unit>
+        <trans-unit id="UI_SeparateZanverse_Header" translate="yes" xml:space="preserve">
+          <source>Show Zanverse damage separately</source>
+          <target state="new">Show Zanverse damage separately</target>
+        </trans-unit>
+        <trans-unit id="UI_MenuItem_3_Header" translate="yes" xml:space="preserve">
+          <source>AIS options</source>
+          <target state="new">AIS options</target>
+        </trans-unit>
+        <trans-unit id="UI_SeparateAIS_Header" translate="yes" xml:space="preserve">
+          <source>Show AIS damage separately</source>
+          <target state="new">Show AIS damage separately</target>
+        </trans-unit>
+        <trans-unit id="UI_HideAIS_Header" translate="yes" xml:space="preserve">
+          <source>Hide AIS</source>
+          <target state="new">Hide AIS</target>
+        </trans-unit>
+        <trans-unit id="UI_HidePlayers_Header" translate="yes" xml:space="preserve">
+          <source>Hide players</source>
+          <target state="new">Hide players</target>
+        </trans-unit>
+        <trans-unit id="UI_ShowRawDPS_Header" translate="yes" xml:space="preserve">
+          <source>Show raw DPS</source>
+          <target state="new">Show raw DPS</target>
+        </trans-unit>
+        <trans-unit id="UI_ShowDamageGraph_Header" translate="yes" xml:space="preserve">
+          <source>Show damage grap</source>
+          <target state="new">Show damage grap</target>
+        </trans-unit>
+        <trans-unit id="UI_AnonymizeNames_Header" translate="yes" xml:space="preserve">
+          <source>Anonymize names</source>
+          <target state="new">Anonymize names</target>
+        </trans-unit>
+        <trans-unit id="UI_MenuItem_4_Header" translate="yes" xml:space="preserve">
+          <source>Window</source>
+          <target state="new">Window</target>
+        </trans-unit>
+        <trans-unit id="UI_CompactMode_Header" translate="yes" xml:space="preserve">
+          <source>Compact mode</source>
+          <target state="new">Compact mode</target>
+        </trans-unit>
+        <trans-unit id="UI_HighlightYourDamage_Header" translate="yes" xml:space="preserve">
+          <source>Highlight your damage</source>
+          <target state="new">Highlight your damage</target>
+        </trans-unit>
+        <trans-unit id="UI_MenuItem_6_Header" translate="yes" xml:space="preserve">
+          <source>List opacity</source>
+          <target state="new">List opacity</target>
+        </trans-unit>
+        <trans-unit id="UI_MenuItem_5_Header" translate="yes" xml:space="preserve">
+          <source>Window opacity</source>
+          <target state="new">Window opacity</target>
+        </trans-unit>
+        <trans-unit id="UI_Transparent_Header" translate="yes" xml:space="preserve">
+          <source>Transparent</source>
+          <target state="new">Transparent</target>
+        </trans-unit>
+        <trans-unit id="UI_Opacity_Header" translate="yes" xml:space="preserve">
+          <source>Opaque</source>
+          <target state="new">Opaque</target>
+        </trans-unit>
+        <trans-unit id="UI_AlwaysOnTop_Header" translate="yes" xml:space="preserve">
+          <source>Always on top</source>
+          <target state="new">Always on top</target>
+        </trans-unit>
+        <trans-unit id="UI_AutoHideWindow_Header" translate="yes" xml:space="preserve">
+          <source>Auto-hide window</source>
+          <target state="new">Auto-hide window</target>
+        </trans-unit>
+        <trans-unit id="UI_ClickthroughMode_Header" translate="yes" xml:space="preserve">
+          <source>Clickthrough while inactive</source>
+          <target state="new">Clickthrough while inactive</target>
+        </trans-unit>
+        <trans-unit id="UI_DebugMenu_Header" translate="yes" xml:space="preserve">
+          <source>Debug</source>
+          <target state="new">Debug</target>
+        </trans-unit>
+        <trans-unit id="UI_GenerateFakeEntries_Header" translate="yes" xml:space="preserve">
+          <source>Generate fake entries</source>
+          <target state="new">Generate fake entries</target>
+        </trans-unit>
+        <trans-unit id="UI_WindowStats_Header" translate="yes" xml:space="preserve">
+          <source>Window stats</source>
+          <target state="new">Window stats</target>
+        </trans-unit>
+        <trans-unit id="UI_CurrentLogFilename_Header" translate="yes" xml:space="preserve">
+          <source>Current log filename</source>
+          <target state="new">Current log filename</target>
+        </trans-unit>
+        <trans-unit id="UI_MenuItem_7_Header" translate="yes" xml:space="preserve">
+          <source>Help</source>
+          <target state="new">Help</target>
+        </trans-unit>
+        <trans-unit id="UI_About_Header" translate="yes" xml:space="preserve">
+          <source>About</source>
+          <target state="new">About</target>
+        </trans-unit>
+        <trans-unit id="UI_GitHub_Header" translate="yes" xml:space="preserve">
+          <source>OverParse on GitHub</source>
+          <target state="new">OverParse on GitHub</target>
+        </trans-unit>
+        <trans-unit id="UI_PluginUpdate_Header" translate="yes" xml:space="preserve">
+          <source>Force plugin update...</source>
+          <target state="new">Force plugin update...</target>
+        </trans-unit>
+        <trans-unit id="UI_ResetLogFolder_Header" translate="yes" xml:space="preserve">
+          <source>Reselect pso2__bin...</source>
+          <target state="new">Reselect pso2__bin...</target>
+        </trans-unit>
+        <trans-unit id="UI_Reset_Header" translate="yes" xml:space="preserve">
+          <source>Reset OverParse...</source>
+          <target state="new">Reset OverParse...</target>
+        </trans-unit>
+        <trans-unit id="UI_PSOWorld_Header" translate="yes" xml:space="preserve">
+          <source>OverParse on PSO-World</source>
+          <target state="new">OverParse on PSO-World</target>
+        </trans-unit>
+        <trans-unit id="UI_EQSchedule_Header" translate="yes" xml:space="preserve">
+          <source>EQ Schedule</source>
+          <target state="new">EQ Schedule</target>
+        </trans-unit>
+        <trans-unit id="UI_ArksLayer_Header" translate="yes" xml:space="preserve">
+          <source>Arks Layer</source>
+          <target state="new">Arks Layer</target>
+        </trans-unit>
+        <trans-unit id="UI_Bumped_Header" translate="yes" xml:space="preserve">
+          <source>Bumped</source>
+          <target state="new">Bumped</target>
+        </trans-unit>
+        <trans-unit id="UI_SWiki_Header" translate="yes" xml:space="preserve">
+          <source>SWiki</source>
+          <target state="new">SWiki</target>
+        </trans-unit>
+        <trans-unit id="UI_Blame_Header" translate="yes" xml:space="preserve">
+          <source>If something breaks, blame Nanacress</source>
+          <target state="new">If something breaks, blame Nanacress</target>
+        </trans-unit>
+        <trans-unit id="UI_Fulldive_Header" translate="yes" xml:space="preserve">
+          <source>Fulldive</source>
+          <target state="new">Fulldive</target>
+        </trans-unit>
+        <trans-unit id="UI_ShamelessPlug_Header" translate="yes" xml:space="preserve">
+          <source>twitch.tv/tyronesama</source>
+          <target state="new">twitch.tv/tyronesama</target>
+        </trans-unit>
+        <trans-unit id="UI_NameColumn_Header" translate="yes" xml:space="preserve">
+          <source>Name</source>
+          <target state="new">Name</target>
+        </trans-unit>
+        <trans-unit id="UI_DamageColumn_Header" translate="yes" xml:space="preserve">
+          <source>Damage</source>
+          <target state="new">Damage</target>
+        </trans-unit>
+        <trans-unit id="UI_DPSColumn_Header" translate="yes" xml:space="preserve">
+          <source>DPS</source>
+          <target state="new">DPS</target>
+        </trans-unit>
+        <trans-unit id="UI_MenuItem_10_Header" translate="yes" xml:space="preserve">
+          <source>Quick reference</source>
+          <target state="new">Quick reference</target>
+        </trans-unit>
+        <trans-unit id="UI_MaxHitColumn_Header" translate="yes" xml:space="preserve">
+          <source>Max Hit</source>
+          <target state="new">Max Hit</target>
+        </trans-unit>
+      </group>
     </body>
   </file>
   <file datatype="xml" source-language="en" target-language="en" original="OVERPARSE/STRINGS/COMBATANT.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
