@@ -234,7 +234,8 @@ namespace OverParse
                 Console.WriteLine(String.Format(CultureInfo.CurrentUICulture, MWR.GetString("CON_Update_DIFF", CultureInfo.CurrentUICulture), responseVersion, thisVersion));
                 if (responseVersion != thisVersion)
                 {
-                    MessageBoxResult result = MessageBox.Show(MWR.GetString("UI_UpdateReady", CultureInfo.CurrentUICulture), MWR.GetString("UI_UpdateTitle", CultureInfo.CurrentUICulture), MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    var SF = String.Format(CultureInfo.CurrentUICulture, MWR.GetString("UI_UpdateReady", CultureInfo.CurrentUICulture), responseVersion, thisVersion);
+                    MessageBoxResult result = MessageBox.Show(SF, MWR.GetString("UI_UpdateTitle", CultureInfo.CurrentUICulture), MessageBoxButton.YesNo, MessageBoxImage.Information);
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start("https://github.com/TyroneSama/OverParse/releases/latest");
