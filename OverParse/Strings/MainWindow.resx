@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CON_AlwaysOnTop_Key" xml:space="preserve">
+    <value>Always-on-top hotkey pressed</value>
+  </data>
+  <data name="CON_ApplyUI" xml:space="preserve">
+    <value>Applying UI settings</value>
+  </data>
+  <data name="CON_CheckForNewLog" xml:space="preserve">
+    <value>Found a new log file ({0}), switching...</value>
+  </data>
+  <data name="CON_damageTimer_INIT" xml:space="preserve">
+    <value>Initializing damageTimer</value>
+  </data>
+  <data name="CON_DebugMenu_Key" xml:space="preserve">
+    <value>Debug hotkey pressed</value>
+  </data>
+  <data name="CON_EndEncounterNoLog_Click_END" xml:space="preserve">
+    <value>Ending encounter (no log)</value>
+  </data>
+  <data name="CON_EndEncounterNoLog_Key" xml:space="preserve">
+    <value>Encounter hotkey (no log) pressed</value>
+  </data>
+  <data name="CON_EndEncounter_Click_END" xml:space="preserve">
+    <value>Ending encounter</value>
+  </data>
+  <data name="CON_EndEncounter_Click_SAVE" xml:space="preserve">
+    <value>Saving last combatant list</value>
+  </data>
+  <data name="CON_EndEncounter_Key" xml:space="preserve">
+    <value>Encounter hotkey pressed</value>
+  </data>
+  <data name="CON_inactiveTimer_INIT" xml:space="preserve">
+    <value>Initializing inactiveTimer</value>
+  </data>
+  <data name="CON_Init_HotKeys" xml:space="preserve">
+    <value>Initializing hotkeys</value>
+  </data>
+  <data name="CON_Init_HotKeys_FAIL" xml:space="preserve">
+    <value>Hotkeys failed to initialize</value>
+  </data>
+  <data name="CON_Launch" xml:space="preserve">
+    <value>Launch method: {0}</value>
+  </data>
+  <data name="CON_logCheckTimer_INIT" xml:space="preserve">
+    <value>Initializing logCheckTimer</value>
+  </data>
+  <data name="CON_LOG_INIT" xml:space="preserve">
+    <value>Initializing default log</value>
+  </data>
+  <data name="CON_LOG_REINIT" xml:space="preserve">
+    <value>Reinitializing log</value>
+  </data>
+  <data name="CON_MainWindow_END" xml:space="preserve">
+    <value>End of MainWindow constructor</value>
+  </data>
+  <data name="CON_OpenRecentLog_Click" xml:space="preserve">
+    <value>attempting to open {0}</value>
+  </data>
+  <data name="CON_outOfBounds" xml:space="preserve">
+    <value>Window's off-screen, resetting</value>
+  </data>
+  <data name="CON_Panic" xml:space="preserve">
+    <value>=== UNHANDLED EXCEPTION ===</value>
+  </data>
+  <data name="CON_ResetOverParse" xml:space="preserve">
+    <value>Resetting</value>
+  </data>
+  <data name="CON_Setting_END" xml:space="preserve">
+    <value>Finished applying settings</value>
+  </data>
+  <data name="CON_SKILL_COUNT" xml:space="preserve">
+    <value>Keys in skill dict: {0}</value>
+  </data>
+  <data name="CON_SKILL_PROCESS" xml:space="preserve">
+    <value>Parsing skills.csv</value>
+  </data>
+  <data name="CON_SKILL_Update" xml:space="preserve">
+    <value>Updating skills.csv</value>
+  </data>
+  <data name="CON_SKILL_Update_FAIL" xml:space="preserve">
+    <value>skills.csv update failed: {0}</value>
+  </data>
+  <data name="CON_UpdateForm" xml:space="preserve">
+    <value>Automatically ending an encounter</value>
+  </data>
+  <data name="CON_Update_DIFF" xml:space="preserve">
+    <value>JSON version: {0} / Assembly version: {1}</value>
+  </data>
+  <data name="CON_Update_FAIL" xml:space="preserve">
+    <value>Failed to update check: {0}</value>
+  </data>
+  <data name="CON_Update_INIT" xml:space="preserve">
+    <value>Checking for release updates</value>
+  </data>
+  <data name="CON_Upgrade" xml:space="preserve">
+    <value>Upgrading settings</value>
+  </data>
+  <data name="CON_VersionStamp" xml:space="preserve">
+    <value>OVERPARSE V.{0}</value>
+  </data>
+  <data name="CON_Window_Closing" xml:space="preserve">
+    <value>Closing...</value>
+  </data>
+  <data name="UI_About_Click" xml:space="preserve">
+    <value>OverParse v{0}
+A lightweight self-auditing tool.
+
+Shoutouts to WaifuDfnseForce.
+Additional shoutouts to Variant, AIDA, and everyone else who makes the Tweaker plugin possible.
+
+Please use damage information responsibly.</value>
+  </data>
+  <data name="UI_AutoHideWindow_Click" xml:space="preserve">
+    <value>This will make the OverParse window invisible whenever PSO2 or OverParse are not in the foreground.
+
+To show the window, Alt+Tab into OverParse, or click the icon on your taskbar.</value>
+  </data>
+  <data name="UI_EndEncounter_Click_MENUITEM" xml:space="preserve">
+    <value>SessionLog_</value>
+  </data>
+  <data name="UI_Init_HotKeys_FAIL" xml:space="preserve">
+    <value>OverParse failed to initialize hotkeys. This is usually because something else is already using them.
+
+The program will still work, but hotkeys will not function. Sorry for the inconvenience!</value>
+  </data>
+  <data name="UI_LOG_FAIL" xml:space="preserve">
+    <value>OverParse doesn't have write access to its folder, and won't be able to save logs or update skill mappings. This usually happens when you run it from Program Files.
+
+This is a Windows restriction, and unfortunately I can't do anything about it.\n\nPlease run OverParse as administrator, or move it somewhere else. Sorry for the inconvenience!</value>
+  </data>
+  <data name="UI_Panic" xml:space="preserve">
+    <value>Oops. This is embarassing.
+
+OverParse encountered an unexpected error. If this happens again, please complain to TyroneSama at your earliest convenience. Include your log from OverParse\logs and the following message:
+
+{0}
+
+Sorry for the inconvenience!</value>
+  </data>
+  <data name="UI_Panic_Title" xml:space="preserve">
+    <value>OverParse Error - 素晴らしく運がないね君は!</value>
+  </data>
+  <data name="UI_ResetOverParse" xml:space="preserve">
+    <value>Are you SURE you want to reset OverParse?
+
+This will clear all of your application settings and allow you to reselect your pso2_bin folder, but won't delete your stored logs.</value>
+  </data>
+  <data name="UI_SetEncounterTimeout_Click" xml:space="preserve">
+    <value>How many seconds should the system wait before stopping an encounter?</value>
+  </data>
+  <data name="UI_SetEncounterTimeout_Click_Title" xml:space="preserve">
+    <value>Encounter Timeout</value>
+  </data>
+  <data name="UI_SetupTitle" xml:space="preserve">
+    <value>OverParse Setup</value>
+  </data>
+  <data name="UI_SKILL_Update_FAIL" xml:space="preserve">
+    <value>OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.
+
+Since you have no skill mappings downloaded, all attacks will be marked as \"{0}\". If you'd like to try and update again, please relaunch OverParse.</value>
+  </data>
+  <data name="UI_SKILL_Update_FAIL_LOCAL" xml:space="preserve">
+    <value>OverParse failed to update its skill mappings. This usually means your connection hiccuped for a moment.
+
+A local copy will be used instead. If you'd like to try and update again, just relaunch OverParse.</value>
+  </data>
+  <data name="UI_Title" xml:space="preserve">
+    <value>OverParse</value>
+  </data>
+  <data name="UI_UpdateForm_DPS" xml:space="preserve">
+    <value> - {0} DPS</value>
+  </data>
+  <data name="UI_UpdateForm_MAX" xml:space="preserve">
+    <value> - MAX: {0}</value>
+  </data>
+  <data name="UI_UpdateForm_WAIT" xml:space="preserve">
+    <value>Waiting - {0}</value>
+  </data>
+  <data name="UI_UpdateReady" xml:space="preserve">
+    <value>There's a new version of OverParse available!
+
+You're running version {0}. The latest version is version {1}.
+
+Would you like to download it now from GitHub?</value>
+  </data>
+  <data name="UI_UpdateTitle" xml:space="preserve">
+    <value>OverParse Update</value>
+  </data>
+  <data name="UI_WindowStats_image" xml:space="preserve">
+    <value>image: {0} w {1} h {2} m\n</value>
+  </data>
+  <data name="UI_WindowStats_menubar_pm" xml:space="preserve">
+    <value>menu bar: {0} padding {1} margin\n</value>
+  </data>
+  <data name="UI_WindowStats_menubar_wh" xml:space="preserve">
+    <value>menu bar: {0} width {1} height\n</value>
+  </data>
+  <data name="UI_WindowStats_menuitem_fb" xml:space="preserve">
+    <value>menu item: {0} fg {1} bg\n</value>
+  </data>
+  <data name="UI_WindowStats_menuitem_fs" xml:space="preserve">
+    <value>menu item: {0} {1} {2} {3}\n</value>
+  </data>
+  <data name="UI_WindowStats_menuitem_pm" xml:space="preserve">
+    <value>menu item: {0} padding {1} margin\n</value>
+  </data>
+  <data name="UI_WindowStats_menuitem_wh" xml:space="preserve">
+    <value>menu item: {0} width {1} height\n</value>
+  </data>
+</root>

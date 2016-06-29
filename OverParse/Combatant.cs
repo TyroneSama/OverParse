@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -19,12 +22,13 @@ namespace OverParse
         Color green;
         public static string[] AISAttackIDs = new string[] { "119505187", "79965782", "79965783", "79965784", "80047171", "434705298", "79964675", "1460054769", "4081218683", "3298256598", "2826401717" };
         //public static string[] AISAttackIDs = new string[] { "1756866220", "2398664728" };
+	    ResourceManager CombatantR;
 
         public int Damage
         {
             get
             {
-                return this.Attacks.Sum(x => x.Damage);
+                return Attacks.Sum(x => x.Damage);
             }
         }
 
@@ -32,7 +36,7 @@ namespace OverParse
         {
             get
             {
-                return this.Attacks.Where(a => a.ID == "2106601422").Sum(x => x.Damage);
+                return Attacks.Where(a => a.ID == "2106601422").Sum(x => x.Damage);
             }
         }
 
@@ -40,7 +44,7 @@ namespace OverParse
         {
             get
             {
-                return this.Attacks.Where(a => AISAttackIDs.Contains(a.ID)).Sum(x => x.Damage);
+                return Attacks.Where(a => AISAttackIDs.Contains(a.ID)).Sum(x => x.Damage);
             }
         }
 
@@ -56,7 +60,7 @@ namespace OverParse
         {
             get
             {
-                Console.WriteLine($"{this.Name} | read damage {ReadDamage} | ActiveTime {ActiveTime}");
+                Console.WriteLine(String.Format(CultureInfo.CurrentUICulture, CombatantR.GetString("CON_ReadDPS", CultureInfo.CurrentUICulture), Name, ReadDamage, ActiveTime));
                 return ReadDamage / (float)ActiveTime;
             }
         }
@@ -105,7 +109,7 @@ namespace OverParse
         {
             get
             {
-                if (this.isZanverse || this.isAIS)
+                if (isZanverse || isAIS)
                     return Damage;
 
                 int temp = Damage;
@@ -122,7 +126,7 @@ namespace OverParse
             if (isYou)
                 return Name;
             else
-                return "--";
+                return CombatantR.GetString("UI_Blank", CultureInfo.CurrentUICulture);
         }
 
         public string DisplayName
@@ -196,7 +200,7 @@ namespace OverParse
         {
             get
             {
-                if (int.Parse(ID) >= 10000000 && !isZanverse)
+                if (int.Parse(ID, CultureInfo.InvariantCulture) >= 10000000 && !isZanverse)
                     return true;
                 return false;
             }
@@ -216,16 +220,18 @@ namespace OverParse
             get
             {
                 if (MaxHitAttack == null)
-                    return "--";
+                    return CombatantR.GetString("UI_Blank", CultureInfo.CurrentUICulture);
 
-                string attack = "Unknown";
+                string UIattack = CombatantR.GetString("UI_Unknown", CultureInfo.CurrentUICulture);
+                string CONattack = CombatantR.GetString("CON_Unknown", CultureInfo.CurrentUICulture);
                 if (MainWindow.skillDict.ContainsKey(MaxHitID))
                 {
-                    attack = MainWindow.skillDict[MaxHitID];
+                    UIattack = MainWindow.skillDict[MaxHitID];
+                    CONattack = MainWindow.skillDict[MaxHitID];
                 }
 
-                Console.WriteLine($"{this.Name} - {MaxHitID} for {MaxHitAttack.Damage} ----- {attack}");
-                return MaxHitAttack.Damage.ToString("N0") + $" ({attack})";
+                Console.WriteLine(String.Format(CultureInfo.InvariantCulture, CombatantR.GetString("CON_MaxHit", CultureInfo.CurrentUICulture), Name, MaxHitID, MaxHitAttack.Damage, CONattack));
+                return String.Format(CultureInfo.CurrentUICulture, CombatantR.GetString("UI_MaxHit", CultureInfo.CurrentUICulture), MaxHitAttack.Damage.ToString("N0", CultureInfo.CurrentCulture), UIattack);
             }
         }
 
@@ -235,7 +241,7 @@ namespace OverParse
             {
                 if (Properties.Settings.Default.ShowRawDPS)
                 {
-                    return FormatNumber(ReadDPS);
+                    return FormatNumberUI(ReadDPS);
                 }
                 else
                 {
@@ -251,11 +257,11 @@ namespace OverParse
             {
                 if (PercentReadDPS < -.5)
                 {
-                    return "--";
+                    return CombatantR.GetString("Blank", CultureInfo.CurrentUICulture);
                 }
                 else
                 {
-                    return string.Format("{0:0.0}", PercentReadDPS) + "%";
+                    return string.Format(CultureInfo.CurrentUICulture, CombatantR.GetString("UI_PercentReadDPSReadout", CultureInfo.CurrentUICulture), PercentReadDPS);
                 }
             }
         }
@@ -265,21 +271,35 @@ namespace OverParse
             int num = (int)Math.Round(value);
 
             if (value >= 100000000)
-                return (value / 1000000).ToString("#,0") + "M";
+                return (value / 1000000).ToString("#,0", CultureInfo.InvariantCulture) + "M";
             if (value >= 1000000)
-                return (value / 1000000D).ToString("0.0") + "M";
+                return (value / 1000000D).ToString("0.0", CultureInfo.InvariantCulture) + "M";
             if (value >= 100000)
-                return (value / 1000).ToString("#,0") + "K";
+                return (value / 1000).ToString("#,0", CultureInfo.InvariantCulture) + "K";
             if (value >= 1000)
-                return (value / 1000D).ToString("0.0") + "K";
-            return value.ToString("#,0");
+                return (value / 1000D).ToString("0.0", CultureInfo.InvariantCulture) + "K";
+            return value.ToString("#,0", CultureInfo.InvariantCulture);
         }
 
+        private String FormatNumberUI(float value)
+        {
+            int num = (int)Math.Round(value);
+
+            if (value >= 100000000)
+                return (value / 1000000).ToString("#,0", CultureInfo.CurrentCulture) + "M";
+            if (value >= 1000000)
+                return (value / 1000000D).ToString("0.0", CultureInfo.CurrentCulture) + "M";
+            if (value >= 100000)
+                return (value / 1000).ToString("#,0", CultureInfo.CurrentCulture) + "K";
+            if (value >= 1000)
+                return (value / 1000D).ToString("0.0", CultureInfo.CurrentCulture) + "K";
+            return value.ToString("#,0", CultureInfo.CurrentCulture);
+        }
         public string DamageReadout
         {
             get
             {
-                return ReadDamage.ToString("N0");
+                return ReadDamage.ToString("N0", CultureInfo.CurrentCulture);
             }
         }
 
@@ -293,6 +313,7 @@ namespace OverParse
             PercentReadDPS = 0;
             ActiveTime = 0;
             green = Color.FromArgb(160, 32, 130, 32);
+            CombatantR = new ResourceManager("OverParse.Strings.Combatant", Assembly.GetExecutingAssembly());
         }
 
         public Combatant(string id, string name, string temp)

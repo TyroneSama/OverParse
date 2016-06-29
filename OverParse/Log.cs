@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text.RegularExpressions;
 using System.Windows;
 
@@ -24,84 +27,93 @@ namespace OverParse
         private Random random = new Random();
         public DirectoryInfo logDirectory;
         public List<Combatant> backupCombatants = new List<Combatant>();
+        ResourceManager LogR;
 
         public Log(string attemptDirectory)
         {
             valid = false;
             notEmpty = false;
             running = false;
+            LogR = new ResourceManager("OverParse.Strings.Log", Assembly.GetExecutingAssembly());
+            var PathPSO2Binary = String.Format(CultureInfo.InvariantCulture, @"{0}\pso2.exe", attemptDirectory);
 
             bool nagMe = false;
 
-            while (!File.Exists($"{attemptDirectory}\\pso2.exe"))
+            while (!File.Exists(PathPSO2Binary))
             {
-                Console.WriteLine("Invalid pso2_bin directory, prompting for new one...");
+                Console.WriteLine(LogR.GetString("CON_InvaildPSO2_binPath", CultureInfo.CurrentUICulture));
 
                 if (nagMe)
                 {
-                    MessageBox.Show("That doesn't appear to be a valid pso2_bin directory.\n\nIf you installed the game using default settings, it will probably be in C:\\PHANTASYSTARONLINE2\\pso2_bin\\. Otherwise, find the location you installed to.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(LogR.GetString("UI_InvaildPSO2_binPath_NAG", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Warning);
                 } else
                 {
-                    MessageBox.Show("Please select your pso2_bin directory. OverParse uses this to read your damage logs.\n\nIf you picked a folder while setting up the Tweaker, choose that. Otherwise, it will be in your PSO2 installation folder.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(LogR.GetString("UI_InvaildPSO2_binPath", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
                     nagMe = true;
                 }
                 
                 //WINAPI FILE DIALOGS DON'T SHOW UP FOR PEOPLE SOMETIMES AND I HAVE NO IDEA WHY, *** S I C K  M E M E ***
                 //VistaFolderBrowserDialog oDialog = new VistaFolderBrowserDialog();
-                //oDialog.Description = "Select your pso2_bin folder...";
+                //oDialog.Description =  LogR.GetString("UI_SelectPSO2_Finder", CultureInfo.CurrentUICulture);
                 //oDialog.UseDescriptionForTitle = true;
 
                 System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
-                dialog.Description = "Select your pso2_bin folder. This will be inside the folder you installed PSO2 to.";
+                dialog.Description =  LogR.GetString("UI_SelectPSO2_Finder", CultureInfo.CurrentUICulture);
                 System.Windows.Forms.DialogResult picked = dialog.ShowDialog();
                 if (picked == System.Windows.Forms.DialogResult.OK)
                 {
                     attemptDirectory = dialog.SelectedPath;
-                    Console.WriteLine($"Testing {attemptDirectory} as pso2_bin directory...");
+                    Console.WriteLine(String.Format(CultureInfo.InvariantCulture, LogR.GetString("CON_TestPSO2_binPath", CultureInfo.CurrentUICulture), attemptDirectory));
                     Properties.Settings.Default.Path = attemptDirectory;
                 } else
                 {
-                    Console.WriteLine("Canceled out of directory picker");
-                    MessageBox.Show("OverParse needs a valid PSO2 installation to function.\nThe application will now close.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Console.WriteLine(LogR.GetString("CON_CanceledDirPicker", CultureInfo.CurrentUICulture));
+                    MessageBox.Show(LogR.GetString("UI_CanceledDirPicker", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
                     Application.Current.Shutdown(); // ABORT ABORT ABORT
                     break;
                 }
+                PathPSO2Binary = String.Format(CultureInfo.InvariantCulture, @"{0}\pso2.exe", attemptDirectory);
             }
 
-            if (!File.Exists($"{attemptDirectory}\\pso2.exe")) { return; }
+            if (!File.Exists(PathPSO2Binary)) { return; }
 
             valid = true;
 
-            Console.WriteLine("Making sure pso2_bin\\damagelogs exists");
-            logDirectory = new DirectoryInfo($"{attemptDirectory}\\damagelogs");
+            Console.WriteLine(LogR.GetString("CON_damagelog_exist", CultureInfo.CurrentUICulture));
+            var Pdamagelog = String.Format(CultureInfo.InvariantCulture, @"{0}\damagelogs", attemptDirectory);
+            logDirectory = new DirectoryInfo(Pdamagelog);
 
-            Console.WriteLine("Checking for damagelog directory override");
-            if (File.Exists($"{attemptDirectory}\\plugins\\PSO2DamageDump.cfg"))
+            Console.WriteLine(LogR.GetString("CON_check_damage_override", CultureInfo.CurrentUICulture));
+            var Pdamagecfg = String.Format(CultureInfo.InvariantCulture, @"{0}\plugins\PSO2DamageDump.cfg", attemptDirectory);
+            if (File.Exists(Pdamagecfg))
             {
-                Console.WriteLine("Found a config file for damage dump plugin, parsing");
-                String[] lines = File.ReadAllLines($"{attemptDirectory}\\plugins\\PSO2DamageDump.cfg");
+                Console.WriteLine(LogR.GetString("CON_found_damagecfg", CultureInfo.CurrentUICulture));
+                String[] lines = File.ReadAllLines(Pdamagecfg);
+                var CON_split = LogR.GetString("CON_split", CultureInfo.CurrentUICulture);
+                var CON_found_damage_override = LogR.GetString("CON_found_damage_override", CultureInfo.CurrentUICulture);
                 foreach (String s in lines)
                 {
                     String[] split = s.Split('=');
-                    Console.WriteLine(split[0] + "|" + split[1]);
+                    Console.WriteLine(String.Format(CultureInfo.InvariantCulture, CON_split, split[0], split[1]));
                     if (split.Length < 2)
                         continue;
                     if (split[0].Split('[')[0] == "directory")
                     {
                         logDirectory = new DirectoryInfo(split[1]);
-                        Console.WriteLine($"Log directory override: {split[1]}");
+                        
+                        Console.WriteLine(String.Format(CultureInfo.CurrentUICulture, CON_found_damage_override, split[1]));
                     }
                 }
             }
             else
             {
-                Console.WriteLine("No PSO2DamageDump.cfg");
+                Console.WriteLine(LogR.GetString("CON_missing_damagecfg", CultureInfo.CurrentUICulture));
             }
 
             if (Properties.Settings.Default.LaunchMethod == "Unknown")
             {
-                Console.WriteLine("LaunchMethod prompt");
-                MessageBoxResult tweakerResult = MessageBox.Show("Do you use the PSO2 Tweaker?", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                Console.WriteLine(LogR.GetString("CON_LaunchMethod", CultureInfo.CurrentUICulture));
+                MessageBoxResult tweakerResult = MessageBox.Show(LogR.GetString("UI_AskTweakerUsage", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.YesNo, MessageBoxImage.Question);
                 Properties.Settings.Default.LaunchMethod = (tweakerResult == MessageBoxResult.Yes) ? "Tweaker" : "Manual";
             }
 
@@ -118,8 +130,8 @@ namespace OverParse
 
                 if (warn && Hacks.DontAsk)
                 {
-                    Console.WriteLine("No damagelog warning");
-                    MessageBox.Show("Your PSO2 folder doesn't contain any damagelogs. This is not an error, just a reminder!\n\nPlease turn on the Damage Parser plugin in PSO2 Tweaker (orb menu > Plugins). OverParse needs this to function. You may also want to update the plugins while you're there.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Console.WriteLine(LogR.GetString("CON_Hack", CultureInfo.CurrentUICulture));
+                    MessageBox.Show(LogR.GetString("UI_Hack", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
                     Hacks.DontAsk = true;
                     Properties.Settings.Default.FirstRun = false;
                     Properties.Settings.Default.Save();
@@ -132,7 +144,7 @@ namespace OverParse
                 if (!pluginsExist)
                     Properties.Settings.Default.InstalledPluginVersion = -1;
 
-                Console.WriteLine($"Installed: {Properties.Settings.Default.InstalledPluginVersion} / Current: {pluginVersion}");
+                Console.WriteLine(String.Format(CultureInfo.CurrentUICulture, LogR.GetString("CON_Plugin_Status", CultureInfo.CurrentUICulture), Properties.Settings.Default.InstalledPluginVersion, pluginVersion));
 
                 if (Properties.Settings.Default.InstalledPluginVersion < pluginVersion)
                 {
@@ -140,25 +152,25 @@ namespace OverParse
 
                     if (pluginsExist)
                     {
-                        Console.WriteLine("Prompting for plugin update");
-                        selfdestructResult = MessageBox.Show("This release of OverParse includes a new version of the parsing plugin. Would you like to update now?\n\nOverParse may behave unpredictably if you use a different version than it expects.", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        Console.WriteLine(LogR.GetString("CON_Plugin_Prompt_update", CultureInfo.CurrentUICulture));
+                        selfdestructResult = MessageBox.Show(LogR.GetString("UI_Plugin_Prompt_update", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.YesNo, MessageBoxImage.Question);
                     }
                     else
                     {
-                        Console.WriteLine("Prompting for initial plugin install");
-                        selfdestructResult = MessageBox.Show("OverParse needs a Tweaker plugin to recieve its damage information.\n\nThe plugin can be installed without the Tweaker, but it won't be automatically updated, and I can't provide support for this method.\n\nDo you want to try to manually install the Damage Parser plugin?", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        Console.WriteLine(LogR.GetString("CON_Plugin_Prompt_initial", CultureInfo.CurrentUICulture));
+                        selfdestructResult = MessageBox.Show(LogR.GetString("UI_Plugin_Prompt_initial", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.YesNo, MessageBoxImage.Question);
                     }
 
                     if (selfdestructResult == MessageBoxResult.No && !pluginsExist)
                     {
-                        Console.WriteLine("Denied plugin install");
-                        MessageBox.Show("OverParse needs the Damage Parser plugin to function.\n\nThe application will now close.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Console.WriteLine(LogR.GetString("CON_Plugin_Prompt_denied", CultureInfo.CurrentUICulture));
+                        MessageBox.Show(LogR.GetString("UI_Plugin_Prompt_denied", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
                         Environment.Exit(-1);
                         return;
                     }
                     else if (selfdestructResult == MessageBoxResult.Yes)
                     {
-                        Console.WriteLine("Accepted plugin install");
+                        Console.WriteLine(LogR.GetString("CON_Plugin_Prompt_accepted", CultureInfo.CurrentUICulture));
                         bool success = UpdatePlugin(attemptDirectory);
                         if (!pluginsExist && !success)
                             Environment.Exit(-1);
@@ -176,7 +188,7 @@ namespace OverParse
             notEmpty = true;
 
             FileInfo log = logDirectory.GetFiles().Where(f => Regex.IsMatch(f.Name, @"\d+\.csv")).OrderByDescending(f => f.Name).First();
-            Console.WriteLine($"Reading from {log.DirectoryName}\\{log.Name}");
+            Console.WriteLine(String.Format(CultureInfo.CurrentUICulture, LogR.GetString("CON_ReadingLog", CultureInfo.CurrentUICulture), log.FullName));
             filename = log.Name;
             FileStream fileStream = File.Open(log.DirectoryName + "\\" + log.Name, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             fileStream.Seek(0, SeekOrigin.Begin);
@@ -192,7 +204,7 @@ namespace OverParse
                 if (parts[0] == "0" && parts[3] == "YOU")
                 {
                     Hacks.currentPlayerID = parts[2];
-                    Console.WriteLine("Found existing active player ID: " + parts[2]);
+                    Console.WriteLine(String.Format(CultureInfo.CurrentUICulture, LogR.GetString("CON_FoundYou", CultureInfo.CurrentUICulture), parts[2]));
                 }
             }
         }
@@ -206,15 +218,14 @@ namespace OverParse
                 Directory.CreateDirectory(attemptDirectory + "\\plugins");
                 File.Copy(Directory.GetCurrentDirectory() + "\\resources\\PSO2DamageDump.dll", attemptDirectory + "\\plugins" + "\\PSO2DamageDump.dll", true);
                 Properties.Settings.Default.InstalledPluginVersion = pluginVersion;
-                MessageBox.Show("Setup complete! A few files have been copied to your pso2_bin folder.\n\nIf PSO2 is running right now, you'll need to close it before the changes can take effect.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
-                Console.WriteLine("Plugin install successful");
+                MessageBox.Show(LogR.GetString("UI_UpdatePlugin_Good", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Information);
+                Console.WriteLine(LogR.GetString("CON_UpdatePlugin_Good", CultureInfo.CurrentUICulture));
                 return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong with manual installation. This usually means that the files are already in use: try again with PSO2 closed.\n\nIf you've recieved this message even after closing PSO2, you may need to run OverParse as administrator.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Error);
-                Console.WriteLine($"PLUGIN INSTALL FAILED: {ex.ToString()}");
-
+                MessageBox.Show(LogR.GetString("UI_UpdatePlugin_Bad", CultureInfo.CurrentUICulture), LogR.GetString("UI_SetupTitle", CultureInfo.CurrentUICulture), MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine(String.Format(CultureInfo.CurrentUICulture, LogR.GetString("CON_UpdatePlugin_Bad", CultureInfo.CurrentUICulture), ex.ToString()));
                 return false;
             }
         }
@@ -222,6 +233,7 @@ namespace OverParse
         public void WriteClipboard()
         {
             string log = "";
+            var ForStr = LogR.GetString("UI_Clip", CultureInfo.CurrentUICulture);
             foreach (Combatant c in combatants)
             {
                 if (c.isAlly)
@@ -231,8 +243,7 @@ namespace OverParse
                     {
                         shortname = c.Name.Substring(0, 4);
                     }
-
-                    log += $"{shortname} {FormatNumber(c.Damage)} | ";
+                    log += String.Format(CultureInfo.CurrentUICulture, ForStr, shortname, FormatNumber(c.Damage));
                 }
             }
 
@@ -251,7 +262,8 @@ namespace OverParse
 
         public string WriteLog()
         {
-            Console.WriteLine("Logging encounter information to file");
+            Console.WriteLine(LogR.GetString("CON_Log_Start", CultureInfo.CurrentUICulture));
+            var ForStr = LogR.GetString("CON_Log_Ally", CultureInfo.CurrentUICulture); 
 
             foreach (Combatant c in combatants) // Debug for ID mapping
             {
@@ -262,7 +274,8 @@ namespace OverParse
                         if (!MainWindow.skillDict.ContainsKey(a.ID))
                         {
                             TimeSpan t = TimeSpan.FromSeconds(a.Timestamp);
-                            Console.WriteLine($"{t.ToString(@"dd\.hh\:mm\:ss")} unmapped: {a.ID} ({a.Damage} dmg from {c.Name})");
+                            var ts = t.ToString(LogR.GetString("CON_Log_Ally_Time", CultureInfo.CurrentUICulture), CultureInfo.InvariantCulture);
+                            Console.WriteLine(String.Format(CultureInfo.CurrentUICulture, ForStr, ts, a.ID, a.Damage, c.Name));
                         }
                     }
                 }
@@ -272,15 +285,19 @@ namespace OverParse
             {
                 int elapsed = newTimestamp - startTimestamp;
                 TimeSpan timespan = TimeSpan.FromSeconds(elapsed);
-                string timer = timespan.ToString(@"mm\:ss");
-                string log = DateTime.Now.ToString("F") + " | " + timer + Environment.NewLine;
+                var TimerF = LogR.GetString("LOG_TimeStamp", CultureInfo.CurrentUICulture);
+                var headerF = LogR.GetString("LOG_Combatant_header", CultureInfo.CurrentUICulture);
+                var Statl1 = LogR.GetString("LOG_Combatant_line1", CultureInfo.CurrentUICulture);
+                var Statl2 = LogR.GetString("LOG_Combatant_line2", CultureInfo.CurrentUICulture);
+                string timer = timespan.ToString(TimerF, CultureInfo.CurrentCulture);
+                string log = DateTime.Now.ToString("F", CultureInfo.CurrentCulture) + " | " + timer + Environment.NewLine;
 
                 log += Environment.NewLine;
 
                 foreach (Combatant c in combatants)
                 {
                     if (c.isAlly || c.isZanverse)
-                        log += $"{c.Name} | {c.ReadDamage.ToString("N0")} dmg | {c.PercentReadDPSReadout} contrib | {c.DPS} DPS | Max: {c.MaxHit}" + Environment.NewLine;
+                        log += String.Format(CultureInfo.CurrentUICulture, LogR.GetString("LOG_Combatant_Stat", CultureInfo.CurrentUICulture), c.Name, c.ReadDamage.ToString("N0", CultureInfo.CurrentCulture), c.PercentReadDPSReadout, c.DPS, c.MaxHit) + Environment.NewLine;
                 }
 
                 log += Environment.NewLine + Environment.NewLine;
@@ -289,7 +306,7 @@ namespace OverParse
                 {
                     if (c.isAlly || c.isZanverse)
                     {
-                        string header = $"###### {c.Name} - {c.ReadDamage.ToString("N0")} dmg ({c.PercentReadDPSReadout}) ######";
+                        string header = String.Format(CultureInfo.CurrentUICulture, headerF, c.Name, c.ReadDamage.ToString("N0", CultureInfo.CurrentCulture), c.PercentReadDPSReadout);
                         log += header + Environment.NewLine + Environment.NewLine;
 
                         List<string> attackNames = new List<string>();
@@ -337,15 +354,17 @@ namespace OverParse
                             double percent = i.Item2.Sum() * 100d / c.ReadDamage;
                             string spacer = (percent >= 9) ? "" : " ";
 
-                            string paddedPercent = percent.ToString("00.00").Substring(0, 5);
-                            string hits = i.Item2.Count().ToString("N0");
-                            string sum = i.Item2.Sum().ToString("N0");
-                            string min = i.Item2.Min().ToString("N0");
-                            string max = i.Item2.Max().ToString("N0");
-                            string avg = i.Item2.Average().ToString("N0");
+                            string paddedPercent = percent.ToString("00.00", CultureInfo.CurrentCulture).Substring(0, 5);
+                            string hits = i.Item2.Count().ToString("N0", CultureInfo.CurrentCulture);
+                            string sum = i.Item2.Sum().ToString("N0", CultureInfo.CurrentCulture); 
+                            string min = i.Item2.Min().ToString("N0", CultureInfo.CurrentCulture);
+                            string max = i.Item2.Max().ToString("N0", CultureInfo.CurrentCulture); 
+                            string avg = i.Item2.Average().ToString("N0", CultureInfo.CurrentCulture);
 
-                            log += $"{paddedPercent}% | {i.Item1} ({sum} dmg)" + Environment.NewLine;
-                            log += $"       |   {hits} hits - {min} min, {avg} avg, {max} max" + Environment.NewLine;
+                            log += String.Format(CultureInfo.CurrentUICulture, Statl1, paddedPercent, i.Item1, sum);
+                            log += Environment.NewLine;
+                            log += String.Format(CultureInfo.CurrentUICulture, Statl2, hits, min, avg, max);
+                            log += Environment.NewLine;
                         }
 
                         log += Environment.NewLine;
@@ -355,10 +374,10 @@ namespace OverParse
                 log += "Instance IDs: " + String.Join(", ", instances.ToArray());
 
                 DateTime thisDate = DateTime.Now;
-                string directory = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
-                Directory.CreateDirectory($"Logs/{directory}");
-                string datetime = string.Format("{0:yyyy-MM-dd_HH-mm-ss}", DateTime.Now);
-                string filename = $"Logs/{directory}/OverParse - {datetime}.txt";
+                string directory = string.Format(CultureInfo.InvariantCulture, "{0:yyyy-MM-dd}", DateTime.Now);
+                Directory.CreateDirectory(String.Format(CultureInfo.InvariantCulture, "Logs/{0}", directory));
+                string datetime = string.Format(CultureInfo.InvariantCulture, "{0:yyyy-MM-dd_HH-mm-ss}", DateTime.Now);
+                string filename = String.Format(CultureInfo.InvariantCulture, "Logs/{0}/OverParse - {1}.txt", directory, datetime);
                 File.WriteAllText(filename, log);
 
                 return filename;
@@ -390,9 +409,14 @@ namespace OverParse
         public void GenerateFakeEntries()
         {
             float totalDPS = 0;
+            var StrFMTid = "1000000{0}";
+            var StrFMTPname = "TestPlayer_{0}";
+            var StrFMTEname = "TestEnemy_{0}";
             for (int i = 0; i <= 12; i++)
             {
-                Combatant temp = new Combatant("1000000" + i.ToString(), "TestPlayer_" + random.Next(0, 99).ToString());
+                var Strid = String.Format(CultureInfo.InvariantCulture, StrFMTid, i.ToString(CultureInfo.InvariantCulture));
+                var Strname = String.Format(CultureInfo.InvariantCulture, StrFMTPname, random.Next(0, 99).ToString(CultureInfo.InvariantCulture));
+                Combatant temp = new Combatant(Strid, Strname);
                 combatants.Add(temp);
             }
 
@@ -401,7 +425,8 @@ namespace OverParse
 
             for (int i = 0; i <= 9; i++)
             {
-                Combatant temp = new Combatant(i.ToString(), "TestEnemy_" + i.ToString());
+                var Strname = String.Format(CultureInfo.InvariantCulture, StrFMTEname, i.ToString(CultureInfo.InvariantCulture));
+                Combatant temp = new Combatant(i.ToString(CultureInfo.InvariantCulture), Strname); 
                 temp.PercentDPS = -1;
                 combatants.Add(temp);
             }
@@ -434,7 +459,7 @@ namespace OverParse
                         string targetID = parts[4];
                         string targetName = parts[5];
                         string sourceName = parts[3];
-                        int hitDamage = int.Parse(parts[7]);
+                        int hitDamage = int.Parse(parts[7], CultureInfo.InvariantCulture);
                         string attackID = parts[6];
                         string isMultiHit = parts[10];
                         string isMisc = parts[11];
@@ -444,7 +469,7 @@ namespace OverParse
                         if (lineTimestamp == "0" && sourceName == "YOU")
                         {
                             Hacks.currentPlayerID = parts[2];
-                            Console.WriteLine("Found new active player ID: " + parts[2]);
+                            Console.WriteLine(String.Format(CultureInfo.InvariantCulture, LogR.GetString("CON_Update_newplayer", CultureInfo.CurrentUICulture), parts[2]));
                             continue;
                         }
 
@@ -472,10 +497,11 @@ namespace OverParse
 
                         Combatant source = combatants[index];
 
-                        newTimestamp = int.Parse(lineTimestamp);
+                        newTimestamp = int.Parse(lineTimestamp, CultureInfo.InvariantCulture);
                         if (startTimestamp == 0)
                         {
-                            Console.WriteLine($"FIRST ATTACK RECORDED: {hitDamage} dmg from {sourceID} ({sourceName}) with {attackID}, to {targetID} ({targetName})");
+                            var Strlog = String.Format(CultureInfo.CurrentUICulture, LogR.GetString("CON_Update_first", CultureInfo.CurrentUICulture), hitDamage, sourceID, sourceName, attackID, targetID, targetName);
+                            Console.WriteLine(Strlog);
                             startTimestamp = newTimestamp;
                         }
 
@@ -506,14 +532,14 @@ namespace OverParse
         private String FormatNumber(int value)
         {
             if (value >= 100000000)
-                return (value / 1000000).ToString("#,0") + "M";
+                return (value / 1000000).ToString("#,0", CultureInfo.InvariantCulture) + "M";
             if (value >= 1000000)
-                return (value / 1000000D).ToString("0.#") + "M";
+                return (value / 1000000D).ToString("0.#", CultureInfo.InvariantCulture) + "M";
             if (value >= 100000)
-                return (value / 1000).ToString("#,0") + "K";
+                return (value / 1000).ToString("#,0", CultureInfo.InvariantCulture) + "K";
             if (value >= 1000)
-                return (value / 1000D).ToString("0.#") + "K";
-            return value.ToString("#,0");
+                return (value / 1000D).ToString("0.#", CultureInfo.InvariantCulture) + "K";
+            return value.ToString("#,0", CultureInfo.InvariantCulture);
         }
     }
 }

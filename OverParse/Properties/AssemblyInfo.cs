@@ -19,7 +19,7 @@ using System.Windows;
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(true)]
+[assembly: ComVisible(false)]
 
 //In order to begin building localizable applications, set 
 //<UICulture>CultureYouAreCodingWith</UICulture> in your .csproj file
@@ -28,7 +28,7 @@ using System.Windows;
 //the NeutralResourceLanguage attribute below.  Update the "en-US" in
 //the line below to match the UICulture setting in the project file.
 
-//[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
+[assembly: NeutralResourcesLanguage("en")]
 
 
 [assembly: ThemeInfo(
