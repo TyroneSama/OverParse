@@ -39,7 +39,7 @@ namespace OverParse
         {
             InitializeComponent();
 
-            //this.Dispatcher.UnhandledException += Panic;
+            this.Dispatcher.UnhandledException += Panic;
 
             try { Directory.CreateDirectory("Logs"); }
             catch
@@ -47,20 +47,6 @@ namespace OverParse
                 MessageBox.Show("OverParse doesn't have write access to its folder, and won't be able to save logs or update skill mappings. This usually happens when you run it from Program Files.\n\nThis is a Windows restriction, and unfortunately I can't do anything about it.\n\nPlease run OverParse as administrator, or move it somewhere else. Sorry for the inconvenience!", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Error);
                 Application.Current.Shutdown();
             }
-
-            /* ABANDON ALL HOPE YE WHO ENTER HERE
-            string pluginURL = "http://107.170.16.100/Plugins/PSO2DamageDump.dll";
-            HttpWebRequest dateRequest = (HttpWebRequest)WebRequest.Create(pluginURL);
-            dateRequest.Method = "HEAD";
-            HttpWebResponse resp = (HttpWebResponse)dateRequest.GetResponse();
-            DateTime remoteDate = resp.LastModified.ToUniversalTime();
-            DateTime localDate = File.GetLastWriteTimeUtc(@"Resources/PSO2DamageDump.dll");
-            if (localDate < remoteDate)
-            {
-                MessageBox.Show("local file's old");
-                WebClient webClient = new WebClient();
-                webClient.DownloadFile(pluginURL, @"Resources/PSO2DamageDump.dll");
-            } */
 
             Directory.CreateDirectory("Debug");
 

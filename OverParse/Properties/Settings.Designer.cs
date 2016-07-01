@@ -370,5 +370,17 @@ namespace OverParse.Properties {
                 this["SeparateAIS"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool BanWarning {
+            get {
+                return ((bool)(this["BanWarning"]));
+            }
+            set {
+                this["BanWarning"] = value;
+            }
+        }
     }
 }

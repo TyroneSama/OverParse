@@ -33,6 +33,14 @@ namespace OverParse
 
             bool nagMe = false;
 
+            if (Properties.Settings.Default.BanWarning)
+            {
+                MessageBoxResult panicResult = MessageBox.Show("OverParse is a 3rd-party tool that breaks PSO2's Terms and Conditions. SEGA has confirmed in an official announcement that accounts found using parsing tools may be banned.\n\nIf account safety is your first priority, do NOT use OverParse. You use this tool entirely at your own risk.\n\nWould you like to continue with setup?", "OverParse Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (panicResult == MessageBoxResult.No)
+                    Environment.Exit(-1);
+                Properties.Settings.Default.BanWarning = false;
+            }
+
             while (!File.Exists($"{attemptDirectory}\\pso2.exe"))
             {
                 Console.WriteLine("Invalid pso2_bin directory, prompting for new one...");
@@ -63,7 +71,7 @@ namespace OverParse
                 {
                     Console.WriteLine("Canceled out of directory picker");
                     MessageBox.Show("OverParse needs a valid PSO2 installation to function.\nThe application will now close.", "OverParse Setup", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Application.Current.Shutdown(); // ABORT ABORT ABORT
+                    Environment.Exit(-1); // ABORT ABORT ABORT
                     break;
                 }
             }
