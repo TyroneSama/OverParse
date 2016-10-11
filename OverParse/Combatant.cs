@@ -56,7 +56,6 @@ namespace OverParse
         {
             get
             {
-                Console.WriteLine($"{this.Name} | read damage {ReadDamage} | ActiveTime {ActiveTime}");
                 return ReadDamage / (float)ActiveTime;
             }
         }
@@ -224,7 +223,6 @@ namespace OverParse
                     attack = MainWindow.skillDict[MaxHitID];
                 }
 
-                Console.WriteLine($"{this.Name} - {MaxHitID} for {MaxHitAttack.Damage} ----- {attack}");
                 return MaxHitAttack.Damage.ToString("N0") + $" ({attack})";
             }
         }

@@ -593,7 +593,6 @@ namespace OverParse
             Combatant stealActiveTimeDummy = workingList.FirstOrDefault();
             if (stealActiveTimeDummy != null)
                 elapsed = stealActiveTimeDummy.ActiveTime;
-            Console.WriteLine(elapsed);
 
             // create and sort dummy AIS combatants
             if (Properties.Settings.Default.SeparateAIS)
